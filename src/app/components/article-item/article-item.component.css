@@ -1,7 +1,7 @@
 :host .article-item {
   background-color: white;
   border-radius: 2px;
-  margin: 5px 0px;
+  margin-bottom: 8px;
   padding: 12px;
 }
 
@@ -24,5 +24,4 @@
 }
 a:link {color:black;}    /* 未被访问的链接 */
 a:visited {color:gray} /* 已被访问的链接 */
-a:hover {color:darkgray;}   /* 鼠标指针移动到链接上 */
-
+a:hover {color: dodgerblue;} /* 鼠标指针移动到链接上 */

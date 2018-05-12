@@ -1,9 +1,40 @@
-<nz-card style="width:100%;" [nzNoHovering]="true" nzLoading>
-  <ng-template #title>
-    Card title
-  </ng-template>
+<div class="article-head-title">
+  <div nz-row style="padding: 2px;">
+    <span class="article-type">原</span><h1>&nbsp;article.title</h1>
+  </div>
+  <div nz-row style="text-align: center">
+    <div nz-col [nzSpan]="6">
+      <span><i class="anticon anticon-tag"></i>&nbsp;article.category</span>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <span><i class="anticon anticon-clock-circle"></i>&nbsp;article.pub_time</span>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <span><i class="anticon anticon-eye"></i>&nbsp;article.visitors_count</span>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <span><i class="anticon anticon-like"></i>&nbsp;article.votes_count</span>
+    </div>
+  </div>
+</div>
+<nz-card style="width:100%;" [nzNoHovering]="true" [nzLoading]="true">
   <ng-template #body>
-    Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
+    <p>Whatever content
   </ng-template>
 </nz-card>
 
+<app-commentary></app-commentary>

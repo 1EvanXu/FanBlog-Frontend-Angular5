@@ -33,7 +33,9 @@ export class SideInfoComponent implements OnInit {
   @Input() extraUrl: string;
   @Input() infos: Array<SideInformation>;
 
-  constructor() { }
+  constructor() {
+    this.infos = sideInformations;
+  }
 
   ngOnInit() {
   }
@@ -51,3 +53,11 @@ export class SideInformation {
     this.score = score;
   }
 }
+
+const sideInformations = [
+  new SideInformation('JAVA', '#', 12),
+  new SideInformation('Python', '#', 9),
+  new SideInformation('TypeScripts', '#', 5),
+  new SideInformation('Angular', '#', 7),
+  new SideInformation('HTML', '#', 4)
+];

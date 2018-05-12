@@ -1,25 +1,28 @@
 <div class="article-item">
   <div nz-row style="padding: 2px;">
-    <h1><a href="#" style="text-decoration-line: none">Article tile oin article list item</a></h1>
+    <h1><a href="#" style="text-decoration-line: none">{{articleItem.title}}</a></h1>
   </div>
   <div nz-row class="article-abstract">
-    <p>article content</p>
+    <p>{{articleItem.abstract}}</p>
   </div>
   <div nz-row >
     <div nz-col [nzSpan]="4">
-      <span class="article-tag"><b>Origin</b></span>
+      <span class="article-tag"><b>{{articleItem.type}}</b></span>
     </div>
-    <div nz-col [nzSpan]="5">
-      <span><i class="anticon anticon-tag-o"></i>&nbsp;JAVA</span>
+    <div nz-col [nzSpan]="4">
+      <span><i class="anticon anticon-tag-o"></i>&nbsp;{{articleItem.category}}</span>
     </div>
-    <div nz-col [nzSpan]="5">
-      <span><i class="anticon anticon-clock-circle-o"></i>&nbsp;2018-1-1 12:00</span>
+    <div nz-col [nzSpan]="4">
+      <span><i class="anticon anticon-clock-circle-o"></i>&nbsp;{{articleItem.pub_time}}</span>
     </div>
-    <div nz-col [nzSpan]="5">
-      <span><i class="anticon anticon-like-o"></i>&nbsp;38</span>
+    <div nz-col [nzSpan]="4">
+      <span><i class="anticon anticon-eye-o"></i>&nbsp;{{articleItem.visitors_count}}</span>
     </div>
-    <div nz-col [nzSpan]="5">
-      <span><i class="anticon anticon-message"></i>&nbsp;100</span>
+    <div nz-col [nzSpan]="4">
+      <span><i class="anticon anticon-like-o"></i>&nbsp;{{articleItem.votes_count}}</span>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <span><i class="anticon anticon-message"></i>&nbsp;{{articleItem.comments_count}}</span>
     </div>
   </div>
 </div>

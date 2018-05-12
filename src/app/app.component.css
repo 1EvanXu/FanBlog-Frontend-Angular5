@@ -1,0 +1,11 @@
+:host ::ng-deep .ant-layout-header {
+  background: #fff;
+}
+:host ::ng-deep .logo {
+  width: 120px;
+  height: 31px;
+  background: lightgray;
+  border-radius: 6px;
+  margin: 16px 24px 16px 0;
+  float: left;
+}
