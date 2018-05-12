@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SideInfoCategoryComponent } from './side-info-category.component';
+import { CommentaryComponent } from './commentary.component';
 
-describe('SideInfoCategoryComponent', () => {
-  let component: SideInfoCategoryComponent;
-  let fixture: ComponentFixture<SideInfoCategoryComponent>;
+describe('CommentaryComponent', () => {
+  let component: CommentaryComponent;
+  let fixture: ComponentFixture<CommentaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SideInfoCategoryComponent ]
+      declarations: [ CommentaryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SideInfoCategoryComponent);
+    fixture = TestBed.createComponent(CommentaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
