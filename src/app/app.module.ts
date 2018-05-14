@@ -8,6 +8,7 @@ import { ArticleContentComponent } from './components/article-content/article-co
 import { SideInfoComponent } from './components/side-info/side-info.component';
 import { CommentaryComponent } from './components/commentary/commentary.component';
 import { CommentComponent } from './components/commentary/comment/comment.component';
+import { CommentaryListComponent } from './components/commentary/commentary-list/commentary-list.component';
 
 
 
@@ -20,6 +21,7 @@ import { CommentComponent } from './components/commentary/comment/comment.compon
     SideInfoComponent,
     CommentaryComponent,
     CommentComponent,
+    CommentaryListComponent,
   ],
   imports: [
     BrowserModule,

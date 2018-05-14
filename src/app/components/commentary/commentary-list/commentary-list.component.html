@@ -1,0 +1,12 @@
+
+<div style="display: block; padding: 5px; background-color: white; margin: 10px 1px 1px 1px">
+  <div style="padding: 8px; border-bottom: aliceblue solid 1px">
+    <h1>Commentaries<small style="margin-left: 20px; color: gray; font-size: 5px">Total 45 items</small></h1>
+  </div>
+  <!-- commentary items begin -->
+  <app-commentary *ngFor="let index of list"></app-commentary>
+  <!-- commentary items end -->
+  <div style="border-top: aliceblue solid 1px;text-align: center; padding: 8px">
+    <a >Load more commentaries&nbsp;<i class="anticon anticon-arrow-down"></i></a>
+  </div>
+</div>
