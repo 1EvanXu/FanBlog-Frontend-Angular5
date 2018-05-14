@@ -9,7 +9,7 @@ import {ArticleItem} from '../../entities/article-item';
     </div>
     <div nz-row style="background-color: white;padding: 5px;">
       <div nz-col [nzOffset]="4" [nzSpan]="16" style="text-align: center">
-        <nz-pagination [nzPageIndex]="1" [nzTotal]="50" [nzSize]="'small'"></nz-pagination>
+        <nz-pagination [(nzPageIndex)]="currentPage" [nzTotal]="50" [nzSize]="'small'"></nz-pagination>
       </div>
     </div>
   `,
@@ -17,6 +17,7 @@ import {ArticleItem} from '../../entities/article-item';
 })
 export class ArticlesListComponent implements OnInit {
   @Input() articlesList: Array<ArticleItem>;
+  currentPage: number;
   constructor() {
     this.articlesList = articleList;
   }
