@@ -1,15 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, HostListener} from '@angular/core';
+import {CommonCommentary} from '../../entities/commentary';
 
 @Component({
-  selector: 'app-commentary',
+  selector: 'app-commentary-item',
   template: `
-  <div class="commentary">
+  <div [ngClass]="{'commentary': !isAttachment, 'attachment': isAttachment}">
     <a style="vertical-align: middle;" >
       <nz-avatar nzSize="small" nzIcon="user" style="display:inline-block; vertical-align: middle;"></nz-avatar>
       <span class="commentator">Commentator</span>
       <span class="comment-time">2018-5-14 16:09</span>
     </a>
-    <a href="" class="commentary-reply">reply</a>
+    <a href="#comment-box" class="commentary-reply" [ngStyle]="{'display': showReply? 'inline' : 'none'}">reply</a>
     <p class="commentary-content">
       some contentsome contentsome contentsome contentsome contentsome contentsome contentsome contentsome contentsome content
     </p>
@@ -42,11 +43,12 @@ import { Component, OnInit, Input } from '@angular/core';
     padding: 8px;
     background-color: white;
   }
-  :host .attachment{
+  :host div.attachment{
     display: block;
     padding: 8px;
     background-color: ghostwhite;
     margin-left: 30px;
+    margin-right: 10px;
   }
   :host .commentary-reply {
     float: right;
@@ -54,28 +56,59 @@ import { Component, OnInit, Input } from '@angular/core';
   }
   `]
 })
-export class CommentaryComponent implements OnInit {
+export class CommentaryItemComponent implements OnInit {
 
-  @Input() isAttachment = false;
-
+  private _isAttachment = false;
+  private _showReply = false;
+  private _commentary: CommonCommentary;
   constructor() { }
-
   ngOnInit() {
   }
+  get isAttachment(): boolean {
+    return this._isAttachment;
+  }
 
+  @Input()
+  set isAttachment(value: boolean) {
+    this._isAttachment = value;
+  }
+  get showReply(): boolean {
+    return this._showReply;
+  }
+
+  set showReply(value: boolean) {
+    this._showReply = value;
+  }
+
+  get commentary(): CommonCommentary {
+    return this._commentary;
+  }
+
+  set commentary(value: CommonCommentary) {
+    this._commentary = value;
+  }
+
+  @HostListener('mouseenter') onMouseEnter() {
+    this.showReply = true;
+  }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.showReply = false;
+  }
 }
 
 @Component({
-  selector: 'app-commentary-item',
+  selector: 'app-commentary',
   template: `
-  <div class="commentary">
-    <app-commentary></app-commentary>
-    <ng-template #attachment>
-    </ng-template>
+  <div style="padding: 5px;">
+    <app-commentary-item></app-commentary-item>
+    <!--<ng-template #attachment>-->
+    <!--</ng-template>-->
+    <app-commentary-item [isAttachment]="true"></app-commentary-item>
   </div>
   `,
   styles: []
 })
-export class CommentaryItemComponent {
+export class CommentaryComponent {
   constructor() {}
 }
