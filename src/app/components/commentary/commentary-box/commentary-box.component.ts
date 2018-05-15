@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, HostListener} from '@angular/core';
-import {CommonCommentary} from '../../entities/commentary';
+import {CommonCommentary} from '../../../entities/commentary';
 
 @Component({
   selector: 'app-commentary-item',
@@ -98,7 +98,7 @@ export class CommentaryItemComponent implements OnInit {
 }
 
 @Component({
-  selector: 'app-commentary',
+  selector: 'app-commentary-box',
   template: `
   <div style="padding: 5px;">
     <app-commentary-item></app-commentary-item>
@@ -109,6 +109,6 @@ export class CommentaryItemComponent implements OnInit {
   `,
   styles: []
 })
-export class CommentaryComponent {
+export class CommentaryBoxComponent {
   constructor() {}
 }
