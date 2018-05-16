@@ -10,7 +10,7 @@ import { NzMessageService } from 'ng-zorro-antd';
         <button nz-button nzType="default" [nzSize]="'small'"
                 (click)="comment()" [nzLoading]="isSending" [disabled]="isEmptyContent">Send</button>
       </h2>
-      <nz-input  [(ngModel)]="commentContent" nzType="textarea" [nzAutosize]="{minRows: 2}"></nz-input>
+      <textarea nz-input  [(ngModel)]="commentContent" nzType="textarea" [nzAutosize]="{minRows: 2}"></textarea>
     </div>
   `,
   styles: [

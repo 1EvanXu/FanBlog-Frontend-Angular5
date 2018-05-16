@@ -3,7 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'app-side-info',
   template: `
-    <nz-card style="width:300px;margin-bottom: 10px" [nzNoHovering]="true"  [nzLoading]="false">
+    <nz-card style="width:300px;margin-bottom: 10px" [nzHoverable]="false"  [nzLoading]="false">
       <ng-template #title>
         {{infoTitle}}
       </ng-template>
