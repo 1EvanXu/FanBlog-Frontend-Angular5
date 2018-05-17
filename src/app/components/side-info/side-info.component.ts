@@ -3,20 +3,18 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'app-side-info',
   template: `
-    <nz-card style="width:300px;margin-bottom: 10px" [nzHoverable]="false"  [nzLoading]="false">
-      <ng-template #title>
-        {{infoTitle}}
-      </ng-template>
-      <ng-template #extra *ngIf="extra">
-        <a href="{{extraUrl}}">{{extra}}</a>
-      </ng-template>
-      <ng-template #body>
-        <p *ngFor="let info of infos">
-          <a href="{{info.link}}">{{info.title}}</a>
-          <span *ngIf="info.score" style="float: right">{{info.score}}</span>
-        </p>
-      </ng-template>
+    <nz-card style="width:300px;margin-bottom: 10px"  [nzLoading]="false" nzTitle="title" nzExtra="extra">
+      <p *ngFor="let info of infos">
+        <a href="{{info.link}}">{{info.title}}</a>
+        <span *ngIf="info.score" style="float: right">{{info.score}}</span>
+      </p>
     </nz-card>
+    <ng-template #title>
+      {{infoTitle}}
+    </ng-template>
+    <ng-template #extra *ngIf="extra">
+      <a href="{{extraUrl}}">{{extra}}</a>
+    </ng-template>
   `,
   styles: [
     `
