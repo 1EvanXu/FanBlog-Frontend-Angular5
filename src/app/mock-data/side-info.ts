@@ -69,7 +69,6 @@ export const POPULAR_ARTICLES = [
 
 export const CATEGORIES = [
   {
-<<<<<<< HEAD
     title: 'category one',
     link: 'articles/category/1',
     score: 10
@@ -97,35 +96,6 @@ export const CATEGORIES = [
   // {
   //   title: 'category six long name name is too long',
   //   score: 13,
-=======
-    categoryName: 'category one',
-    numberOfArticles: 10,
-    link: 'articles/category/1'
-  },
-  {
-    categoryName: 'category two',
-    numberOfArticles: 110,
-    link: 'articles/category/2'
-  },
-  {
-    categoryName: 'category three',
-    numberOfArticles: 9,
-    link: 'articles/category/3'
-  },
-  {
-    categoryName: 'category four',
-    numberOfArticles: 0,
-    link: 'articles/category/4'
-  },
-  {
-    categoryName: 'category five',
-    numberOfArticles: 21,
-    link: 'articles/category/5'
-  },
-  // {
-  //   categoryName: 'category six long name name is too long',
-  //   numberOfArticles: 13,
->>>>>>> c1d8d9b7f2b9eb290f284775e86c42847220b0f9
   //   link: 'articles/category/6'
   // }
 ];

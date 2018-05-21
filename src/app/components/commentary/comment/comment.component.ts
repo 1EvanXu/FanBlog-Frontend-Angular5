@@ -1,5 +1,4 @@
 import {Component, OnInit, DoCheck } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-comment',
@@ -10,7 +9,9 @@ import { NzMessageService } from 'ng-zorro-antd';
         <button nz-button nzType="default" [nzSize]="'small'"
                 (click)="comment()" [nzLoading]="isSending" [disabled]="isEmptyContent">Send</button>
       </h2>
-      <textarea nz-input  [(ngModel)]="commentContent" nzType="textarea" [nzAutosize]="{minRows: 2}"></textarea>
+      <textarea nz-input  [(ngModel)]="commentContent" nzType="textarea" [nzAutosize]="{minRows: 2, maxRows: 6}"></textarea>
+      <!--<nz-alert [nzType]="result.type" [nzMessage]="result.message" nzShowIcon [hidden]="hideAlert" style="margin-top: 10px;">-->
+      <!--</nz-alert>-->
     </div>
   `,
   styles: [
@@ -32,10 +33,12 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class CommentComponent implements OnInit, DoCheck {
   isSending = false;
+  result: {type: string, message: string};
+  hideAlert = true;
   commentContent = '';
   oldCommentContent = '';
   isEmptyContent = true;
-  constructor(private _message: NzMessageService) { }
+  constructor() { }
 
   ngOnInit() {
   }
@@ -46,6 +49,12 @@ export class CommentComponent implements OnInit, DoCheck {
     }
   }
   comment() {
-    this._message.success('Comment Success!');
+    // setTimeout(() => {
+    //   this.isSending = true;
+    //   this.result = {type: 'success', message: 'comment success!'};
+    //   this.hideAlert = false;
+    // }, 3000);
+    // this.isSending = false;
+    // this.hideAlert = true;
   }
 }

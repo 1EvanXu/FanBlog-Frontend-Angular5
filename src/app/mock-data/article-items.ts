@@ -1,4 +1,4 @@
-class ArticleItem {
+export class ArticleItem {
     pubId: number;
     title: string;
     abstract: string;
@@ -10,7 +10,7 @@ class ArticleItem {
     commentaryCount: number;
     link: string;
 }
-const BASE_URL = 'blog/'
+const BASE_URL = 'blog/';
 const item1 = {
     pubId: 18051701,
     title: 'Stable AngularJS and Long Term Support',
@@ -25,7 +25,7 @@ const item1 = {
     voteCount: 124,
     commentaryCount: 53,
     link: BASE_URL + 'article/18051701'
-}
+};
 
 const item2 = {
     pubId: 18051702,
@@ -41,7 +41,7 @@ const item2 = {
     voteCount: 200,
     commentaryCount: 71,
     link: BASE_URL + 'article/18051702'
-}
+};
 
 const item3 = {
     pubId: 18051813,
@@ -56,7 +56,7 @@ const item3 = {
     voteCount: 99,
     commentaryCount: 10,
     link: BASE_URL + 'article/18051813'
-}
+};
 
 const item4 = {
     pubId: 18051936,
@@ -71,7 +71,7 @@ const item4 = {
     voteCount: 47,
     commentaryCount: 16,
     link: BASE_URL + 'article/18051936'
-}
+};
 
 const item5 = {
     pubId: 18051149,
@@ -86,7 +86,7 @@ const item5 = {
     voteCount: 137,
     commentaryCount: 19,
     link: BASE_URL + 'article/18051149'
-}
+};
 
 const item6 = {
     pubId: 18051256,
@@ -101,9 +101,9 @@ const item6 = {
     voteCount: 37,
     commentaryCount: 8,
     link: BASE_URL + 'article/18051256'
-}
+};
 
 
 export const ARTICLE_ITEMS: ArticleItem[] = [
     item1, item2, item3, item4, item5, item6, item1, item2, item3, item4, item5, item6
-]
+];

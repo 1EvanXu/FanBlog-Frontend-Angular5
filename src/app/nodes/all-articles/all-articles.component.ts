@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import {ArticleItem} from '../../mock-data/article-items';
+import {ArticlesService} from '../../services/articles.service';
 
 @Component({
   template: `
-    <div style="min-height: 1000px;" nz-col [nzSm]="20" [nzMd]="18">
-     <app-articles-list></app-articles-list>
+    <div nz-col [nzSm]="20" [nzMd]="18">
+     <app-articles-list [articlesList]="articleItemsList$"></app-articles-list>
     </div>
   `,
   styles: []
 })
 export class AllArticlesComponent implements OnInit {
-
-  constructor() { }
+  articleItemsList$: ArticleItem[];
+  constructor(private articlesService: ArticlesService) {
+    this.getArticleItemsList();
+  }
 
   ngOnInit() {
   }
-
+  getArticleItemsList() {
+    this.articlesService.getAllArticles().subscribe(itemsList => { this.articleItemsList$ = itemsList; });
+  }
 }

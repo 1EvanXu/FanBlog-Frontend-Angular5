@@ -3,28 +3,28 @@ export class ArticleItem {
   private readonly _type: string;
   private readonly _category: string;
   private readonly _abstract: string;
-  private readonly _pub_time: string;
+  private readonly _pubTime: string;
   private readonly _link: string;
-  private readonly _votes_count: number;
-  private readonly _visitors_count: number;
-  private readonly _comments_count: number;
+  private readonly _votesCount: number;
+  private readonly _visitorsCount: number;
+  private readonly _commentariesCount: number;
 
   constructor(
       title: string, type: string,
       category: string, abstract: string,
-      pub_time: string, link: string,
-      votes_count: number,
-      visitors_count: number,
-      comments_count: number) {
+      pubTime: string, link: string,
+      votesCount: number,
+      visitorsCount: number,
+      commentariesCount: number) {
     this._title = title;
     this._type = type;
     this._category = category;
     this._abstract = abstract;
-    this._pub_time = pub_time;
+    this._pubTime = pubTime;
     this._link = link;
-    this._votes_count = votes_count;
-    this._visitors_count = visitors_count;
-    this._comments_count = comments_count;
+    this._votesCount = votesCount;
+    this._visitorsCount = visitorsCount;
+    this._commentariesCount = commentariesCount;
   }
 
 
@@ -44,23 +44,23 @@ export class ArticleItem {
     return this._abstract;
   }
 
-  get pub_time(): string {
-    return this._pub_time;
+  get pubTime(): string {
+    return this._pubTime;
   }
 
   get link(): string {
     return this._link;
   }
 
-  get votes_count(): number {
-    return this._votes_count;
+  get votesCount(): number {
+    return this._votesCount;
   }
 
-  get visitors_count(): number {
-    return this._visitors_count;
+  get visitorsCount(): number {
+    return this._visitorsCount;
   }
 
-  get comments_count(): number {
-    return this._comments_count;
+  get commentariesCount(): number {
+    return this._commentariesCount;
   }
 }

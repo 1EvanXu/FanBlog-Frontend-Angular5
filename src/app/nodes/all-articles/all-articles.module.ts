@@ -5,6 +5,7 @@ import {ArticlesListComponent} from '../../components/articles-list/articles-lis
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {RouterModule, Routes} from '@angular/router';
 import {AllArticlesComponent} from './all-articles.component';
+import {ArticlesService} from '../../services/articles.service';
 
 const allArticlesRoutes: Routes = [
   {
@@ -33,6 +34,7 @@ const allArticlesRoutes: Routes = [
     ArticleItemComponent,
     ArticlesListComponent,
     AllArticlesComponent
-  ]
+  ],
+  providers: [ArticlesService]
 })
 export class AllArticlesModule { }
