@@ -3,6 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'app-side-info',
   template: `
+<<<<<<< HEAD
     <nz-card class="side-info" [nzNoHovering]="true"  [nzLoading]="loading">
       <ng-template #title>
         {{infoTitle}}
@@ -16,7 +17,20 @@ import {Component, Input, OnInit} from '@angular/core';
           <span *ngIf="info.score" style="float: right">{{info.score}}</span>
         </p>
       </ng-template>
+=======
+    <nz-card style="width:300px;margin-bottom: 10px"  [nzLoading]="false" nzTitle="title" nzExtra="extra">
+      <p *ngFor="let info of infos">
+        <a href="{{info.link}}">{{info.title}}</a>
+        <span *ngIf="info.score" style="float: right">{{info.score}}</span>
+      </p>
+>>>>>>> c1d8d9b7f2b9eb290f284775e86c42847220b0f9
     </nz-card>
+    <ng-template #title>
+      {{infoTitle}}
+    </ng-template>
+    <ng-template #extra *ngIf="extra">
+      <a href="{{extraUrl}}">{{extra}}</a>
+    </ng-template>
   `,
   styles: [
     `

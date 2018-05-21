@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { CONTENT_1 } from './articles/article-1';
 import { CONTENT_2 } from './articles/article-2';
 import { CONTENT_3 } from './articles/article-3';
@@ -6,6 +7,16 @@ import { CONTENT_5 } from './articles/article-5';
 import { CONTENT_6 } from './articles/article-6';
 
 
+=======
+import { CONTENT_1 } from "./articles/article-1";
+import { CONTENT_2 } from "./articles/article-2";
+import { CONTENT_3 } from "./articles/article-3";
+import { CONTENT_4 } from "./articles/article-4";
+import { CONTENT_5 } from "./articles/article-5";
+import { CONTENT_6 } from "./articles/article-6";
+
+const BASE_URL = 'blog/';
+>>>>>>> c1d8d9b7f2b9eb290f284775e86c42847220b0f9
 const article1 = {
     pubId: 18051701,
     title: 'Stable AngularJS and Long Term Support',
@@ -16,7 +27,11 @@ const article1 = {
     visitorCount: 786,
     voteCount: 124,
     commentaryCount: 53,
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> c1d8d9b7f2b9eb290f284775e86c42847220b0f9
 
 const article2 = {
     pubId: 18051702,
@@ -28,7 +43,11 @@ const article2 = {
     visitorCount: 1024,
     voteCount: 200,
     commentaryCount: 71,
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> c1d8d9b7f2b9eb290f284775e86c42847220b0f9
 
 const article3 = {
     pubId: 18051813,
@@ -40,7 +59,11 @@ const article3 = {
     visitorCount: 204,
     voteCount: 99,
     commentaryCount: 10,
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> c1d8d9b7f2b9eb290f284775e86c42847220b0f9
 
 const article4 = {
     pubId: 18051936,
@@ -52,7 +75,11 @@ const article4 = {
     visitorCount: 294,
     voteCount: 47,
     commentaryCount: 16,
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> c1d8d9b7f2b9eb290f284775e86c42847220b0f9
 
 const article5 = {
     pubId: 18051149,
@@ -64,7 +91,11 @@ const article5 = {
     visitorCount: 987,
     voteCount: 137,
     commentaryCount: 19,
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> c1d8d9b7f2b9eb290f284775e86c42847220b0f9
 
 const article6 = {
     pubId: 18051256,
@@ -76,7 +107,11 @@ const article6 = {
     visitorCount: 357,
     voteCount: 37,
     commentaryCount: 8,
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> c1d8d9b7f2b9eb290f284775e86c42847220b0f9
 
 
 export const ARTICLES = [
