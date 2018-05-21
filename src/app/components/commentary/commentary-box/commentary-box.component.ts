@@ -10,7 +10,7 @@ import {CommonCommentary} from '../../../entities/commentary';
       <span class="commentator">Commentator</span>
       <span class="comment-time">2018-5-14 16:09</span>
     </a>
-    <a href="#comment-box" class="commentary-reply" [ngStyle]="{'display': showReply? 'inline' : 'none'}">reply</a>
+    <a href="./#comment-box" class="commentary-reply" [ngStyle]="{'display': showReply? 'inline' : 'none'}">reply</a>
     <p class="commentary-content">
       some contentsome contentsome contentsome contentsome contentsome contentsome contentsome contentsome contentsome content
     </p>

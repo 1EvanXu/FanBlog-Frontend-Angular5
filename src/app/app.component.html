@@ -19,16 +19,17 @@
         </nz-breadcrumb>
       </div>
     </div>
-    <div style="padding: 10px">
-      <div nz-row [nzGutter]="10">
-        <div style="min-height: 1000px;" nz-col [nzSm]="24" [nzMd]="4">
-        </div>
-        <div style="min-height: 1000px;" nz-col [nzSm]="20" [nzMd]="14">
-          <app-article></app-article>
-        </div>
-
-        <div nz-col  [nzSm]="24" [nzMd]="6">
-          <app-side-info></app-side-info>
+    <div nz-row>
+      <div nz-col [nzOffset]="3" [nzSm]="24" [nzMd]="18">
+        <div style="padding: 10px">
+          <div nz-row [nzGutter]="10">
+            <router-outlet></router-outlet>
+            <div nz-col  [nzSm]="24" [nzMd]="6">
+              <nz-affix>
+                <app-sidebar></app-sidebar>
+              </nz-affix>
+            </div>
+          </div>
         </div>
       </div>
     </div>
