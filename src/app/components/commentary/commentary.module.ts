@@ -25,8 +25,6 @@ import { CommentariesDirective } from './commentaries.directive';
   exports: [
     CommentComponent,
     CommentaryComponent,
-    CommentaryItemComponent,
-    CommentaryListComponent,
   ],
   providers: [CommentaryService],
   entryComponents: [CommentaryListComponent]

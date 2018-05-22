@@ -1,89 +1,91 @@
+import {ChildCommentary, Commentary} from '../entities/commentary';
+const childCommentary1_1 = new ChildCommentary(
+  2,
+  'child-commentator1-1',
+  '2018-05-17 16:27',
+   'commentary content test commentary content test commentary content test commentary content' +
+' test commentary content test commentary content test commentary content test commentary content test commentary content test',
+);
+const childCommentary1_2 = new ChildCommentary(
+   3,
+  'child-commentator1-2',
+  '2018-05-17 16:27',
+  'commentary content test commentary content test commentary content test commentary content' +
+' test commentary content test commentary content test commentary content test commentary content test commentary content test',
+);
+const childCommentary1_3 = new ChildCommentary(
+  4,
+  'child-commentator1-3',
+  '2018-05-17 16:27',
+  'commentary content test commentary content test commentary content test commentary content' +
+  ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
+);
+const childCommentary1_4 = new ChildCommentary(
+  4,
+  'child-commentator1-3',
+  '2018-05-17 16:27',
+  'commentary content test commentary content test commentary content test commentary content' +
+  ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
+);
+const childCommentary1_5 = new ChildCommentary(
+  5,
+  'child-commentator1-3',
+  '2018-05-17 16:27',
+  'commentary content test commentary content test commentary content test commentary content' +
+  ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
+);
+const parentCommentary1 = new Commentary(
+  1,
+  'commentator1',
+  '2018-05-17 16:27',
+  'commentary content test commentary content test commentary content test commentary content test commentary conten' +
+'t test commentary content test commentary content test commentary content test commentary content test',
+  [childCommentary1_1, childCommentary1_2, childCommentary1_3, childCommentary1_4, childCommentary1_5]
+);
 
-const commentary1 = {
-  commentaryId: 1,
-  commentator: 'commentator1',
-  commentTime: '2018-05-17 16:27',
-  commentaryContent: 'commentary content test commentary content test commentary content test commentary content test commentary conten' +
-  't test commentary content test commentary content test commentary content test commentary content test',
-  childrenCommentary: [
-    {
-      commentaryId: 2,
-      commentator: 'child-commentator1-1',
-      commentTime: '2018-05-17 16:27',
-      commentaryContent: 'commentary content test commentary content test commentary content test commentary content' +
-      ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
-    },
-    {
-      commentaryId: 3,
-      commentator: 'child-commentator1-2',
-      commentTime: '2018-05-17 16:27',
-      commentaryContent: 'commentary content test commentary content test commentary content test commentary content' +
-      ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
-    },
-    {
-      commentaryId: 4,
-      commentator: 'child-commentator1-3',
-      commentTime: '2018-05-17 16:27',
-      commentaryContent: 'commentary content test commentary content test commentary content test commentary content' +
-      ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
-    },
-    {
-      commentaryId: 5,
-      commentator: 'child-commentator1-3',
-      commentTime: '2018-05-17 16:27',
-      commentaryContent: 'commentary content test commentary content test commentary content test commentary content' +
-      ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
-    },
-    {
-      commentaryId: 6,
-      commentator: 'child-commentator1-3',
-      commentTime: '2018-05-17 16:27',
-      commentaryContent: 'commentary content test commentary content test commentary content test commentary content' +
-      ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
-    },
-  ]
-};
-
-const commentary2 = {
-  commentaryId: 7,
-  commentator: 'commentator',
-  commentTime: '2018-05-17 16:27',
-  commentaryContent: ' commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test ' +
+const childCommentary2_1 = new ChildCommentary(
+  9,
+  'child-commentator2-1',
+  '2018-05-17 16:27',
+  ' commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test ' +
   'commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test',
-  childrenCommentary: [
-    {
-      commentaryId: 9,
-      commentator: 'child-commentator2-1',
-      commentTime: '2018-05-17 16:27',
-      commentaryContent: ' commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test ' +
-      'commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test',
-    },
-    {
-      commentaryId: 10,
-      commentator: 'child-commentator2-2',
-      commentTime: '2018-05-17 16:27',
-      commentaryContent: ' commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test ' +
-      'commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test',
-    }
-  ]
-};
 
-const commentary3 = {
-  commentaryId: 11,
-  commentator: 'commentator3',
-  commentTime: '2018-05-17 16:27',
-  commentaryContent: ' commentary content 3 commentary content 3 commentary content 3 commentary content 3 commentary ' +
+);
+const childCommentary2_2 = new ChildCommentary(
+  10,
+  'child-commentator2-2',
+  '2018-05-17 16:27',
+  ' commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test ' +
+  'commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test',
+
+);
+
+const parentCommentary2 = new Commentary(
+  7,
+  'commentator',
+  '2018-05-17 16:27',
+  ' commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test ' +
+  'commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test commentary content 2 test',
+  [childCommentary2_1, childCommentary2_2]
+);
+
+
+const parentCommentary3 = new Commentary(
+   11,
+  'commentator3',
+  '2018-05-17 16:27',
+  ' commentary content 3 commentary content 3 commentary content 3 commentary content 3 commentary ' +
   'content 3 commentary content 3 commentary content 3 commentary content 3 commentary content 3 commentary content 3 commentary content 3',
-  childrenCommentary: []
-};
+  []
+);
 
 export const COMMENTARIES_1 = [
-  commentary1, commentary3
+  parentCommentary1, parentCommentary3
 ];
 
 export const COMMENTARIES_2 = [
-  commentary1, commentary2, commentary3
+  parentCommentary1, parentCommentary2, parentCommentary3
 ];
 export const COMMENTARIES_3 = [
-  commentary3, commentary3, commentary3, commentary3, commentary3, commentary3,
+  parentCommentary2, parentCommentary3, parentCommentary3, parentCommentary3
 ];

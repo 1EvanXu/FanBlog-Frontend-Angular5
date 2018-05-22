@@ -18,8 +18,11 @@ import {CommentariesDirective} from '../commentaries.directive';
       <!-- commentary items begin -->
       <ng-template appCommentaries></ng-template>
       <!-- commentary items end -->
-      <div [hidden]="!showPagination" style="border-top: aliceblue solid 1px;text-align: center;padding: 8px;">
-        <nz-pagination [(nzPageIndex)]="currentPage" [nzTotal]="numberOfAllCommentaries" [nzSize]="'small'"></nz-pagination>
+      <div [hidden]="false" style="border-top: aliceblue solid 1px;text-align: center;padding: 8px;">
+        <nz-pagination [(nzPageIndex)]="currentPage"
+                       [nzTotal]="numberOfAllCommentaries"
+                       [nzPageSize]="NUMBER_OF_ITEMS_PER_PAGE"
+                       [nzSize]="'small'" (nzPageIndexChange)="pageChange()"></nz-pagination>
       </div>
     </div>
   `,
@@ -33,12 +36,14 @@ export class CommentaryComponent implements OnInit {
   commentaries: Commentary[];
   currentPage = 1;
   numberOfAllCommentaries: number;
-  private readonly NUMBER_OF_ITEMS_PER_PAGE = 10;
+  readonly NUMBER_OF_ITEMS_PER_PAGE = 10;
   constructor(private service: CommentaryService, private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
-    this.getCommentaries();
-    this.loadCommentaryListComponent();
+    this.loadCommentaryList(this.currentPage);
+    console.log(this.commentaries[0].commentator);
+    this.numberOfAllCommentaries = 50;
+    // this.loadCommentaryListComponent();
   }
   get showPagination(): boolean {
     if (this.numberOfAllCommentaries) {
@@ -46,19 +51,23 @@ export class CommentaryComponent implements OnInit {
     }
     return false;
   }
-  loadCommentaryListComponent() {
+  loadComponent() {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CommentaryListComponent);
     const viewContainerRef = this.directive.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     (<CommentaryListComponent>componentRef.instance).commentaries = this.commentaries;
   }
-  getCommentaries() {
-    this.service.loadCommentaries().subscribe(
-      cs => { this.commentaries = cs; }
+  loadCommentaryList(page: number) {
+    this.service.loadCommentaries(this.currentPage).subscribe(
+      cs => { this.commentaries = cs; },
+      (error) => { console.log('Errors happened:', error); },
+      () => { this.loadComponent(); }
     );
   }
-
+  pageChange() {
+    this.loadCommentaryList(this.currentPage);
+  }
 }
 
 @Component({
@@ -68,6 +77,11 @@ export class CommentaryComponent implements OnInit {
   `,
   styles: []
 })
-export class CommentaryListComponent {
+export class CommentaryListComponent implements OnInit {
   commentaries: Commentary[];
+  constructor() {
+  }
+  ngOnInit() {
+    console.log('CommentaryListComponent========>', this.commentaries);
+  }
 }

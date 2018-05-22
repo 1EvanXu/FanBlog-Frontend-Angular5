@@ -9,9 +9,15 @@ import {Component, OnInit, DoCheck } from '@angular/core';
         <button nz-button nzType="default" [nzSize]="'small'"
                 (click)="comment()" [nzLoading]="isSending" [disabled]="isEmptyContent">Send</button>
       </h2>
-      <textarea nz-input  [(ngModel)]="commentContent" nzType="textarea" [nzAutosize]="{minRows: 2, maxRows: 6}"></textarea>
-      <!--<nz-alert [nzType]="result.type" [nzMessage]="result.message" nzShowIcon [hidden]="hideAlert" style="margin-top: 10px;">-->
-      <!--</nz-alert>-->
+      <nz-input [(ngModel)]="commentContent" nzType="textarea" [nzAutosize]="{minRows: 2, maxRows: 6}"></nz-input>
+      <div style="text-align: center; margin-top: 10px">
+        <span style="color: green"><i class="anticon anticon-check-circle-o"></i></span>
+        <span style="color: green">message</span>
+        <span style="color: red"><i class="anticon anticon-close-circle-o"></i></span>
+        <span style="color: red">message</span>
+        <span style="color: dodgerblue"><i class="anticon anticon-loading anticon-spin"></i></span>
+        <span style="color: dodgerblue">sending...</span>
+      </div>
     </div>
   `,
   styles: [

@@ -8,6 +8,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { ErrorComponent } from './nodes/error/error.component';
 import {AllArticlesModule} from './nodes/all-articles/all-articles.module';
 import {SidebarModule} from './nodes/sidebar/sidebar.module';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 
 const appRoutes: Routes = [
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    NoopAnimationsModule,
     NgZorroAntdModule.forRoot(),
     ArticleModule,
     AllArticlesModule,

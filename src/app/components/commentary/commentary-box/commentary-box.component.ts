@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, HostListener} from '@angular/core';
-import {Commentary, CommonCommentary} from '../../../entities/commentary';
+import {ChildCommentary, Commentary} from '../../../entities/commentary';
 
 @Component({
   selector: 'app-commentary-item',
@@ -57,35 +57,14 @@ import {Commentary, CommonCommentary} from '../../../entities/commentary';
   `]
 })
 export class CommentaryItemComponent implements OnInit {
-
-  private _isChildCommentary = false;
-  private _showReply = false;
-  private _commentary: CommonCommentary;
+  @Input()
+  isChildCommentary = false;
+  @Input()
+  commentary: Commentary | ChildCommentary;
+  showReply = false;
   constructor() { }
   ngOnInit() {
-  }
-  get isChildCommentary(): boolean {
-    return this._isChildCommentary;
-  }
-
-  @Input()
-  set isChildCommentary(value: boolean) {
-    this._isChildCommentary = value;
-  }
-  get showReply(): boolean {
-    return this._showReply;
-  }
-
-  set showReply(value: boolean) {
-    this._showReply = value;
-  }
-
-  get commentary(): CommonCommentary {
-    return this._commentary;
-  }
-  @Input()
-  set commentary(value: CommonCommentary) {
-    this._commentary = value;
+    console.log('CommentaryItemComponent=======>', this.commentary);
   }
 
   @HostListener('mouseenter') onMouseEnter() {
@@ -101,20 +80,22 @@ export class CommentaryItemComponent implements OnInit {
   selector: 'app-commentary-box',
   template: `
   <div style="padding: 5px;">
-    <app-commentary-item></app-commentary-item>
-    <!--<ng-template #child-commentary>-->
-    <!--</ng-template>-->
+    <app-commentary-item [commentary]="commentary"></app-commentary-item>
     <app-commentary-item *ngFor="let c of commentary.childCommentaries" [commentary]="c" [isChildCommentary]="hasChildren">
     </app-commentary-item>
   </div>
   `,
   styles: []
 })
-export class CommentaryBoxComponent {
+export class CommentaryBoxComponent implements OnInit {
   private _commentary: Commentary;
   hasChildren = false;
   constructor() {}
 
+  ngOnInit(): void {
+    console.log('CommentaryBoxComponent======.', this.commentary.childCommentaries[0]);
+    console.log('hasChild', this.hasChildren);
+  }
   get commentary(): Commentary {
     return this._commentary;
   }
