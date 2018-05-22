@@ -1,22 +1,22 @@
 export interface CommonCommentary {
   commentaryId: number;
   commentator: string;
-  commentTime: Date;
+  commentTime: string;
   commentaryContent: string;
 }
 
 export class Commentary implements CommonCommentary {
-  commentTime: Date;
   commentaryId: number;
+  commentTime: string;
   commentator: string;
   commentaryContent: string;
-  childCommentaries: ChildCommentary[];
+  childCommentaries?: ChildCommentary[];
 }
 
 export class ChildCommentary implements CommonCommentary {
   commentaryId: number;
-  commentTime: Date;
+  commentTime: string;
   commentator: string;
   commentaryContent: string;
-  replyTo: string;
+  replyTo?: string;
 }

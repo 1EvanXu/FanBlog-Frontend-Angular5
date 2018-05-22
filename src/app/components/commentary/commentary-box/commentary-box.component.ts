@@ -1,18 +1,18 @@
 import {Component, OnInit, Input, HostListener} from '@angular/core';
-import {CommonCommentary} from '../../../entities/commentary';
+import {Commentary, CommonCommentary} from '../../../entities/commentary';
 
 @Component({
   selector: 'app-commentary-item',
   template: `
-  <div [ngClass]="{'commentary': !isAttachment, 'attachment': isAttachment}">
+  <div [ngClass]="{'commentary': !isChildCommentary, 'child-commentary': isChildCommentary}">
     <a style="vertical-align: middle;" >
       <nz-avatar nzSize="small" nzIcon="user" style="display:inline-block; vertical-align: middle;"></nz-avatar>
-      <span class="commentator">Commentator</span>
-      <span class="comment-time">2018-5-14 16:09</span>
+      <span class="commentator">{{commentary.commentator}}</span>
+      <span class="comment-time">{{commentary.commentTime}}</span>
     </a>
     <a href="./#comment-box" class="commentary-reply" [ngStyle]="{'display': showReply? 'inline' : 'none'}">reply</a>
     <p class="commentary-content">
-      some contentsome contentsome contentsome contentsome contentsome contentsome contentsome contentsome contentsome content
+      {{commentary.commentaryContent}}
     </p>
   </div>
   `,
@@ -43,7 +43,7 @@ import {CommonCommentary} from '../../../entities/commentary';
     padding: 8px;
     background-color: white;
   }
-  :host div.attachment{
+  :host div.child-commentary{
     display: block;
     padding: 8px;
     background-color: ghostwhite;
@@ -58,19 +58,19 @@ import {CommonCommentary} from '../../../entities/commentary';
 })
 export class CommentaryItemComponent implements OnInit {
 
-  private _isAttachment = false;
+  private _isChildCommentary = false;
   private _showReply = false;
   private _commentary: CommonCommentary;
   constructor() { }
   ngOnInit() {
   }
-  get isAttachment(): boolean {
-    return this._isAttachment;
+  get isChildCommentary(): boolean {
+    return this._isChildCommentary;
   }
 
   @Input()
-  set isAttachment(value: boolean) {
-    this._isAttachment = value;
+  set isChildCommentary(value: boolean) {
+    this._isChildCommentary = value;
   }
   get showReply(): boolean {
     return this._showReply;
@@ -83,7 +83,7 @@ export class CommentaryItemComponent implements OnInit {
   get commentary(): CommonCommentary {
     return this._commentary;
   }
-
+  @Input()
   set commentary(value: CommonCommentary) {
     this._commentary = value;
   }
@@ -102,13 +102,25 @@ export class CommentaryItemComponent implements OnInit {
   template: `
   <div style="padding: 5px;">
     <app-commentary-item></app-commentary-item>
-    <!--<ng-template #attachment>-->
+    <!--<ng-template #child-commentary>-->
     <!--</ng-template>-->
-    <app-commentary-item [isAttachment]="true"></app-commentary-item>
+    <app-commentary-item *ngFor="let c of commentary.childCommentaries" [commentary]="c" [isChildCommentary]="hasChildren">
+    </app-commentary-item>
   </div>
   `,
   styles: []
 })
 export class CommentaryBoxComponent {
+  private _commentary: Commentary;
+  hasChildren = false;
   constructor() {}
+
+  get commentary(): Commentary {
+    return this._commentary;
+  }
+  @Input()
+  set commentary(value: Commentary) {
+    this._commentary = value;
+    this.hasChildren = this._commentary.childCommentaries.length !== 0;
+  }
 }

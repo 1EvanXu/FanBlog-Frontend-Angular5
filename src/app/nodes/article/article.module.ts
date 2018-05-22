@@ -5,6 +5,7 @@ import {ArticleComponent} from './article.component';
 import {CommentaryModule} from '../../components/commentary/commentary.module';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {RouterModule, Routes} from '@angular/router';
+import {SideToolKitsComponent} from '../../components/side-tool-kits/side-tool-kits.component';
 
 const articleRoutes: Routes = [
   {
@@ -23,6 +24,7 @@ const articleRoutes: Routes = [
   declarations: [
     ArticleComponent,
     ArticleContentComponent,
+    SideToolKitsComponent,
   ],
   exports: [
     ArticleComponent

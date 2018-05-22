@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {CommentaryBoxComponent, CommentaryItemComponent} from './commentary-box/commentary-box.component';
-import {CommentaryListComponent} from './commentary-list/commentary-list.component';
+import {CommentaryComponent, CommentaryListComponent} from './commentary-list/commentary-list.component';
 import {CommentComponent} from './comment/comment.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {FormsModule} from '@angular/forms';
+import {CommentaryService} from '../../services/commentary.service';
+import { CommentariesDirective } from './commentaries.directive';
 
 @NgModule({
   imports: [
@@ -16,13 +18,17 @@ import {FormsModule} from '@angular/forms';
     CommentaryBoxComponent,
     CommentaryItemComponent,
     CommentaryListComponent,
-    CommentComponent
+    CommentaryComponent,
+    CommentComponent,
+    CommentariesDirective
   ],
   exports: [
     CommentComponent,
+    CommentaryComponent,
     CommentaryItemComponent,
     CommentaryListComponent,
   ],
-  providers: []
+  providers: [CommentaryService],
+  entryComponents: [CommentaryListComponent]
 })
 export class CommentaryModule { }

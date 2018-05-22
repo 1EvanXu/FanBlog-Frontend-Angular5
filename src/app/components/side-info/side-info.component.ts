@@ -21,6 +21,7 @@ import {Component, Input, OnInit} from '@angular/core';
         <a href="{{info.link}}">{{info.title}}</a>
         <span *ngIf="info.score" style="float: right">{{info.score}}</span>
       </p>
+    </nz-card>
   `,
   styles: [
     `
