@@ -31,7 +31,7 @@ import {CommentariesDirective} from '../commentaries.directive';
 export class CommentaryComponent implements OnInit {
 
   @Input()
-  pubId: number;
+  pubId: number|string;
   @ViewChild(CommentariesDirective) directive: CommentariesDirective;
   commentaries: Commentary[];
   currentPage = 1;

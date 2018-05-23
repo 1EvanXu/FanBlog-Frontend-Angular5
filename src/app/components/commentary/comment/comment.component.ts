@@ -1,4 +1,4 @@
-import {Component, OnInit, DoCheck } from '@angular/core';
+import {Component, OnInit, DoCheck, Input} from '@angular/core';
 
 @Component({
   selector: 'app-comment',
@@ -10,14 +10,7 @@ import {Component, OnInit, DoCheck } from '@angular/core';
                 (click)="comment()" [nzLoading]="isSending" [disabled]="isEmptyContent">Send</button>
       </h2>
       <nz-input [(ngModel)]="commentContent" nzType="textarea" [nzAutosize]="{minRows: 2, maxRows: 6}"></nz-input>
-      <div style="text-align: center; margin-top: 10px">
-        <span style="color: green"><i class="anticon anticon-check-circle-o"></i></span>
-        <span style="color: green">message</span>
-        <span style="color: red"><i class="anticon anticon-close-circle-o"></i></span>
-        <span style="color: red">message</span>
-        <span style="color: dodgerblue"><i class="anticon anticon-loading anticon-spin"></i></span>
-        <span style="color: dodgerblue">sending...</span>
-      </div>
+      <app-comment-alert [alertType]="result" [showAlert]="showAlert"></app-comment-alert>
     </div>
   `,
   styles: [
@@ -39,10 +32,10 @@ import {Component, OnInit, DoCheck } from '@angular/core';
 })
 export class CommentComponent implements OnInit, DoCheck {
   isSending = false;
-  result: {type: string, message: string};
-  hideAlert = true;
+  result: 'success'|'sending'|'failed';
+  showAlert = false;
   commentContent = '';
-  oldCommentContent = '';
+  private oldCommentContent = '';
   isEmptyContent = true;
   constructor() { }
 
@@ -50,17 +43,69 @@ export class CommentComponent implements OnInit, DoCheck {
   }
   ngDoCheck() {
     if (this.commentContent !== this.oldCommentContent) {
-      this.isEmptyContent = this.commentContent.length === 0;
+      this.isEmptyContent = this.commentContent.length <= 5;
       this.oldCommentContent = this.commentContent;
     }
   }
   comment() {
-    // setTimeout(() => {
-    //   this.isSending = true;
-    //   this.result = {type: 'success', message: 'comment success!'};
-    //   this.hideAlert = false;
-    // }, 3000);
-    // this.isSending = false;
-    // this.hideAlert = true;
+    setTimeout(() => {
+      this.result = 'success';
+      this.isSending = false;
+      this.showAlert = true;
+    }, 3000);
+    this.isSending = true;
+    this.result = 'sending';
+    this.showAlert = false;
+  }
+}
+
+@Component({
+  selector: 'app-comment-alert',
+  template: `
+    <div class="comment-alert" [hidden]="!showAlert" >
+      <span [ngStyle]="textStyle">
+        <i [ngClass]="alertIcon"></i>
+        &nbsp;{{alertMessage}}
+      </span>
+    </div>
+  `,
+  styles: [`
+    .comment-alert {
+      text-align: center; margin-top: 10px
+    }
+  `]
+})
+export class CommentAlertComponent {
+  @Input()
+  alertType: 'success'|'sending'|'failed';
+  @Input()
+  showAlert: boolean;
+  get textStyle() {
+    let textColor;
+    switch (this.alertType) {
+      case 'success': textColor = 'green'; break;
+      case 'sending': textColor = 'dodgerblue'; break;
+      case 'failed': textColor = 'red'; break;
+      case defaultStatus: textColor = 'gray';
+    }
+    return {'color': textColor};
+  }
+  get alertIcon() {
+    return {
+      'anticon': true,
+      'anticon-check-circle-o': this.alertType === 'success',
+      'anticon-close-circle-o': this.alertType === 'failed',
+      'anticon-loading anticon-spin': this.alertType === 'sending'
+    };
+  }
+  get alertMessage(): string {
+    let message;
+    switch (this.alertType) {
+      case 'success': message = 'Comment success!'; break;
+      case 'sending': message = 'Sending...'; break;
+      case 'failed': message = 'Comment failed!'; break;
+      case defaultStatus: message = 'gray';
+    }
+    return message;
   }
 }

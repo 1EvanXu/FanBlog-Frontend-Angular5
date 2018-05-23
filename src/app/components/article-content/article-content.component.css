@@ -6,11 +6,9 @@
   padding: 12px;
 }
 
-.article-type {
+.article-type-o {
   margin-right: 6px;
   margin-top: 8px;
-  color: darkgreen;
-  border: 1px solid green;
   display: inline-block;
   width: 23px;
   height: 23px;
@@ -19,4 +17,36 @@
   font-size: 13px;
   border-radius: 50%;
   float: left;
+  color: darkgreen;
+  border: 1px solid green;
+}
+
+.article-type-t {
+  margin-right: 6px;
+  margin-top: 8px;
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  line-height: 23px;
+  text-align: center;
+  font-size: 13px;
+  border-radius: 50%;
+  float: left;
+  color: dodgerblue;
+  border: 1px solid dodgerblue;
+}
+
+.article-type-r {
+  margin-right: 6px;
+  margin-top: 8px;
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  line-height: 23px;
+  text-align: center;
+  font-size: 13px;
+  border-radius: 50%;
+  float: left;
+  color: saddlebrown;
+  border: 1px solid sandybrown;
 }

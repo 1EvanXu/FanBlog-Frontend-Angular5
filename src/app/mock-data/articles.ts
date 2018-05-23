@@ -5,6 +5,7 @@ import { CONTENT_3 } from './articles/article-3';
 import { CONTENT_4 } from './articles/article-4';
 import { CONTENT_5 } from './articles/article-5';
 import { CONTENT_6 } from './articles/article-6';
+import {Article} from '../entities/article';
 
 const article1 = {
     pubId: 18051701,
@@ -80,5 +81,18 @@ export const article6 = {
 
 
 export const ARTICLES = [
-    article1, article2, article3, article4, article5, article6
+  Article.createInstance(article1),
+  Article.createInstance(article2),
+  Article.createInstance(article3),
+  Article.createInstance(article4),
+  Article.createInstance(article5),
+  Article.createInstance(article6)
 ];
+
+export function findArticleByPubId(pubId: number) {
+  for (const index in ARTICLES) {
+   if (ARTICLES[index].pubId === pubId) {
+    return ARTICLES[index];
+   }
+  }
+}

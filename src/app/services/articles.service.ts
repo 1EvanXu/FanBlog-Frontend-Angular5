@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
-import {ARTICLE_ITEMS, ArticleItem} from '../mock-data/article-items';
+import {ARTICLE_ITEMS, ARTICLE_ITEMS_1, ARTICLE_ITEMS_2, ARTICLE_ITEMS_3} from '../mock-data/article-items';
 import {of} from 'rxjs/observable/of';
 import {Observable} from 'rxjs/Observable';
-import {delay} from 'rxjs/Operators';
+import {ArticleItem} from '../entities/article-item';
 
 
 @Injectable()
 export class ArticlesService {
   constructor() { }
-  getAllArticles(): Observable<ArticleItem[]> {
-    return of(ARTICLE_ITEMS).pipe(delay(2000));
+  getAllArticles(pageIndex: number): Observable<ArticleItem[]> {
+    switch (pageIndex) {
+      case 1: return of(ARTICLE_ITEMS_1);
+      case 2: return of(ARTICLE_ITEMS_2);
+      case 3: return of(ARTICLE_ITEMS_3);
+    }
+    return of(ARTICLE_ITEMS);
   }
 }

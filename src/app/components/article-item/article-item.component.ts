@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ArticleItem} from '../../mock-data/article-items';
+import {ArticleItem} from '../../entities/article-item';
 
 @Component({
   selector: 'app-article-item',

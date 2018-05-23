@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {SideInformation} from '../../components/side-info/side-info.component';
 import {SidebarService} from '../../services/sidebar.service';
+import {SideInformation} from '../../entities/side-information';
 
 @Component({
   selector: 'app-sidebar',
@@ -53,9 +53,3 @@ export class SidebarComponent implements OnInit {
   }
 }
 
-interface InformationCards {
-  infoTitle: string;
-  extraTitle?: string;
-  extraUrl?: string;
-  infos: SideInformation[];
-}

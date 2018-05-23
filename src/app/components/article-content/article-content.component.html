@@ -1,25 +1,26 @@
 <div class="article-head-title">
   <div nz-row style="padding: 2px;">
-    <span class="article-type">原</span><h1>&nbsp;article.title</h1>
+    <span [ngClass]="typeStyle">{{type}}</span><h1>&nbsp;{{article.title}}</h1>
   </div>
-  <div nz-row style="text-align: center">
+  <div nz-row style="text-align: center; margin-top: 5px">
     <div nz-col [nzSpan]="6">
-      <span><i class="anticon anticon-tag"></i>&nbsp;article.category</span>
+      <span><i class="anticon anticon-tag"></i>&nbsp;{{article.category}}</span>
     </div>
     <div nz-col [nzSpan]="6">
-      <span><i class="anticon anticon-clock-circle"></i>&nbsp;article.pub_time</span>
+      <span><i class="anticon anticon-clock-circle"></i>&nbsp;{{article.pubTime}}</span>
     </div>
     <div nz-col [nzSpan]="6">
-      <span><i class="anticon anticon-eye"></i>&nbsp;article.visitors_count</span>
+      <span><i class="anticon anticon-eye"></i>&nbsp;{{article.visitorCount}}</span>
     </div>
     <div nz-col [nzSpan]="6">
-      <span><i class="anticon anticon-like"></i>&nbsp;article.votes_count</span>
+      <span><i class="anticon anticon-like"></i>&nbsp;{{article.voteCount}}</span>
     </div>
   </div>
 </div>
-<nz-card style="width:100%;" [nzNoHovering]="true" [nzLoading]="true">
-  <p>Card content</p>
-  <p>Card content</p>
-  <p>Card content</p>
+<nz-card style="width:100%;" [nzNoHovering]="true" [nzLoading]="loading">
+  <ng-template #body>
+    <div [innerHtml]="content">
+    </div>
+  </ng-template>
 </nz-card>
 

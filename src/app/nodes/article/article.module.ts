@@ -6,10 +6,11 @@ import {CommentaryModule} from '../../components/commentary/commentary.module';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {RouterModule, Routes} from '@angular/router';
 import {SideToolKitsComponent} from '../../components/side-tool-kits/side-tool-kits.component';
+import {ArticleContentService} from '../../services/article-content.service';
 
 const articleRoutes: Routes = [
   {
-    path: 'article',
+    path: 'article/:pubId',
     component: ArticleComponent
   }
 ];
@@ -28,6 +29,7 @@ const articleRoutes: Routes = [
   ],
   exports: [
     ArticleComponent
-  ]
+  ],
+  providers: [ArticleContentService]
 })
 export class ArticleModule { }
