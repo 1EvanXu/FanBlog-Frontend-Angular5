@@ -8,35 +8,26 @@ import {RouterModule, Routes} from '@angular/router';
 import { ErrorComponent } from './nodes/error/error.component';
 import {SidebarModule} from './nodes/sidebar/sidebar.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {AllArticlesModule} from './nodes/all-articles/all-articles.module';
+import {ArticlesModule} from './nodes/articles/articles.module';
+import {AppRoutingModule} from './app-routing.module';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
-
-const appRoutes: Routes = [
-  {
-    path: '',
-    redirectTo: '/articles',
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    component: ErrorComponent,
-  }
-];
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     NoopAnimationsModule,
     NgZorroAntdModule.forRoot(),
-    AllArticlesModule,
+    ArticlesModule,
     ArticleModule,
     SidebarModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

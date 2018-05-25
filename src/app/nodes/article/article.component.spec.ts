@@ -1,14 +1,32 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ArticleComponent } from './article.component';
+import {CommonModule} from '@angular/common';
+import {ActivatedRoute, RouterModule} from '@angular/router';
+import {ArticleContentService} from '../../services/article-content.service';
+import {CommentaryModule} from '../../components/commentary/commentary.module';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
+import {ArticleContentComponent} from '../../components/article-content/article-content.component';
+import {SideToolKitsComponent} from '../../components/side-tool-kits/side-tool-kits.component';
 
-describe('ArticleComponent', () => {
+xdescribe('ArticleComponent', () => {
   let component: ArticleComponent;
   let fixture: ComponentFixture<ArticleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ArticleComponent ]
+      imports: [
+        CommonModule,
+        CommentaryModule,
+        RouterModule,
+        NgZorroAntdModule.forRoot()
+      ],
+      declarations: [
+        ArticleComponent,
+        ArticleContentComponent,
+        SideToolKitsComponent,
+      ],
+      providers: [ArticleContentService, ActivatedRoute]
     })
     .compileComponents();
   }));

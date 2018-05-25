@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SideToolKitsComponent } from './side-tool-kits.component';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
 
 describe('SideToolKitsComponent', () => {
   let component: SideToolKitsComponent;
@@ -8,6 +9,7 @@ describe('SideToolKitsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [NgZorroAntdModule.forRoot()],
       declarations: [ SideToolKitsComponent ]
     })
     .compileComponents();
@@ -19,7 +21,7 @@ describe('SideToolKitsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create SideToolKitsComponent', () => {
     expect(component).toBeTruthy();
   });
 });

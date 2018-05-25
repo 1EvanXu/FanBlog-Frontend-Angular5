@@ -7,10 +7,10 @@ import {Observable} from 'rxjs/Observable';
 
 @Component({
   template: `
-    <div nz-col [nzSm]="24" [nzMd]="1">
+    <div nz-col [nzSm]="24" [nzMd]="1" style="margin-top: 5px">
       <app-side-tool-kits></app-side-tool-kits>
     </div>
-    <div nz-col [nzSm]="20" [nzMd]="17" style="min-height:800px">
+    <div nz-col [nzSm]="20" [nzMd]="17" style="min-height:800px; margin-top: 5px">
       <app-article-content [loading]="articleLoading" [article]="article$|async"></app-article-content>
       <app-comment></app-comment>
       <app-commentary [pubId]="pubId"></app-commentary>

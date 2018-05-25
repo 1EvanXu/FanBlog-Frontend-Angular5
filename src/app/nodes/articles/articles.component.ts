@@ -8,53 +8,75 @@ import {ArticlesListComponent} from '../../components/articles-list/articles-lis
 
 @Component({
   template: `
-    <div nz-col [nzSm]="20" [nzMd]="18">
-      <ng-template appArticleList></ng-template>
-      <div nz-row style="background-color: white;padding: 5px;">
-        <div nz-col [nzOffset]="4" [nzSpan]="16" style="text-align: center">
+    <div nz-col [nzSm]="20" [nzMd]="18" style="margin-top: 5px">
+      <nz-spin [nzSpinning]="loading" [nzTip]="'Loading article list ...'">
+        <ng-container *ngTemplateOutlet="load"></ng-container>
+        <ng-template appArticleList></ng-template>
+      </nz-spin>
+      <div nz-row class="pagination-container">
+        <div nz-col [nzOffset]="4" [nzSpan]="16" [hidden]="totalNumberOfArticles <= ARTICLES_NUMBER_PER_PAGE">
           <nz-pagination [(nzPageIndex)]="pageIndex" [nzTotal]="totalNumberOfArticles" [nzPageSize]="ARTICLES_NUMBER_PER_PAGE"
                          [nzSize]="'small'" (nzPageIndexChange)="changePageIndex()">
           </nz-pagination>
         </div>
       </div>
     </div>
+    <ng-template #load>
+      <div *ngIf="loading && firstInit" style="margin-bottom: 10px; margin-top: 10px">
+        <nz-card style="margin-bottom: 10px" [nzLoading]="true" [nzBordered]="false"></nz-card>
+        <nz-card style="margin-bottom: 10px" [nzLoading]="true" [nzBordered]="false"></nz-card>
+        <nz-card style="margin-bottom: 10px" [nzLoading]="true" [nzBordered]="false"></nz-card>
+        <nz-card style="margin-bottom: 10px" [nzLoading]="true" [nzBordered]="false"></nz-card>
+      </div>
+    </ng-template>
   `,
-  styles: []
+  styles: [
+    `
+      div .pagination-container {
+        background-color: white;
+        padding: 5px;
+        text-align: center;
+      }
+    `
+  ],
 })
-export class AllArticlesComponent implements OnInit {
+export class ArticlesComponent implements OnInit {
   articleItemsList: ArticleItem[];
   params$: Observable<ParamMap>;
-
+  loading: boolean;
   totalNumberOfArticles: number;
-  ARTICLES_NUMBER_PER_PAGE = 10;
-  pageIndex = 1;
-
+  ARTICLES_NUMBER_PER_PAGE = 6; // default 10
+  pageIndex = 4;
+  firstInit = false;
   categoryId: number;
   @ViewChild(ArticlesDirective) articlesDirective: ArticlesDirective;
   constructor(
     private articlesService: ArticlesService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    ) { }
 
   ngOnInit() {
-    this.totalNumberOfArticles = 50;
-    this.params$ = this.route.paramMap;
+    // this.totalNumberOfArticles = 50;
+    this.params$ = this.route.firstChild.paramMap;
     this.params$.subscribe(params => {
-      this.pageIndex = parseInt(params.get('pageIndex'), 0);
       this.categoryId = parseInt(params.get('categoryId'), 0);
     });
+    this.loading = true;
+    this.firstInit = true;
     this.getArticleItemsList(this.pageIndex);
-    this.route.url.subscribe(data => console.log(data, this.categoryId, this.pageIndex));
+    this.route.url.subscribe(data => console.log(data, this.categoryId));
   }
   getArticleItemsList(pageIndex: number) {
-    this.articlesService.getAllArticles(pageIndex).subscribe(
-      itemsList => {
-        this.articleItemsList = itemsList;
-        this.loadArticlesListComponent(itemsList);
+    this.articlesService.getArticles(pageIndex).subscribe(
+      data => {
+        this.articleItemsList = data.articleItems;
+        this.totalNumberOfArticles = data.totalNumber;
+        this.loadArticlesListComponent(data.articleItems);
         },
     () => {},
-      () => { }
+      () => { this.loading = false; this.firstInit =  false; }
     );
   }
   private loadArticlesListComponent(list: ArticleItem[]) {
@@ -65,7 +87,7 @@ export class AllArticlesComponent implements OnInit {
     (<ArticlesListComponent>componentRef.instance).articlesList = list;
   }
   changePageIndex() {
-    this.router.navigate(['articles/p', this.pageIndex]);
+    this.loading = true;
     this.getArticleItemsList(this.pageIndex);
   }
 }

@@ -1,24 +1,18 @@
 <nz-layout class="layout">
-  <nz-header>
-    <div>
-      <div class="logo"></div>
-      <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 63px;">
-        <li nz-menu-item>FM</li>
-        <li nz-menu-item>IP Location</li>
-        <li nz-menu-item>Message</li>
-      </ul>
-    </div>
-  </nz-header>
+  <!--<nz-header>-->
+    <!--<div>-->
+      <!--<div class="logo"></div>-->
+      <!--<ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 63px;">-->
+        <!--<li nz-menu-item>FM</li>-->
+        <!--<li nz-menu-item>IP Location</li>-->
+        <!--<li nz-menu-item>Message</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+  <!--</nz-header>-->
   <nz-content style="padding:0 30px;">
     <div nz-row [nzGutter]="5">
       <div nz-col [nzOffset]="4" [nzSm]="24" [nzMd]="16">
-        <nz-breadcrumb style="margin:12px 0;">
-          <nz-breadcrumb-item>
-            <a routerLink="articles">Home</a>
-          </nz-breadcrumb-item>
-          <nz-breadcrumb-item>Article</nz-breadcrumb-item>
-          <nz-breadcrumb-item>Content</nz-breadcrumb-item>
-        </nz-breadcrumb>
+        <app-breadcrumb></app-breadcrumb>
       </div>
     </div>
     <div nz-row>
@@ -26,7 +20,7 @@
         <div style="padding: 10px">
           <div nz-row [nzGutter]="10">
             <router-outlet></router-outlet>
-            <div nz-col  [nzSm]="24" [nzMd]="6">
+            <div nz-col  [nzSm]="24" [nzMd]="6" style="margin-top: 5px">
               <nz-affix>
                 <app-sidebar></app-sidebar>
               </nz-affix>
