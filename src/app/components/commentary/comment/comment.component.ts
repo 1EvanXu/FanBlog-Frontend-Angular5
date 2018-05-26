@@ -1,5 +1,4 @@
-import {Component, OnInit, DoCheck } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
+import {Component, OnInit, DoCheck, Input} from '@angular/core';
 
 @Component({
   selector: 'app-comment',
@@ -10,7 +9,8 @@ import { NzMessageService } from 'ng-zorro-antd';
         <button nz-button nzType="default" [nzSize]="'small'"
                 (click)="comment()" [nzLoading]="isSending" [disabled]="isEmptyContent">Send</button>
       </h2>
-      <nz-input  [(ngModel)]="commentContent" nzType="textarea" [nzAutosize]="{minRows: 2}"></nz-input>
+      <nz-input [(ngModel)]="commentContent" nzType="textarea" [nzAutosize]="{minRows: 2, maxRows: 6}"></nz-input>
+      <app-comment-alert [alertType]="result" [showAlert]="showAlert"></app-comment-alert>
     </div>
   `,
   styles: [
@@ -31,21 +31,35 @@ import { NzMessageService } from 'ng-zorro-antd';
   ]
 })
 export class CommentComponent implements OnInit, DoCheck {
+  static parentCommentary: number;
+  static replyTo: number;
   isSending = false;
+  result: 'success'|'failed';
+  showAlert = false;
   commentContent = '';
-  oldCommentContent = '';
+  commentator: string;
   isEmptyContent = true;
-  constructor(private _message: NzMessageService) { }
+  private _oldCommentContent = '';
+  @Input() pubId: number;
+  constructor() { }
 
   ngOnInit() {
   }
   ngDoCheck() {
-    if (this.commentContent !== this.oldCommentContent) {
-      this.isEmptyContent = this.commentContent.length === 0;
-      this.oldCommentContent = this.commentContent;
+    if (this.commentContent !== this._oldCommentContent) {
+      this.isEmptyContent = this.commentContent.length <= 5;
+      this._oldCommentContent = this.commentContent;
     }
   }
   comment() {
-    this._message.success('Comment Success!');
+    setTimeout(() => {
+      this.result = 'success';
+      this.isSending = false;
+      this.showAlert = true;
+    }, 3000);
+    this.isSending = true;
+    this.showAlert = false;
   }
 }
+
+

@@ -1,38 +1,46 @@
 <nz-layout class="layout">
   <nz-header>
     <div>
-      <div class="logo"></div>
       <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 63px;">
+        <li>
+          <img class="logo" src="../assets/logo.png">
+        </li>
         <li nz-menu-item>FM</li>
         <li nz-menu-item>IP Location</li>
         <li nz-menu-item>Message</li>
+        <li nz-menu-item>About</li>
+        <li nz-menu-item style="float: right">
+          Login
+        </li>
+        <li>
+          <nz-input [nzType]="'search'" style="width: 180px;margin-left: 100px"></nz-input>
+        </li>
       </ul>
     </div>
   </nz-header>
   <nz-content style="padding:0 30px;">
     <div nz-row [nzGutter]="5">
       <div nz-col [nzOffset]="4" [nzSm]="24" [nzMd]="16">
-        <nz-breadcrumb style="margin:12px 0;">
-          <nz-breadcrumb-item>Home</nz-breadcrumb-item>
-          <nz-breadcrumb-item>Article</nz-breadcrumb-item>
-          <nz-breadcrumb-item>Content</nz-breadcrumb-item>
-        </nz-breadcrumb>
+        <app-breadcrumb></app-breadcrumb>
       </div>
     </div>
-    <div style="padding: 10px">
-      <div nz-row [nzGutter]="10">
-        <div style="min-height: 1000px;" nz-col [nzSm]="24" [nzMd]="4">
-        </div>
-        <div style="min-height: 1000px;" nz-col [nzSm]="20" [nzMd]="14">
-          <app-article></app-article>
-        </div>
-
-        <div nz-col  [nzSm]="24" [nzMd]="6">
-          <app-side-info></app-side-info>
+    <div nz-row>
+      <div nz-col [nzOffset]="3" [nzSm]="24" [nzMd]="18">
+        <div style="padding: 10px">
+          <div nz-row [nzGutter]="10">
+            <router-outlet></router-outlet>
+            <div nz-col  [nzSm]="24" [nzMd]="6" style="margin-top: 5px">
+              <nz-affix>
+                <app-sidebar></app-sidebar>
+              </nz-affix>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </nz-content>
-  <nz-footer style="position: relative;left:0px;bottom:0px;text-align: center;width: 100%">Ant Design ©2017 Implement By Angular</nz-footer>
+  <nz-footer style="float: bottom;text-align: center;width: 100%">
+    Ant Design ©2017 Implement By Angular
+  </nz-footer>
 </nz-layout>
 

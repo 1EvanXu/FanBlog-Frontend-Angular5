@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SideInfoComponent } from './side-info.component';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
 
 describe('SideInfoComponent', () => {
   let component: SideInfoComponent;
@@ -8,6 +9,7 @@ describe('SideInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [NgZorroAntdModule.forRoot()],
       declarations: [ SideInfoComponent ]
     })
     .compileComponents();

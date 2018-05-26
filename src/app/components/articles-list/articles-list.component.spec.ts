@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ArticlesListComponent } from './articles-list.component';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
+import {ArticleItemComponent} from '../article-item/article-item.component';
+import {RouterModule} from '@angular/router';
 
 describe('ArticlesListComponent', () => {
   let component: ArticlesListComponent;
@@ -8,7 +11,11 @@ describe('ArticlesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ArticlesListComponent ]
+      imports: [
+        RouterModule,
+        NgZorroAntdModule.forRoot()
+      ],
+      declarations: [ ArticlesListComponent, ArticleItemComponent ]
     })
     .compileComponents();
   }));
