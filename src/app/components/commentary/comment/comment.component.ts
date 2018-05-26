@@ -1,11 +1,12 @@
 import {Component, OnInit, DoCheck, Input} from '@angular/core';
+import {ReplyService} from '../../../services/channel.service';
 
 @Component({
   selector: 'app-comment',
   template: `
     <div id="comment-box">
       <h2>
-        <span>comment</span>
+        <span *ngIf="!replyTo">comment</span><span *ngIf="replyTo">reply to {{replyTo.name}}:</span>
         <button nz-button nzType="default" [nzSize]="'small'"
                 (click)="comment()" [nzLoading]="isSending" [disabled]="isEmptyContent">Send</button>
       </h2>
@@ -31,17 +32,25 @@ import {Component, OnInit, DoCheck, Input} from '@angular/core';
   ]
 })
 export class CommentComponent implements OnInit, DoCheck {
-  static parentCommentary: number;
-  static replyTo: number;
+  parentCommentary: number;
+  replyTo: {id: number; name: string};
   isSending = false;
   result: 'success'|'failed';
   showAlert = false;
   commentContent = '';
-  commentator: string;
+  // commentator: string;
   isEmptyContent = true;
   private _oldCommentContent = '';
   @Input() pubId: number;
-  constructor() { }
+  constructor(private replyService: ReplyService) {
+    this.replyService.info$.subscribe(
+      info => {
+        this.parentCommentary = info.parentCommentary;
+        this.replyTo = info.replyTo;
+        console.log(info);
+      }
+    );
+  }
 
   ngOnInit() {
   }

@@ -10,6 +10,7 @@ import { CommentariesDirective } from './commentaries.directive';
 import {CommentaryItemComponent} from './commentary-item/commentary-item.component';
 import {CommentaryComponent} from './commentary.component';
 import {CommentAlertComponent} from './comment-alert/comment-alert.component';
+import {ReplyService} from '../../services/channel.service';
 
 @NgModule({
   imports: [
@@ -30,7 +31,7 @@ import {CommentAlertComponent} from './comment-alert/comment-alert.component';
     CommentComponent,
     CommentaryComponent,
   ],
-  providers: [CommentaryService],
+  providers: [CommentaryService, ReplyService],
   entryComponents: [CommentaryListComponent]
 })
 export class CommentaryModule {

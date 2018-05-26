@@ -5,6 +5,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ArticlesDirective} from './articles.directive';
 import {ArticlesListComponent} from '../../components/articles-list/articles-list.component';
+import {BreadcrumbService} from '../../services/channel.service';
 
 
 @Component({
@@ -58,6 +59,7 @@ export class ArticlesComponent implements OnInit {
     private componentFactoryResolver: ComponentFactoryResolver,
     private route: ActivatedRoute,
     private router: Router,
+    private breadcrumbService: BreadcrumbService
     ) { }
 
   ngOnInit() {
@@ -68,9 +70,15 @@ export class ArticlesComponent implements OnInit {
     const currentUrl = this.router.url;
     if (currentUrl.match('articles/all$')) {
       this._pattern = 'all';
+
+      this.breadcrumbService.setBreadcrumb(['Articles', 'all']);
+
       this.getAllArticles(this.pageIndex);
     } else if (currentUrl.match('articles/category/\\d+$')) {
       this._pattern = 'category';
+
+      this.breadcrumbService.setBreadcrumb(['Articles', 'category']);
+
       this.params$ = this.route.firstChild.paramMap;
       this.params$.subscribe(params => {
         this._categoryId = +params.get('_categoryId');
@@ -78,10 +86,11 @@ export class ArticlesComponent implements OnInit {
       });
     } //  else if (currentUrl.match('articles/search$')) {
     //   this._pattern = 'search';
+    //   this.breadcrumbService.setBreadcrumb(['Articles', 'search'])
     //   this.getArticlesBySearch('', this.pageIndex);
     // }
-
     this.route.url.subscribe(data => console.log(data, this._categoryId));
+
   }
 
   getAllArticles(pageIndex: number) {

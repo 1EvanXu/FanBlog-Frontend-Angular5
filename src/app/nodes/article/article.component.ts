@@ -4,6 +4,7 @@ import {ArticleContentService} from '../../services/article-content.service';
 import {ActivatedRoute, Router, ParamMap} from '@angular/router';
 import {delay, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
+import {BreadcrumbService} from '../../services/channel.service';
 
 @Component({
   template: `
@@ -24,7 +25,9 @@ export class ArticleComponent implements OnInit {
   constructor(
     private service: ArticleContentService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private breadcrumbService: BreadcrumbService) {
+    this.breadcrumbService.setBreadcrumb(['Article', 'content']);
+  }
 
   ngOnInit() {
     this.article$ = this.route.paramMap.pipe(

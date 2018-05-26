@@ -1,7 +1,8 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {ChildCommentary, Commentary} from '../../../entities/commentary';
+import {ChildCommentary, Commentary, CommonCommentary} from '../../../entities/commentary';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommentComponent} from '../comment/comment.component';
+import {ReplyService} from '../../../services/channel.service';
 
 @Component({
   selector: 'app-commentary-item',
@@ -63,9 +64,9 @@ export class CommentaryItemComponent implements OnInit {
   @Input()
   isChildCommentary = false;
   @Input()
-  commentary: Commentary | ChildCommentary;
+  commentary: Commentary|ChildCommentary;
   showReply = false;
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private replyService: ReplyService) { }
   ngOnInit() {
     // console.log('CommentaryItemComponent=======>', this.commentary);
   }
@@ -79,10 +80,17 @@ export class CommentaryItemComponent implements OnInit {
   }
 
   reply() {
-    if (this.commentary instanceof ChildCommentary) {
+    if (this.isChildCommentary) {
+      this.replyService.setInfo({
+        parentCommentary: (<ChildCommentary>this.commentary).parentCommentary,
+        replyTo:  {id: (<ChildCommentary>this.commentary).commentaryId, name: (<ChildCommentary>this.commentary).commentator}
+      });
+    } else {
+      this.replyService.setInfo({
+        parentCommentary: this.commentary.commentaryId,
+        replyTo:  {id: this.commentary.commentaryId, name: this.commentary.commentator}
+      });
     }
-    // 观察者模式
-    // this.router.navigate(['./comment-box'], {relativeTo: this.route});
   }
 }
 

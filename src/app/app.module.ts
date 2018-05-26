@@ -11,6 +11,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ArticlesModule} from './nodes/articles/articles.module';
 import {AppRoutingModule} from './app-routing.module';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import {BreadcrumbService} from './services/channel.service';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     SidebarModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [BreadcrumbService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

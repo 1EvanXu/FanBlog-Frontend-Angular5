@@ -32,11 +32,11 @@ export class ChildCommentary implements CommonCommentary {
   commentTime: string;
   commentator: string;
   commentaryContent: string;
-  replyTo?: string;
+  replyTo?: number;
 
 
   constructor(parentCommentary: number, commentaryId: number, commentator: string, commentTime: string,
-              commentaryContent: string, replyTo?: string) {
+              commentaryContent: string, replyTo?: number) {
     this.parentCommentary = parentCommentary;
     this.commentaryId = commentaryId;
     this.commentTime = commentTime;
