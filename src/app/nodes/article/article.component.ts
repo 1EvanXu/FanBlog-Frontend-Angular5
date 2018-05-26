@@ -29,13 +29,13 @@ export class ArticleComponent implements OnInit {
   ngOnInit() {
     this.article$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        this.loadArticle(parseInt(params.get('pubId'), 0))
+        this.loadArticle(+params.get('pubId'))
       )
     );
     this.articleLoading = true;
   }
   private loadArticle(pubId: number) {
-    return this.service.loadArticleContent(pubId);
+    return this.service.getArticleContent(pubId);
   }
   get pubId(): number {
     let pubId: number;

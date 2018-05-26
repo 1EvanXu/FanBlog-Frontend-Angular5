@@ -10,7 +10,7 @@ export class Commentary implements CommonCommentary {
   commentator: string;
   commentTime: string;
   commentaryContent: string;
-  childCommentaries?: ChildCommentary[];
+  childCommentaries: ChildCommentary[];
   constructor(
     commentaryId: number,
     commentator: string,
@@ -27,6 +27,7 @@ export class Commentary implements CommonCommentary {
 }
 
 export class ChildCommentary implements CommonCommentary {
+  parentCommentary: number;
   commentaryId: number;
   commentTime: string;
   commentator: string;
@@ -34,11 +35,20 @@ export class ChildCommentary implements CommonCommentary {
   replyTo?: string;
 
 
-  constructor(commentaryId: number, commentator: string, commentTime: string, commentaryContent: string, replyTo?: string) {
+  constructor(parentCommentary: number, commentaryId: number, commentator: string, commentTime: string,
+              commentaryContent: string, replyTo?: string) {
+    this.parentCommentary = parentCommentary;
     this.commentaryId = commentaryId;
     this.commentTime = commentTime;
     this.commentator = commentator;
     this.commentaryContent = commentaryContent;
     this.replyTo = replyTo;
   }
+}
+
+export class Comment {
+  parent?: number;
+  replyTo?: number;
+  commentator: string;
+  content: string;
 }

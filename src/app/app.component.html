@@ -1,14 +1,23 @@
 <nz-layout class="layout">
-  <!--<nz-header>-->
-    <!--<div>-->
-      <!--<div class="logo"></div>-->
-      <!--<ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 63px;">-->
-        <!--<li nz-menu-item>FM</li>-->
-        <!--<li nz-menu-item>IP Location</li>-->
-        <!--<li nz-menu-item>Message</li>-->
-      <!--</ul>-->
-    <!--</div>-->
-  <!--</nz-header>-->
+  <nz-header>
+    <div>
+      <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 63px;">
+        <li>
+          <img class="logo" src="../assets/logo.png">
+        </li>
+        <li nz-menu-item>FM</li>
+        <li nz-menu-item>IP Location</li>
+        <li nz-menu-item>Message</li>
+        <li nz-menu-item>About</li>
+        <li nz-menu-item style="float: right">
+          Login
+        </li>
+        <li>
+          <nz-input [nzType]="'search'" style="width: 180px;margin-left: 100px"></nz-input>
+        </li>
+      </ul>
+    </div>
+  </nz-header>
   <nz-content style="padding:0 30px;">
     <div nz-row [nzGutter]="5">
       <div nz-col [nzOffset]="4" [nzSm]="24" [nzMd]="16">

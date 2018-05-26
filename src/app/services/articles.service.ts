@@ -13,7 +13,7 @@ export class ArticlesService {
   /*
   * return: Observable<{'ArticleItems': ArticleItem[], 'totalNumber': number}>
   * */
-  getArticles(pageIndex: number): Observable<{articleItems: ArticleItem[], totalNumber: number}> {
+  getAllArticles(pageIndex: number): Observable<Data> {
     switch (pageIndex) {
       case 1: return of({articleItems: ARTICLE_ITEMS_1, totalNumber: 18}).pipe(delay(2000));
       case 2: return of({articleItems: ARTICLE_ITEMS_2, totalNumber: 18}).pipe(delay(2000));
@@ -21,7 +21,19 @@ export class ArticlesService {
     }
     return of({articleItems: ARTICLE_ITEMS, totalNumber: 6});
   }
-  getArticlesByCategory(categoryId: number, pageIndex: number) {
+  getArticlesByCategory(categoryId: number, pageIndex: number): Observable<Data> {
+    switch (pageIndex) {
+      case 2: return of({articleItems: ARTICLE_ITEMS_2, totalNumber: 12, categoryName: 'category1'}).pipe(delay(2000));
+      case 1: return of({articleItems: ARTICLE_ITEMS_3, totalNumber: 12, categoryName: 'category2'}).pipe(delay(2000));
+    }
   }
-  getArticlesBySearch(pageIndex: number) {}
+  getArticlesBySearch(keywords: string, pageIndex: number): Observable<Data> {
+    return of({articleItems: ARTICLE_ITEMS, totalNumber: 6});
+  }
+}
+
+class Data {
+  articleItems: ArticleItem[];
+  totalNumber: number;
+  categoryName?: string;
 }

@@ -1,5 +1,6 @@
 import {ChildCommentary, Commentary} from '../entities/commentary';
 const childCommentary1_1 = new ChildCommentary(
+  1,
   2,
   'child-commentator1-1',
   '2018-05-17 16:27',
@@ -7,6 +8,7 @@ const childCommentary1_1 = new ChildCommentary(
 ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
 );
 const childCommentary1_2 = new ChildCommentary(
+  1,
    3,
   'child-commentator1-2',
   '2018-05-17 16:27',
@@ -14,6 +16,7 @@ const childCommentary1_2 = new ChildCommentary(
 ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
 );
 const childCommentary1_3 = new ChildCommentary(
+  1,
   4,
   'child-commentator1-3',
   '2018-05-17 16:27',
@@ -21,6 +24,7 @@ const childCommentary1_3 = new ChildCommentary(
   ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
 );
 const childCommentary1_4 = new ChildCommentary(
+  1,
   4,
   'child-commentator1-3',
   '2018-05-17 16:27',
@@ -28,6 +32,7 @@ const childCommentary1_4 = new ChildCommentary(
   ' test commentary content test commentary content test commentary content test commentary content test commentary content test',
 );
 const childCommentary1_5 = new ChildCommentary(
+  1,
   5,
   'child-commentator1-3',
   '2018-05-17 16:27',
@@ -44,6 +49,7 @@ const parentCommentary1 = new Commentary(
 );
 
 const childCommentary2_1 = new ChildCommentary(
+  2,
   9,
   'child-commentator2-1',
   '2018-05-17 16:27',
@@ -52,6 +58,7 @@ const childCommentary2_1 = new ChildCommentary(
 
 );
 const childCommentary2_2 = new ChildCommentary(
+  2,
   10,
   'child-commentator2-2',
   '2018-05-17 16:27',

@@ -7,7 +7,6 @@ import {delay} from 'rxjs/operators';
 @Injectable()
 export class SidebarService {
 
-  constructor() { }
   getLatestArticles() {
     return of(LATEST_ARTICLES).pipe(delay(1000));
   }

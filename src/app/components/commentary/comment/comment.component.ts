@@ -31,20 +31,24 @@ import {Component, OnInit, DoCheck, Input} from '@angular/core';
   ]
 })
 export class CommentComponent implements OnInit, DoCheck {
+  static parentCommentary: number;
+  static replyTo: number;
   isSending = false;
-  result: 'success'|'sending'|'failed';
+  result: 'success'|'failed';
   showAlert = false;
   commentContent = '';
-  private oldCommentContent = '';
+  commentator: string;
   isEmptyContent = true;
+  private _oldCommentContent = '';
+  @Input() pubId: number;
   constructor() { }
 
   ngOnInit() {
   }
   ngDoCheck() {
-    if (this.commentContent !== this.oldCommentContent) {
+    if (this.commentContent !== this._oldCommentContent) {
       this.isEmptyContent = this.commentContent.length <= 5;
-      this.oldCommentContent = this.commentContent;
+      this._oldCommentContent = this.commentContent;
     }
   }
   comment() {
@@ -54,58 +58,8 @@ export class CommentComponent implements OnInit, DoCheck {
       this.showAlert = true;
     }, 3000);
     this.isSending = true;
-    this.result = 'sending';
     this.showAlert = false;
   }
 }
 
-@Component({
-  selector: 'app-comment-alert',
-  template: `
-    <div class="comment-alert" [hidden]="!showAlert" >
-      <span [ngStyle]="textStyle">
-        <i [ngClass]="alertIcon"></i>
-        &nbsp;{{alertMessage}}
-      </span>
-    </div>
-  `,
-  styles: [`
-    .comment-alert {
-      text-align: center; margin-top: 10px
-    }
-  `]
-})
-export class CommentAlertComponent {
-  @Input()
-  alertType: 'success'|'sending'|'failed';
-  @Input()
-  showAlert: boolean;
-  get textStyle() {
-    let textColor;
-    switch (this.alertType) {
-      case 'success': textColor = 'green'; break;
-      case 'sending': textColor = 'dodgerblue'; break;
-      case 'failed': textColor = 'red'; break;
-      case defaultStatus: textColor = 'gray';
-    }
-    return {'color': textColor};
-  }
-  get alertIcon() {
-    return {
-      'anticon': true,
-      'anticon-check-circle-o': this.alertType === 'success',
-      'anticon-close-circle-o': this.alertType === 'failed',
-      'anticon-loading anticon-spin': this.alertType === 'sending'
-    };
-  }
-  get alertMessage(): string {
-    let message;
-    switch (this.alertType) {
-      case 'success': message = 'Comment success!'; break;
-      case 'sending': message = 'Sending...'; break;
-      case 'failed': message = 'Comment failed!'; break;
-      case defaultStatus: message = 'gray';
-    }
-    return message;
-  }
-}
+

@@ -6,7 +6,9 @@ import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class ArticleContentService {
-  loadArticleContent(pubId: number): Observable<Article> {
+  getArticleContent(pubId: number): Observable<Article> {
     return of(findArticleByPubId(pubId));
+  }
+  vote(pubId: number) {
   }
 }
