@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, DoCheck, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/core';
 import {ArticleItem} from '../../entities/article-item';
 import {ArticlesService} from '../../services/articles.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CommentaryComponent, CommentaryListComponent} from './commentary-list.component';
+import {CommentaryListComponent} from './commentary-list.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {CommentaryItemBoxComponent} from '../commentary-item-box/commentary-item-box.component';
 import {CommentaryItemComponent} from '../commentary-item/commentary-item.component';
@@ -12,7 +12,7 @@ describe('CommentaryListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NgZorroAntdModule.forRoot()],
-      declarations: [ CommentaryListComponent, CommentaryComponent, CommentaryItemBoxComponent, CommentaryItemComponent ]
+      declarations: [ CommentaryListComponent, CommentaryItemBoxComponent, CommentaryItemComponent ]
     })
     .compileComponents();
   }));

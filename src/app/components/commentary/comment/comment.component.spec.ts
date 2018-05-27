@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CommentAlertComponent, CommentComponent} from './comment.component';
+import { CommentComponent} from './comment.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {FormsModule} from '@angular/forms';
 
@@ -14,7 +14,7 @@ describe('CommentComponent', () => {
         FormsModule,
         NgZorroAntdModule.forRoot()
       ],
-      declarations: [ CommentComponent, CommentAlertComponent ]
+      declarations: [ CommentComponent]
     })
     .compileComponents();
   }));
