@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Article} from '../../entities/article';
+import {Article} from '../../data-model/article';
 import {ArticleContentService} from '../../services/article-content.service';
 import {ActivatedRoute, Router, ParamMap} from '@angular/router';
 import {delay, switchMap} from 'rxjs/operators';

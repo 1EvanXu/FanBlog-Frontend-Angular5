@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ArticleItem} from '../../entities/article-item';
+import {ArticleItem} from '../../data-model/article-item';
 
 @Component({
   selector: 'app-article-item',
   template: `
     <div class="article-item">
       <div nz-row style="padding: 2px;">
-        <h1><a [routerLink]="['/article', articleItem.pubId]" style="text-decoration-line: none">{{articleItem.title}}</a></h1>
+        <h1><a [routerLink]="['/blog/article', articleItem.pubId]" style="text-decoration-line: none">{{articleItem.title}}</a></h1>
       </div>
       <div nz-row class="article-abstract">
         <p>{{articleItem.abstract | slice: 0:300}}</p>

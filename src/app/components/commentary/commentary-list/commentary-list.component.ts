@@ -1,5 +1,5 @@
 import {Component, ComponentFactoryResolver, Input, OnInit, Type, ViewChild} from '@angular/core';
-import {Commentary} from '../../../entities/commentary';
+import {Commentary} from '../../../data-model/commentary';
 import {CommentaryService} from '../../../services/commentary.service';
 import {CommentariesDirective} from '../commentaries.directive';
 

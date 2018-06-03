@@ -1,7 +1,7 @@
 import {Component, ComponentFactoryResolver, Input, OnInit, ViewChild} from '@angular/core';
 import {CommentaryService} from '../../services/commentary.service';
 import {CommentariesDirective} from './commentaries.directive';
-import {Commentary} from '../../entities/commentary';
+import {Commentary} from '../../data-model/commentary';
 import {CommentaryListComponent} from './commentary-list/commentary-list.component';
 
 @Component({

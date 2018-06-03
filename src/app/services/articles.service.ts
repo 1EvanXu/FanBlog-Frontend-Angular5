@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {ARTICLE_ITEMS, ARTICLE_ITEMS_1, ARTICLE_ITEMS_2, ARTICLE_ITEMS_3} from '../mock-data/article-items';
 import {of} from 'rxjs/observable/of';
 import {Observable} from 'rxjs/Observable';
-import {ArticleItem} from '../entities/article-item';
+import {ArticleItem} from '../data-model/article-item';
 import {delay} from 'rxjs/operators';
 
 

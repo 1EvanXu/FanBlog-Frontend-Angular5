@@ -8,18 +8,18 @@ import {RouterModule, Routes} from '@angular/router';
 import {SideToolKitsComponent} from '../../components/side-tool-kits/side-tool-kits.component';
 import {ArticleContentService} from '../../services/article-content.service';
 
-const articleRoutes: Routes = [
-  {
-    path: 'article/:pubId',
-    component: ArticleComponent
-  }
-];
+// const articleRoutes: Routes = [
+//   {
+//     path: 'article/:pubId',
+//     component: ArticleComponent
+//   }
+// ];
 
 @NgModule({
   imports: [
     CommonModule,
     CommentaryModule,
-    RouterModule.forChild(articleRoutes),
+    // RouterModule.forChild(articleRoutes),
     NgZorroAntdModule.forRoot()
   ],
   declarations: [
@@ -27,9 +27,7 @@ const articleRoutes: Routes = [
     ArticleContentComponent,
     SideToolKitsComponent,
   ],
-  exports: [
-    ArticleComponent
-  ],
+  exports: [],
   providers: [ArticleContentService]
 })
 export class ArticleModule { }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SideInformation} from '../../entities/side-information';
+import {SideInformation} from '../../data-model/side-information';
 
 @Component({
   selector: 'app-side-info',

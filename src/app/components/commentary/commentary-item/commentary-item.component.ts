@@ -1,5 +1,5 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {ChildCommentary, Commentary, CommonCommentary} from '../../../entities/commentary';
+import {ChildCommentary, Commentary, CommonCommentary} from '../../../data-model/commentary';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommentComponent} from '../comment/comment.component';
 import {ReplyService} from '../../../services/channel.service';

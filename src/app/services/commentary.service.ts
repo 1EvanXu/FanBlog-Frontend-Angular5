@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {of} from 'rxjs/observable/of';
 import {COMMENTARIES_1, COMMENTARIES_2} from '../mock-data/commentaries';
 import {Observable} from 'rxjs/Observable';
-import {Commentary, Comment} from '../entities/commentary';
+import {Commentary, Comment} from '../data-model/commentary';
 
 
 @Injectable()

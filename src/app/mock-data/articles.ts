@@ -5,7 +5,7 @@ import { CONTENT_3 } from './articles/article-3';
 import { CONTENT_4 } from './articles/article-4';
 import { CONTENT_5 } from './articles/article-5';
 import { CONTENT_6 } from './articles/article-6';
-import {Article} from '../entities/article';
+import {Article} from '../data-model/article';
 
 const article1 = {
     pubId: 18051701,

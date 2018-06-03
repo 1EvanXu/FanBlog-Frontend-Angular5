@@ -1,4 +1,4 @@
-import {ChildCommentary, Commentary} from '../entities/commentary';
+import {ChildCommentary, Commentary} from '../data-model/commentary';
 const childCommentary1_1 = new ChildCommentary(
   1,
   2,

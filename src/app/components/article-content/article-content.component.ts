@@ -1,5 +1,5 @@
 import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
-import {Article} from '../../entities/article';
+import {Article} from '../../data-model/article';
 import {DomSanitizer} from '@angular/platform-browser';
 
 

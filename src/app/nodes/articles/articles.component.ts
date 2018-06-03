@@ -1,5 +1,5 @@
 import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/core';
-import {ArticleItem} from '../../entities/article-item';
+import {ArticleItem} from '../../data-model/article-item';
 import {ArticlesService} from '../../services/articles.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
@@ -81,7 +81,7 @@ export class ArticlesComponent implements OnInit {
 
       this.params$ = this.route.firstChild.paramMap;
       this.params$.subscribe(params => {
-        this._categoryId = +params.get('_categoryId');
+        this._categoryId = +params.get('categoryId');
         this.getArticlesByCategory(this._categoryId, this.pageIndex);
       });
     } //  else if (currentUrl.match('articles/search$')) {
@@ -89,7 +89,7 @@ export class ArticlesComponent implements OnInit {
     //   this.breadcrumbService.setBreadcrumb(['Articles', 'search'])
     //   this.getArticlesBySearch('', this.pageIndex);
     // }
-    this.route.url.subscribe(data => console.log(data, this._categoryId));
+    this.route.url.subscribe(data => console.log(this.route, this._categoryId));
 
   }
 

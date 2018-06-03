@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SidebarService} from '../../services/sidebar.service';
-import {SideInformation} from '../../entities/side-information';
+import {SideInformation} from '../../data-model/side-information';
 
 @Component({
   selector: 'app-sidebar',

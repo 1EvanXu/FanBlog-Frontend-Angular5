@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, HostListener} from '@angular/core';
-import {ChildCommentary, Commentary} from '../../../entities/commentary';
+import {ChildCommentary, Commentary} from '../../../data-model/commentary';
 
 @Component({
   selector: 'app-commentary-item-box',

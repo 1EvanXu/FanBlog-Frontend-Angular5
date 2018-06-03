@@ -1,4 +1,4 @@
-import {ArticleItem} from '../entities/article-item';
+import {ArticleItem} from '../data-model/article-item';
 
 const BASE_URL = '';
 const item1 = {
