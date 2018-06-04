@@ -1,7 +1,7 @@
 /*!
- * HTML data-model dialog plugin for Editor.md
+ * HTML entities dialog plugin for Editor.md
  *
- * @file        html-data-model-dialog.js
+ * @file        html-entities-dialog.js
  * @author      pandao
  * @version     1.2.0
  * @updateTime  2015-03-08
@@ -14,7 +14,7 @@
 	var factory = function (exports) {
 
 		var $            = jQuery;
-		var pluginName   = "html-data-model-dialog";
+		var pluginName   = "html-entities-dialog";
 		var selecteds    = [];
 		var entitiesData = [];
 
@@ -33,7 +33,7 @@
 			var dialogLang  = lang.dialog.htmlEntities;
 
 			var dialogContent = [
-				'<div class="' + classPrefix + 'html-data-model-box" style=\"width: 760px;height: 334px;margin-bottom: 8px;overflow: hidden;overflow-y: auto;\">',
+				'<div class="' + classPrefix + 'html-entities-box" style=\"width: 760px;height: 334px;margin-bottom: 8px;overflow: hidden;overflow-y: auto;\">',
 				'<div class="' + classPrefix + 'grid-table">',
 				'</div>',
 				'</div>',
@@ -41,7 +41,7 @@
 
 			cm.focus();
 
-			if (editor.find("." + dialogName).length > 0)
+			if (editor.find("." + dialogName).length > 0) 
 			{
                 dialog = editor.find("." + dialogName);
 
@@ -51,7 +51,7 @@
 				this.dialogShowMask(dialog);
 				this.dialogLockScreen();
 				dialog.show();
-			}
+			} 
 			else
 			{
 				dialog = this.createDialog({
@@ -68,21 +68,21 @@
 						backgroundColor : settings.dialogMaskBgColor
 					},
 					buttons    : {
-						enter  : [lang.buttons.enter, function() {
+						enter  : [lang.buttons.enter, function() {							
 							cm.replaceSelection(selecteds.join(" "));
 							this.hide().lockScreen(false).hideMask();
-
+							
 							return false;
 						}],
-						cancel : [lang.buttons.cancel, function() {
+						cancel : [lang.buttons.cancel, function() {                           
 							this.hide().lockScreen(false).hideMask();
-
+							
 							return false;
 						}]
 					}
 				});
 			}
-
+				
 			var table = dialog.find("." + classPrefix + "grid-table");
 
 			var drawTable = function() {
@@ -93,15 +93,15 @@
 				var pageTotal = Math.ceil(entitiesData.length / rowNumber);
 
 				table.html("");
-
+				
 				for (var i = 0; i < pageTotal; i++)
 				{
 					var row = "<div class=\"" + classPrefix + "grid-table-row\">";
-
+					
 					for (var x = 0; x < rowNumber; x++)
 					{
 						var entity = entitiesData[(i * rowNumber) + x];
-
+						
 						if (typeof entity !== "undefined")
 						{
 							var name = entity.name.replace("&amp;", "&");
@@ -109,24 +109,24 @@
 							row += "<a href=\"javascript:;\" value=\"" + entity.name + "\" title=\"" + name + "\" class=\"" + classPrefix + "html-entity-btn\">" + name + "</a>";
 						}
 					}
-
+					
 					row += "</div>";
-
+					
 					table.append(row);
 				}
 
 				dialog.find("." + classPrefix + "html-entity-btn").bind(exports.mouseOrTouch("click", "touchend"), function() {
 					$(this).toggleClass("selected");
 
-					if ($(this).hasClass("selected"))
+					if ($(this).hasClass("selected")) 
 					{
 						selecteds.push($(this).attr("value"));
 					}
 				});
 			};
-
-			if (entitiesData.length < 1)
-			{
+			
+			if (entitiesData.length < 1) 
+			{            
 				if (typeof (dialog.loading) == "function") dialog.loading(true);
 
 				$.getJSON(path + pluginName.replace("-dialog", "") + ".json", function(json) {
@@ -138,16 +138,16 @@
 				});
 			}
 			else
-			{
+			{		
 				drawTable();
 			}
 		};
 
 	};
-
+    
 	// CommonJS/Node.js
 	if (typeof require === "function" && typeof exports === "object" && typeof module === "object")
-    {
+    { 
         module.exports = factory;
     }
 	else if (typeof define === "function")  // AMD/CMD/Sea.js
@@ -164,7 +164,7 @@
                 factory(editormd);
             });
 		}
-	}
+	} 
 	else
 	{
         factory(window.editormd);
