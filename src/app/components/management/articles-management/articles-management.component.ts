@@ -1,44 +1,41 @@
-import { Component, OnInit } from '@angular/core';
 
-@Component({
-  selector: 'app-articles-management',
-  template: `
-    <div>
-      <h3 style="border-left: deepskyblue 3px solid; margin-bottom: 10px"><span style="margin-left: 10px">Articles Management</span></h3>
-      <nz-tabset>
-        <nz-tab>
-          <ng-template #nzTabHeading>
-            All
-          </ng-template>
-        </nz-tab>
-        <nz-tab>
-          <ng-template #nzTabHeading>
-            Published
-          </ng-template>
-          <span>content</span>
-        </nz-tab>
-        <nz-tab>
-          <ng-template #nzTabHeading>
-            Draft
-          </ng-template>
-          <span>content</span>
-        </nz-tab>
-        <nz-tab>
-          <ng-template #nzTabHeading>
-            Deleted
-          </ng-template>
-          <span>content</span>
-        </nz-tab>
-      </nz-tabset>
-    </div>
-  `,
-  styles: []
-})
-export class ArticlesManagementComponent implements OnInit {
+export abstract class ArticlesManagementComponent {
 
-  constructor() { }
+  allChecked = false;
+  disabledButton = true;
+  checkedNumber = 0;
+  dataSet = [];
+  indeterminate = false;
+  loadingData = false;
+  deleting = false;
+  totalNumberOfItems: number;
+  pageSize = 10;
+  checkedArticleIds = [];
+  protected constructor() { }
 
-  ngOnInit() {
+  get shouldPagination(): boolean {
+    return this.totalNumberOfItems > this.pageSize;
   }
 
+  refreshCheckStatus() {
+    const allChecked = this.dataSet.every(value => value.checked === true);
+    const allUnChecked = this.dataSet.every(value => !value.checked);
+    this.allChecked = allChecked;
+    this.indeterminate = (!allChecked) && (!allUnChecked);
+    this.disabledButton = !this.dataSet.some(value => value.checked);
+    this.checkedArticleIds = this.dataSet.filter(value => value.checked).map(value => value.id);
+    this.checkedNumber = this.checkedArticleIds.length;
+  }
+
+  checkAll(value) {
+    if (value) {
+      this.dataSet.forEach(data => data.checked = true);
+    } else {
+      this.dataSet.forEach(data => data.checked = false);
+    }
+    this.refreshCheckStatus();
+  }
+
+  abstract getDataSet(pageIndex: number);
 }
+

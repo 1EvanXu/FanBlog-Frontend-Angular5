@@ -21,20 +21,27 @@ import { Component, OnInit } from '@angular/core';
       </nz-header>
       <nz-content style="padding:60px 50px;">
         <nz-layout style="padding:24px 0px; background: #fff;">
-          <nz-sider [nzWidth]="200" style="background:#fff">
+          <nz-sider [nzWidth]="230" style="background:#fff">
             <ul nz-menu [nzMode]="'inline'" style="height:100%">
-              <li nz-menu-item>
-                <span title><i class="anticon anticon-file-text"></i>Articles Management</span>
+              <li nz-submenu [nzOpen]="true">
+                <span title class="management-menu-title"><i class="anticon anticon-file-text"></i>Articles Management</span>
+                <ul>
+                  <li nz-menu-item><a [routerLink]="['/management/articles/all']">All Articles</a></li>
+                  <li nz-menu-item><a [routerLink]="['/management/articles/published']">Published Articles</a></li>
+                  <li nz-menu-item><a [routerLink]="['/management/articles/draft']">Drafts</a></li>
+                  <li nz-menu-item><a [routerLink]="['/management/articles/deleted']">Deleted Articles</a></li>
+                </ul>
               </li>
               <li nz-menu-item>
-                <span title><i class="anticon anticon-tags"></i>Category Management</span>
+                <span title class="management-menu-title"><i class="anticon anticon-tags"></i>Category Management</span>
               </li>
               <li nz-menu-item>
-                <span title><i class="anticon anticon-mail"></i>Message</span>
+                <span title class="management-menu-title"><i class="anticon anticon-mail"></i>Message</span>
               </li>
             </ul>
           </nz-sider>
           <nz-content style="padding: 24px; min-height: 500px;">
+            <router-outlet></router-outlet>
           </nz-content>
         </nz-layout>
       </nz-content>
@@ -52,6 +59,9 @@ import { Component, OnInit } from '@angular/core';
     :host ::ng-deep .ant-layout-header {
       background: white;
     }
+      .management-menu-title {
+        font-size: 14px;
+      }
     `],
 })
 export class ManagementComponent implements OnInit {
