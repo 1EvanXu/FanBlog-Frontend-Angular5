@@ -10,7 +10,6 @@ export class PublishedArticleItem {
   visitorCount: number;
   voteCount: number;
   commentaryCount: number;
-  link?: string;
 
   constructor(
     pubId: number,
@@ -21,8 +20,7 @@ export class PublishedArticleItem {
     category: string,
     visitorCount: number,
     voteCount: number,
-    commentaryCount: number,
-    link?: string) {
+    commentaryCount: number) {
     this.pubId = pubId;
     this.title = title;
     this.abstract = abstract;
@@ -32,7 +30,6 @@ export class PublishedArticleItem {
     this.visitorCount = visitorCount;
     this.voteCount = voteCount;
     this.commentaryCount = commentaryCount;
-    this.link = link;
   }
   public static createInstance(object: Object): PublishedArticleItem {
     return new PublishedArticleItem(
@@ -45,7 +42,6 @@ export class PublishedArticleItem {
       object['visitorCount'],
       object['voteCount'],
       object['commentaryCount'],
-      object['link'],
     );
   }
 }

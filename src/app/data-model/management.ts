@@ -43,6 +43,11 @@ export class DraftsManagementListItem {
   latestModify: string | Date;
 }
 
+export class DraftsManagementList {
+  totalNumberOfItems: number;
+  items: DraftsManagementListItem[];
+}
+
 export enum ManagementOperationResult {
   Success = 'Success',
   Failed = 'Failed'
