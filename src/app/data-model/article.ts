@@ -1,35 +1,27 @@
 export  class Article {
-  pubId: number;
+  id: number;
   title: string;
-  pubTime: string;
   type: string;
-  category: string;
-  visitorCount: number;
-  voteCount: number;
-  content: string;
+  createdTime: string | Date;
+  latestModify: string | Date;
+  htmlContent: string;
+  markdownContent: string;
+  status = ArticleStatus.Editing;
+}
 
+export class ArticleCategory {
+  id: number;
+  name: string;
+}
 
-  constructor(pubId: number, title: string, pubTime: string, type: string, category: string,
-              visitorCount: number, voteCount: number, content: string) {
-    this.pubId = pubId;
-    this.title = title;
-    this.pubTime = pubTime;
-    this.type = type;
-    this.category = category;
-    this.visitorCount = visitorCount;
-    this.voteCount = voteCount;
-    this.content = content;
-  }
-  public static createInstance(object: Object): Article {
-    return new Article(
-      object['pubId'],
-      object['title'],
-      object['pubTime'],
-      object['type'],
-      object['category'],
-      object['visitorCount'],
-      object['voteCount'],
-      object['content'],
-    );
-  }
+export enum ArticleType {
+  Original = 'Original',
+  Reproduced = 'Reproduced',
+  Translation = 'Translation'
+}
+
+export enum ArticleStatus {
+  Published = 'Published',
+  Editing = 'Editing',
+  Deleted = 'Deleted'
 }

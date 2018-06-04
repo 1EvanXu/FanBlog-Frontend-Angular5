@@ -1,11 +1,11 @@
 import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/core';
-import {ArticleItem} from '../../data-model/article-item';
 import {ArticlesService} from '../../services/articles.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ArticlesDirective} from './articles.directive';
 import {ArticlesListComponent} from '../../components/articles-list/articles-list.component';
 import {BreadcrumbService} from '../../services/channel.service';
+import {PublishedArticleItem} from '../../data-model/publised-article-item';
 
 
 @Component({
@@ -43,7 +43,7 @@ import {BreadcrumbService} from '../../services/channel.service';
   ],
 })
 export class ArticlesComponent implements OnInit {
-  articleItemsList: ArticleItem[];
+  articleItemsList: PublishedArticleItem[];
   params$: Observable<ParamMap>;
   loading: boolean;
   totalNumberOfArticles: number;
@@ -133,7 +133,7 @@ export class ArticlesComponent implements OnInit {
   //     () => { this.loading = false; this.firstInit =  false; }
   //   );
   // }
-  private loadArticlesListComponent(list: ArticleItem[]) {
+  private loadArticlesListComponent(list: PublishedArticleItem[]) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ArticlesListComponent);
     const viewContainerRef = this.articlesDirective.viewContainerRef;
     viewContainerRef.clear();

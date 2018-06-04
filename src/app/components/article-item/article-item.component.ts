@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ArticleItem} from '../../data-model/article-item';
+import {PublishedArticleItem} from '../../data-model/publised-article-item';
 
 @Component({
   selector: 'app-article-item',
@@ -67,7 +67,7 @@ import {ArticleItem} from '../../data-model/article-item';
 })
 export class ArticleItemComponent implements OnInit {
 
-  @Input() articleItem: ArticleItem;
+  @Input() articleItem: PublishedArticleItem;
 
   constructor() { }
 

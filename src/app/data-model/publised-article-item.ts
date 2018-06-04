@@ -1,9 +1,11 @@
-export class ArticleItem {
+import {ArticleType} from './article';
+
+export class PublishedArticleItem {
   pubId: number;
   title: string;
   abstract: string;
   pubTime: string;
-  type: string;
+  type: ArticleType;
   category: string;
   visitorCount: number;
   voteCount: number;
@@ -15,7 +17,7 @@ export class ArticleItem {
     title: string,
     abstract: string,
     pubTime: string,
-    type: string,
+    type: ArticleType,
     category: string,
     visitorCount: number,
     voteCount: number,
@@ -32,8 +34,8 @@ export class ArticleItem {
     this.commentaryCount = commentaryCount;
     this.link = link;
   }
-  public static createInstance(object: Object): ArticleItem {
-    return new ArticleItem(
+  public static createInstance(object: Object): PublishedArticleItem {
+    return new PublishedArticleItem(
       object['pubId'],
       object['title'],
       object['abstract'],

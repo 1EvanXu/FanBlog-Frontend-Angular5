@@ -1,5 +1,5 @@
 import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
-import {Article} from '../../data-model/article';
+import {PublishedArticle} from '../../data-model/published-article';
 import {DomSanitizer} from '@angular/platform-browser';
 
 
@@ -10,7 +10,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class ArticleContentComponent implements OnInit, AfterViewChecked {
   @Input()
-  article: Article;
+  article: PublishedArticle;
   @Input()
   loading: boolean;
   constructor(private sanitizer: DomSanitizer) {

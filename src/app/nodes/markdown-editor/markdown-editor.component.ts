@@ -59,17 +59,17 @@ import {ArticlePublishFormComponent} from './article-publish-form/article-publis
     .saved {
       color: forestgreen;
       font-size: 13px;
-      margin: 8px 1px
+      margin: 8px 4px
     }
     .unsaved {
       color: orangered;
       font-size: 13px;
-      margin: 8px 1px
+      margin: 8px 4px
     }
     .saving {
       color: dodgerblue;
       font-size: 13px;
-      margin: 8px 1px
+      margin: 8px 4px
     }
   `]
 })

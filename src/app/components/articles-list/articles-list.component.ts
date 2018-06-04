@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ArticleItem} from '../../data-model/article-item';
+import {PublishedArticleItem} from '../../data-model/publised-article-item';
 
 
 @Component({
@@ -12,7 +12,7 @@ import {ArticleItem} from '../../data-model/article-item';
   styles: []
 })
 export class ArticlesListComponent implements OnInit {
-  @Input() articlesList: Array<ArticleItem>;
+  @Input() articlesList: Array<PublishedArticleItem>;
   constructor() { }
 
   ngOnInit() {

@@ -7,7 +7,6 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
 import { ArticlesTableComponent } from '../../components/management/articles-table/articles-table.component';
 import {FormsModule} from '@angular/forms';
 import { ArticlesManagementComponent } from '../../components/management/articles-management/articles-management.component';
-import { CategoriesTableComponent } from '../../components/management/categories-table/categories-table.component';
 
 @NgModule({
   imports: [
@@ -20,7 +19,6 @@ import { CategoriesTableComponent } from '../../components/management/categories
     ArticlesTableComponent,
     ManagementComponent,
     ArticlesManagementComponent,
-    CategoriesTableComponent
   ]
 })
 export class ManagementModule { }

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Article} from '../../data-model/article';
 import {ArticleContentService} from '../../services/article-content.service';
 import {ActivatedRoute, Router, ParamMap} from '@angular/router';
 import {delay, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {BreadcrumbService} from '../../services/channel.service';
+import {PublishedArticle} from '../../data-model/published-article';
 
 @Component({
   template: `
@@ -20,7 +20,7 @@ import {BreadcrumbService} from '../../services/channel.service';
   styles: []
 })
 export class ArticleComponent implements OnInit {
-  article$: Observable<Article>;
+  article$: Observable<PublishedArticle>;
   articleLoading: boolean;
   constructor(
     private service: ArticleContentService,

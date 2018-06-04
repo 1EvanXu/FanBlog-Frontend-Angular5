@@ -1,4 +1,4 @@
-import {ArticleItem} from '../data-model/article-item';
+import {PublishedArticleItem} from '../data-model/publised-article-item';
 
 const BASE_URL = '';
 const item1 = {
@@ -104,43 +104,43 @@ const item6 = {
 };
 
 
-export const ARTICLE_ITEMS: ArticleItem[] = [
-  ArticleItem.createInstance(item1),
-  ArticleItem.createInstance(item2),
-  ArticleItem.createInstance(item3),
-  ArticleItem.createInstance(item4),
-  ArticleItem.createInstance(item5),
-  ArticleItem.createInstance(item6),
-  ArticleItem.createInstance(item1),
-  ArticleItem.createInstance(item2),
-  ArticleItem.createInstance(item3),
-  ArticleItem.createInstance(item4),
-  ArticleItem.createInstance(item5),
-  ArticleItem.createInstance(item6)
+export const ARTICLE_ITEMS: PublishedArticleItem[] = [
+  PublishedArticleItem.createInstance(item1),
+  PublishedArticleItem.createInstance(item2),
+  PublishedArticleItem.createInstance(item3),
+  PublishedArticleItem.createInstance(item4),
+  PublishedArticleItem.createInstance(item5),
+  PublishedArticleItem.createInstance(item6),
+  PublishedArticleItem.createInstance(item1),
+  PublishedArticleItem.createInstance(item2),
+  PublishedArticleItem.createInstance(item3),
+  PublishedArticleItem.createInstance(item4),
+  PublishedArticleItem.createInstance(item5),
+  PublishedArticleItem.createInstance(item6)
 ];
 
-export const ARTICLE_ITEMS_1: ArticleItem[] = [
-  ArticleItem.createInstance(item1),
-  ArticleItem.createInstance(item2),
-  ArticleItem.createInstance(item3),
-  ArticleItem.createInstance(item4),
-  ArticleItem.createInstance(item5),
-  ArticleItem.createInstance(item6),
+export const ARTICLE_ITEMS_1: PublishedArticleItem[] = [
+  PublishedArticleItem.createInstance(item1),
+  PublishedArticleItem.createInstance(item2),
+  PublishedArticleItem.createInstance(item3),
+  PublishedArticleItem.createInstance(item4),
+  PublishedArticleItem.createInstance(item5),
+  PublishedArticleItem.createInstance(item6),
 ];
-export const ARTICLE_ITEMS_2: ArticleItem[] = [
-  ArticleItem.createInstance(item4),
-  ArticleItem.createInstance(item5),
-  ArticleItem.createInstance(item6),
-  ArticleItem.createInstance(item1),
-  ArticleItem.createInstance(item2),
-  ArticleItem.createInstance(item3),
+export const ARTICLE_ITEMS_2: PublishedArticleItem[] = [
+  PublishedArticleItem.createInstance(item4),
+  PublishedArticleItem.createInstance(item5),
+  PublishedArticleItem.createInstance(item6),
+  PublishedArticleItem.createInstance(item1),
+  PublishedArticleItem.createInstance(item2),
+  PublishedArticleItem.createInstance(item3),
 ];
 
-export const ARTICLE_ITEMS_3: ArticleItem[] = [
-  ArticleItem.createInstance(item6),
-  ArticleItem.createInstance(item5),
-  ArticleItem.createInstance(item4),
-  ArticleItem.createInstance(item3),
-  ArticleItem.createInstance(item2),
-  ArticleItem.createInstance(item1),
+export const ARTICLE_ITEMS_3: PublishedArticleItem[] = [
+  PublishedArticleItem.createInstance(item6),
+  PublishedArticleItem.createInstance(item5),
+  PublishedArticleItem.createInstance(item4),
+  PublishedArticleItem.createInstance(item3),
+  PublishedArticleItem.createInstance(item2),
+  PublishedArticleItem.createInstance(item1),
 ];
