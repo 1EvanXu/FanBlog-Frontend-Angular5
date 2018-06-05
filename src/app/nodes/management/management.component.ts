@@ -35,9 +35,9 @@ import { Component, OnInit } from '@angular/core';
               <li nz-menu-item>
                 <span title class="management-menu-title"><i class="anticon anticon-tags"></i>Category Management</span>
               </li>
-              <li nz-menu-item>
-                <span title class="management-menu-title"><i class="anticon anticon-mail"></i>Message</span>
-              </li>
+              <!--<li nz-menu-item>-->
+                <!--<span title class="management-menu-title"><i class="anticon anticon-mail"></i>Message</span>-->
+              <!--</li>-->
             </ul>
           </nz-sider>
           <nz-content style="padding: 24px; min-height: 500px;">

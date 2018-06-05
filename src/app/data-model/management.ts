@@ -17,6 +17,7 @@ export class AllArticlesManagementList {
 export class PublishedArticlesManagementListItem {
   id: number;
   title: string;
+  pubId: number;
   type: ArticleType;
   pubTime: string | Date;
 }
@@ -57,5 +58,12 @@ export class ListFilter {
   timeFilterType: 'createdTime' | 'latestModify' | 'pubTime' | null;
   timeFilterOrder: 'ascend' | 'descend' | null;
   articleTypeFilter: ArticleType;
+}
+
+export enum ArticlesManagementType {
+  All = 'All',
+  Publised = 'Published',
+  Draft = 'Draft',
+  Deleted = 'Deleted',
 }
 

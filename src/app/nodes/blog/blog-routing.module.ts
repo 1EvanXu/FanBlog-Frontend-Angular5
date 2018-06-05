@@ -11,7 +11,6 @@ const blogRoutes: Routes = [
     children: [
       {
         path: 'articles',
-        component: ArticlesComponent,
         children: [
           {
             path: 'all',
