@@ -53,7 +53,7 @@ export abstract class ArticlesManagementComponent {
     this.loadingData = true;
     switch (articlesManagementType) {
       case ArticlesManagementType.All: this._getAllArticleManagementList(pageIndex, filter); break;
-      case ArticlesManagementType.Publised: this._getPublishedArticleManagementList(pageIndex, filter); break;
+      case ArticlesManagementType.Published: this._getPublishedArticleManagementList(pageIndex, filter); break;
       case ArticlesManagementType.Draft: this._getDraftsManagementList(pageIndex, filter); break;
       case ArticlesManagementType.Deleted: this._getDeletedArticlesManagementList(pageIndex, filter); break;
     }

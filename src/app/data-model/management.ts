@@ -62,8 +62,24 @@ export class ListFilter {
 
 export enum ArticlesManagementType {
   All = 'All',
-  Publised = 'Published',
+  Published = 'Published',
   Draft = 'Draft',
   Deleted = 'Deleted',
 }
 
+export class CategoriesManagementListItem {
+  id: number;
+  name: string;
+  createdTime: string | Date;
+  numberOfIncludedArticles = 0;
+}
+
+export class CategoriesManagementList {
+  totalNumberOfCategories: number;
+  items: CategoriesManagementListItem[];
+}
+
+export class CategoriesListFilter {
+  type = 'createdTime';
+  order: 'ascend'|'descend'|null;
+}

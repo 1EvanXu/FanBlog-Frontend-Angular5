@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
-import {ArticlesManagementType, ListFilter, ManagementOperationResult} from '../../../../data-model/management';
+import {ArticlesManagementType, ManagementOperationResult} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {delay} from 'rxjs/operators';

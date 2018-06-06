@@ -10,6 +10,7 @@ import { PublishedArticlesManagementComponent } from '../../components/managemen
 import { DraftsManagementComponent } from '../../components/management/articles-management/drafts-management/drafts-management.component';
 import { DeletedArticlesManagementComponent } from '../../components/management/articles-management/deleted-articles-management/deleted-articles-management.component';
 import {ManagementService} from '../../services/management.service';
+import { CategoriesManagementComponent } from '../../components/management/categories-management/categories-management.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import {ManagementService} from '../../services/management.service';
     PublishedArticlesManagementComponent,
     DraftsManagementComponent,
     DeletedArticlesManagementComponent,
+    CategoriesManagementComponent,
   ],
   providers: [ManagementService]
 })

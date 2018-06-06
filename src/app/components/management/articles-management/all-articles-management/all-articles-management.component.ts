@@ -77,9 +77,9 @@ import {NzMessageService} from 'ng-zorro-antd';
         <td nz-td>{{data.createdTime}}</td>
         <td nz-td>{{data.latestModify}}</td>
         <td nz-td [ngSwitch]="data.status">
-            <nz-tag *ngSwitchCase="'Published'" [nzColor]="'green'">Published</nz-tag>
-            <nz-tag *ngSwitchCase="'Editing'" [nzColor]="'blue'">Editing</nz-tag>
-            <nz-tag *ngSwitchCase="'Deleted'" [nzColor]="'red'">Deleted</nz-tag>
+            <nz-tag *ngSwitchCase="'Published'" [nzColor]="'#f50'">Published</nz-tag>
+            <nz-tag *ngSwitchCase="'Editing'" [nzColor]="'#2db7f5'">Editing</nz-tag>
+            <nz-tag *ngSwitchCase="'Deleted'" [nzColor]="'#87d068'">Deleted</nz-tag>
         </td>
         <td nz-td>
           <a *ngIf="data.status === 'Editing'" [routerLink]="['/editor/', data.id]">Edit</a>

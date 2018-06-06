@@ -87,7 +87,7 @@ export class PublishedArticlesManagementComponent extends ArticlesManagementComp
     public _nzMessageService: NzMessageService,
   ) {
     super(_managementService, _nzMessageService);
-    this.articlesManagementType = ArticlesManagementType.Publised;
+    this.articlesManagementType = ArticlesManagementType.Published;
     this.filter = new ListFilter();
   }
 

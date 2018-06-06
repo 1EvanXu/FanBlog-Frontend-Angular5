@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  AllArticlesManagementList,
+  AllArticlesManagementList, CategoriesListFilter, CategoriesManagementList, CategoriesManagementListItem,
   DeletedArticlesManagementList,
   DraftsManagementList,
   ListFilter, ManagementOperationResult,
@@ -9,10 +9,11 @@ import {
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {
-  getAllArticlesManagementList,
+  getAllArticlesManagementList, getCategoriesManagementList,
   getDeletedArticlesManagementList,
   getDraftsManagementList,
-  getPublishedArticlesManagementList} from '../mock-data/articles-management';
+  getPublishedArticlesManagementList
+} from '../mock-data/management';
 
 @Injectable()
 export class ManagementService {
@@ -49,9 +50,16 @@ export class ManagementService {
     return of(ManagementOperationResult.Success);
   }
 
-  getArticleCategories(pageIndex: number) {}
+  getCategoriesManagementList(pageIndex: number, filter?: CategoriesListFilter): Observable<CategoriesManagementList> {
+    return of(getCategoriesManagementList(pageIndex));
+  }
 
-  deleteArticleCategories(categoryIds: number[]) {}
+  deleteArticleCategories(categoryIds: number[]) {
+    return of(ManagementOperationResult.Failed);
+  }
 
+  createCategory(categoryName: string): Observable<ManagementOperationResult> {
+    return of(ManagementOperationResult.Failed);
+  }
 
 }

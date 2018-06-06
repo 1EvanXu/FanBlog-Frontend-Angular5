@@ -5,6 +5,7 @@ import {AllArticlesManagementComponent} from '../../components/management/articl
 import {PublishedArticlesManagementComponent} from '../../components/management/articles-management/published-articles-management/published-articles-management.component';
 import {DraftsManagementComponent} from '../../components/management/articles-management/drafts-management/drafts-management.component';
 import {DeletedArticlesManagementComponent} from '../../components/management/articles-management/deleted-articles-management/deleted-articles-management.component';
+import {CategoriesManagementComponent} from '../../components/management/categories-management/categories-management.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
             pathMatch: 'full'
           }
         ]
+      },
+      {
+        path: 'categories',
+        component: CategoriesManagementComponent
       },
       {
         path: '',
