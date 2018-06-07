@@ -10,12 +10,14 @@ import {AppRoutingModule} from './app-routing.module';
 import {BlogModule} from './nodes/blog/blog.module';
 import {ManagementModule} from './nodes/management/management.module';
 import {MarkdownEditorModule} from './nodes/markdown-editor/markdown-editor.module';
+import { HumanizationPipe } from './components/pipes/humanization.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorComponent,
+    HumanizationPipe,
   ],
   imports: [
     BrowserModule,
