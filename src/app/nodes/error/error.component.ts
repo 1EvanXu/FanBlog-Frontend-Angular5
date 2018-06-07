@@ -25,7 +25,7 @@ import { Component, OnInit } from '@angular/core';
       </table>
     </div>
     <footer>
-      Ant Design ©2017 Implement By Angular
+      Evan.Xu © 2018 Powered By Angular5, AliCloud NG-ZORRO
     </footer>
   `,
   styles: [`

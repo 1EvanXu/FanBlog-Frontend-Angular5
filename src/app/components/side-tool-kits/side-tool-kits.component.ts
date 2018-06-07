@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-side-tool-kits',
@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
           </button>
         </div>
         <div style="margin-bottom: 8px">
-          <button nz-button [nzType]="'default'" [nzShape]="'circle'" routerLink="#comment-box">
+          <button nz-button [nzType]="'default'" [nzShape]="'circle'">
             <i class="anticon anticon-message"></i>
           </button>
         </div>
@@ -47,6 +47,7 @@ import { Component, OnInit } from '@angular/core';
   `]
 })
 export class SideToolKitsComponent implements OnInit {
+  @Input() pubId: number;
   voted = false;
   constructor() { }
 
@@ -57,5 +58,4 @@ export class SideToolKitsComponent implements OnInit {
       this.voted = true;
     }
   }
-
 }

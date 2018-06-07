@@ -9,7 +9,7 @@ import {PublishedArticle} from '../../data-model/published-article';
 @Component({
   template: `
     <div nz-col [nzSm]="24" [nzMd]="1" style="margin-top: 5px">
-      <app-side-tool-kits></app-side-tool-kits>
+      <app-side-tool-kits [pubId]="pubId"></app-side-tool-kits>
     </div>
     <div nz-col [nzSm]="20" [nzMd]="17" style="min-height:800px; margin-top: 5px">
       <app-article-content [loading]="articleLoading" [article]="article$|async"></app-article-content>

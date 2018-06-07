@@ -16,7 +16,7 @@ import {ActivatedRoute} from '@angular/router';
             <li nz-menu-item>Message</li>
             <li nz-menu-item>About</li>
             <li nz-menu-item style="float: right">
-              Login
+              <span>Login Via<i class="anticon anticon-github" style="font-size: 20px; margin-left: 10px"></i></span>
             </li>
             <li>
               <nz-input [nzType]="'search'" style="width: 180px;margin-left: 100px"></nz-input>
@@ -46,7 +46,7 @@ import {ActivatedRoute} from '@angular/router';
         </div>
       </nz-content>
       <nz-footer style="float: bottom;text-align: center;width: 100%">
-        Ant Design ©2017 Implement By Angular
+        Evan.Xu © 2018 Powered By Angular5, AliCloud NG-ZORRO
       </nz-footer>
     </nz-layout>
   `,
