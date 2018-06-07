@@ -24,6 +24,9 @@ import { Component, OnInit } from '@angular/core';
         </tr>
       </table>
     </div>
+    <footer>
+      Ant Design ©2017 Implement By Angular
+    </footer>
   `,
   styles: [`
     *{
@@ -59,6 +62,15 @@ import { Component, OnInit } from '@angular/core';
       overflow: auto;
       display: block;
       border-bottom: 1px lightgray solid;
+    }
+    footer {
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      height: 80px;
+      padding: 20px;
     }
   `]
 })
