@@ -32,7 +32,6 @@ import {ArticlePublishFormComponent} from './article-publish-form/article-publis
         <div nz-col [nzSm]="4" [nzMd]="3" [nzLg]="2">
           <button nz-button [nzSize]="'large'" [nzType]="'primary'"
                   style="margin: 0px 15px" [disabled]="!canPublish" (click)="showArticlePublishModal()">Publish</button>
-          <button (click)="getHtml()">Get Html</button>
         </div>
         <div nz-col [nzSm]="1" [nzMd]="1" [nzLg]="1" [ngSwitch]="saveStatus">
           <span  *ngSwitchCase="'SAVED'">
@@ -90,8 +89,9 @@ export class MarkdownEditorComponent implements OnInit {
   detectContentChanges() {
     this.saveStatus = SaveStatus.SAVING;
   }
-  private getHtmlContent() {
-    return this.editorMdComponent.getHtmlContent();
+  private getHtmlContent(): String {
+    // return this.editorMdComponent.getHtmlContent();
+    return this._el.nativeElement.querySelector('.editormd-preview-container').innerHTML.toString();
   }
 
   manualSaveContent() {
@@ -133,12 +133,5 @@ export class MarkdownEditorComponent implements OnInit {
     private _nzModalService: NzModalService,
     private _el: ElementRef
   ) { }
-
-  getHtml() {
-    // alert(this.editorMdComponent.getHtmlContent());
-    const content = this._el.nativeElement.querySelector('.markdown-body');
-    alert(content.innerHTML);
-  }
-
 }
 
