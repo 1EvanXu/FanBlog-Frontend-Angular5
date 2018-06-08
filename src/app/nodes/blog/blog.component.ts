@@ -13,7 +13,6 @@ import {ActivatedRoute} from '@angular/router';
             </li>
             <li nz-menu-item>FM</li>
             <li nz-menu-item>IP Location</li>
-            <li nz-menu-item>Message</li>
             <li nz-menu-item>About</li>
             <li nz-menu-item style="float: right">
               <span>Login Via<i class="anticon anticon-github" style="font-size: 20px; margin-left: 10px"></i></span>

@@ -1,20 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ArticleContentService} from '../../services/article-content.service';
-import {ActivatedRoute, Router, ParamMap} from '@angular/router';
-import {delay, switchMap} from 'rxjs/operators';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {BreadcrumbService} from '../../services/channel.service';
 import {PublishedArticle} from '../../data-model/published-article';
 
+
 @Component({
   template: `
     <div nz-col [nzSm]="24" [nzMd]="1" style="margin-top: 5px">
-      <app-side-tool-kits [pubId]="pubId"></app-side-tool-kits>
+      <app-side-tool-kits [pubId]="(article$ | async).pubId"></app-side-tool-kits>
     </div>
     <div nz-col [nzSm]="20" [nzMd]="17" style="min-height:800px; margin-top: 5px">
       <app-article-content [loading]="articleLoading" [article]="article$|async"></app-article-content>
       <app-comment></app-comment>
-      <app-commentary [pubId]="pubId"></app-commentary>
+      <app-commentary [pubId]="(article$ | async).pubId"></app-commentary>
     </div>
   `,
   styles: []
@@ -39,11 +40,6 @@ export class ArticleComponent implements OnInit {
   }
   private loadArticle(pubId: number) {
     return this.service.getArticleContent(pubId);
-  }
-  get pubId(): number {
-    let pubId: number;
-    this.article$.subscribe(a => pubId = a.pubId);
-    return pubId;
   }
 
 }
