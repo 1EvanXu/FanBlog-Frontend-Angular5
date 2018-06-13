@@ -5,14 +5,12 @@ import {ActivatedRoute} from '@angular/router';
   selector: 'app-blog',
   template: `
     <nz-layout class="layout">
-      <nz-header>
-        <div style="overflow: auto">
+      <nz-header style="overflow:hidden;">
+        <div>
           <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 63px;">
             <li>
               <img class="logo" src="../assets/logo.png">
             </li>
-            <li nz-menu-item>FM</li>
-            <li nz-menu-item>IP Location</li>
             <li nz-menu-item>About</li>
             <li nz-menu-item style="float: right">
               <span>Login Via<i class="anticon anticon-github" style="font-size: 20px; margin-left: 10px"></i></span>
