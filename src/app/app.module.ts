@@ -11,6 +11,7 @@ import {BlogModule} from './nodes/blog/blog.module';
 import {ManagementModule} from './nodes/management/management.module';
 import {MarkdownEditorModule} from './nodes/markdown-editor/markdown-editor.module';
 import { HumanizationPipe } from './components/pipes/humanization.pipe';
+import {UserService} from './services/user.service';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { HumanizationPipe } from './components/pipes/humanization.pipe';
     MarkdownEditorModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

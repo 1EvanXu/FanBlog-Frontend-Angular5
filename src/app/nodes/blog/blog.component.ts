@@ -28,7 +28,7 @@ import {ActivatedRoute} from '@angular/router';
           </div>
         </div>
         <div nz-row>
-          <div nz-col [nzOffset]="3" [nzSm]="24" [nzMd]="18">
+          <div nz-col [nzOffset]="2" [nzSm]="24" [nzMd]="20">
             <div style="padding: 10px">
               <div nz-row [nzGutter]="10">
                 <router-outlet></router-outlet>

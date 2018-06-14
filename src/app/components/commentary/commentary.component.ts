@@ -46,7 +46,7 @@ import {CommentaryListComponent} from './commentary-list/commentary-list.compone
 export class CommentaryComponent implements OnInit {
 
   @Input()
-  pubId: number|string;
+  pubId: number;
   @ViewChild(CommentariesDirective) directive: CommentariesDirective;
   commentaries: Commentary[];
   currentPage = 1;

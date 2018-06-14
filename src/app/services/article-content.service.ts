@@ -9,6 +9,7 @@ export class ArticleContentService {
   getArticleContent(pubId: number): Observable<PublishedArticle> {
     return of(findArticleByPubId(pubId));
   }
-  vote(pubId: number) {
+  vote(pubId: number): Observable<boolean> {
+    return of(true);
   }
 }
