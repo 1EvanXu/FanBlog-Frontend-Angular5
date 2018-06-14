@@ -4,11 +4,12 @@ import {of} from 'rxjs/observable/of';
 import {Observable} from 'rxjs/Observable';
 import {delay} from 'rxjs/operators';
 import {PublishedArticleItem} from '../data-model/publised-article-item';
+import {PublishedArticlesItemsClient} from '../apis/published-article-items.api.service';
 
 
 @Injectable()
-export class ArticlesService {
-  constructor() { }
+export class PublishedArticleItemsService {
+  constructor(private _apiClient: PublishedArticlesItemsClient) { }
 
   /*
   * return: Observable<{'ArticleItems': ArticleItem[], 'totalNumber': number}>

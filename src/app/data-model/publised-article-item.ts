@@ -46,3 +46,8 @@ export class PublishedArticleItem {
   }
 }
 
+export class PublishedArticleItemCollection {
+  totalNumberOfItems: number;
+  items: PublishedArticleItem[];
+}
+

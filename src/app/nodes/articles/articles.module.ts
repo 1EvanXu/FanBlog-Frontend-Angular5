@@ -4,7 +4,7 @@ import {ArticleItemComponent} from '../../components/article-item/article-item.c
 import {ArticlesListComponent} from '../../components/articles-list/articles-list.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {ArticlesComponent} from './articles.component';
-import {ArticlesService} from '../../services/articles.service';
+import {PublishedArticleItemsService} from '../../services/published-article-items.service';
 import {ArticlesDirective} from './articles.directive';
 import {ArticlesRoutingModule} from './articles-routing.module';
 import {RouterModule} from '@angular/router';
@@ -24,7 +24,7 @@ import {RouterModule} from '@angular/router';
     ArticlesComponent,
     ArticlesDirective
   ],
-  providers: [ArticlesService],
+  providers: [PublishedArticleItemsService],
   entryComponents: [ArticlesListComponent]
 })
 export class ArticlesModule { }

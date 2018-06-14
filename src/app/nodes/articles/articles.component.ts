@@ -1,5 +1,5 @@
 import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/core';
-import {ArticlesService} from '../../services/articles.service';
+import {PublishedArticleItemsService} from '../../services/published-article-items.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ArticlesDirective} from './articles.directive';
@@ -55,7 +55,7 @@ export class ArticlesComponent implements OnInit {
   private _pattern: 'all' | 'category' | 'search';
   @ViewChild(ArticlesDirective) articlesDirective: ArticlesDirective;
   constructor(
-    private articlesService: ArticlesService,
+    private articlesService: PublishedArticleItemsService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private route: ActivatedRoute,
     private router: Router,

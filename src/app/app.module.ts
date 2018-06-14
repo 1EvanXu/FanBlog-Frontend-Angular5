@@ -12,6 +12,7 @@ import {ManagementModule} from './nodes/management/management.module';
 import {MarkdownEditorModule} from './nodes/markdown-editor/markdown-editor.module';
 import { HumanizationPipe } from './components/pipes/humanization.pipe';
 import {UserService} from './services/user.service';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {UserService} from './services/user.service';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     NoopAnimationsModule,
     NgZorroAntdModule.forRoot(),
     BlogModule,

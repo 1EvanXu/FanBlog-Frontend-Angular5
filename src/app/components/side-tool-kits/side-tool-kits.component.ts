@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ArticleContentService} from '../../services/article-content.service';
+import {PublishedArticleContentService} from '../../services/published-article-content.service';
 
 @Component({
   selector: 'app-side-tool-kits',
@@ -60,7 +60,7 @@ import {ArticleContentService} from '../../services/article-content.service';
 export class SideToolKitsComponent {
   @Input() pubId: number;
   @Input() voted: boolean;
-  constructor(private _articleContentService: ArticleContentService) { }
+  constructor(private _articleContentService: PublishedArticleContentService) { }
 
   vote() {
     if (!this.voted) {

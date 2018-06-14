@@ -6,7 +6,7 @@ import {CommentaryModule} from '../../components/commentary/commentary.module';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {RouterModule, Routes} from '@angular/router';
 import {SideToolKitsComponent} from '../../components/side-tool-kits/side-tool-kits.component';
-import {ArticleContentService} from '../../services/article-content.service';
+import {PublishedArticleContentService} from '../../services/published-article-content.service';
 
 // const articleRoutes: Routes = [
 //   {
@@ -28,6 +28,6 @@ import {ArticleContentService} from '../../services/article-content.service';
     SideToolKitsComponent,
   ],
   exports: [],
-  providers: [ArticleContentService]
+  providers: [PublishedArticleContentService]
 })
 export class ArticleModule { }

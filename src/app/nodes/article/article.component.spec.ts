@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ArticleComponent } from './article.component';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute, RouterModule} from '@angular/router';
-import {ArticleContentService} from '../../services/article-content.service';
+import {PublishedArticleContentService} from '../../services/published-article-content.service';
 import {CommentaryModule} from '../../components/commentary/commentary.module';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {ArticleContentComponent} from '../../components/article-content/article-content.component';
@@ -26,7 +26,7 @@ xdescribe('ArticleComponent', () => {
         ArticleContentComponent,
         SideToolKitsComponent,
       ],
-      providers: [ArticleContentService, ActivatedRoute]
+      providers: [PublishedArticleContentService, ActivatedRoute]
     })
     .compileComponents();
   }));

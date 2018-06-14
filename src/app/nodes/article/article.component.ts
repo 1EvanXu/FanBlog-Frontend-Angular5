@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ArticleContentService} from '../../services/article-content.service';
+import {PublishedArticleContentService} from '../../services/published-article-content.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
@@ -24,7 +24,7 @@ export class ArticleComponent implements OnInit {
   article$: Observable<PublishedArticle>;
   articleLoading: boolean;
   constructor(
-    private service: ArticleContentService,
+    private service: PublishedArticleContentService,
     private route: ActivatedRoute,
     private breadcrumbService: BreadcrumbService) {
     this.breadcrumbService.setBreadcrumb(['Article', 'content']);
