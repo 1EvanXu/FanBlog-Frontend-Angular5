@@ -10,3 +10,7 @@ export class SideInformation {
   }
 }
 
+export class SideInformationCollection {
+  infos: SideInformation[];
+}
+

@@ -3,12 +3,12 @@ import {Observable} from 'rxjs/Observable';
 import {findArticleByPubId} from '../mock-data/articles';
 import {of} from 'rxjs/observable/of';
 import {PublishedArticle} from '../data-model/published-article';
-import {PublishedArticleContentClient} from '../apis/published-article-content.api.service';
+import {PublishedArticleContentApiClient} from '../apis/published-article-content.api.service';
 
 @Injectable()
 export class PublishedArticleContentService {
 
-  constructor(private _apiClient: PublishedArticleContentClient) { }
+  constructor(private _apiClient: PublishedArticleContentApiClient) { }
 
   getArticleContent(pubId: number): Observable<PublishedArticle> {
     return of(findArticleByPubId(pubId));
