@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
-import {ArticlesManagementType, ListFilter} from '../../../../data-model/management';
+import {DraftsManagementListItem, ListFilter} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
+import {ArticleStatus} from '../../../../data-model/article';
 
 @Component({
   selector: 'app-drafts-management',
   template: `
     <h2 class="articles-management-banner">Drafts Management</h2>
     <div style="margin-bottom: 16px;">
-      <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="deleting" (click)="deleteArticles()">Delete</button>
+      <button nz-button [disabled]="disabledButton" [nzType]="'default'" [nzLoading]="operating" (click)="operate()">Delete</button>
       <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
     </div>
     <nz-table #nzTable [nzAjaxData]="dataSet" [nzPageSize]="pageSize" [nzTotal]="totalNumberOfItems" [nzIsPagination]="shouldPagination"
@@ -41,7 +42,6 @@ import {NzMessageService} from 'ng-zorro-antd';
           </label>
         </td>
         <td nz-td>{{data.title}}</td>
-        <td nz-td>{{data.type}}</td>
         <td nz-td>{{data.createdTime}}</td>
         <td nz-td>{{data.latestModify}}</td>
         <td nz-td>
@@ -64,12 +64,22 @@ export class DraftsManagementComponent extends ArticlesManagementComponent imple
     public _nzMessageService: NzMessageService
   ) {
     super(_managementService, _nzMessageService);
-    this.articlesManagementType = ArticlesManagementType.Draft;
     this.filter = new ListFilter();
   }
 
   ngOnInit() {
-    this.getDataSet(this.articlesManagementType, 1);
+    this.loadDataSet( 1);
   }
 
+  initArticlesManagementListGetter() {
+    this.articlesManagementListGetter = this._managementService.getDraftsManagementList;
+  }
+
+  initArticlesOperation() {
+    this.articlesOperation = {state: ArticleStatus.Deleted, info: 'Delete articles'};
+  }
+
+  get dataSet(): Array<DraftsManagementListItem> {
+    return <Array<DraftsManagementListItem>>this._dataSet;
+  }
 }

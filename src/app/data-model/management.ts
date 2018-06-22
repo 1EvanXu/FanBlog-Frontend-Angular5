@@ -1,6 +1,6 @@
 import {ArticleStatus, ArticleType} from './article';
 
-export class AllArticlesManagementListItem {
+export class AllArticlesManagementListItem implements ArticlesManagementListItem {
   id: number;
   title: string;
   type: ArticleType;
@@ -9,12 +9,12 @@ export class AllArticlesManagementListItem {
   status: ArticleStatus;
 }
 
-export class AllArticlesManagementList {
+export class AllArticlesManagementList implements ArticlesManagementList {
   totalNumberOfItems: number;
   items: AllArticlesManagementListItem[];
 }
 
-export class PublishedArticlesManagementListItem {
+export class PublishedArticlesManagementListItem implements ArticlesManagementListItem {
   id: number;
   title: string;
   pubId: number;
@@ -22,29 +22,29 @@ export class PublishedArticlesManagementListItem {
   pubTime: string | Date;
 }
 
-export class PublishedArticlesManagementList {
+export class PublishedArticlesManagementList implements ArticlesManagementList {
   totalNumberOfItems: number;
   items: PublishedArticlesManagementListItem[];
 }
 
-export class DeletedArticlesManagementListItem {
+export class DeletedArticlesManagementListItem implements ArticlesManagementListItem {
   id: number;
   title: string;
 }
 
-export class DeletedArticlesManagementList {
+export class DeletedArticlesManagementList implements ArticlesManagementList {
   totalNumberOfItems: number;
   items: DeletedArticlesManagementListItem[];
 }
 
-export class DraftsManagementListItem {
+export class DraftsManagementListItem implements ArticlesManagementListItem {
   id: number;
   title: string;
   createdTime: string | Date;
   latestModify: string | Date;
 }
 
-export class DraftsManagementList {
+export class DraftsManagementList implements ArticlesManagementList {
   totalNumberOfItems: number;
   items: DraftsManagementListItem[];
 }
@@ -58,13 +58,6 @@ export class ListFilter {
   timeFilterType: 'createdTime' | 'latestModify' | 'pubTime' | null;
   timeFilterOrder: 'ascend' | 'descend' | null;
   articleTypeFilter: ArticleType;
-}
-
-export enum ArticlesManagementType {
-  All = 'All',
-  Published = 'Published',
-  Draft = 'Draft',
-  Deleted = 'Deleted',
 }
 
 export class CategoriesManagementListItem {
@@ -82,4 +75,20 @@ export class CategoriesManagementList {
 export class CategoriesListFilter {
   type = 'createdTime';
   order: 'ascend'|'descend'|null;
+}
+
+export interface ArticlesManagementList {
+  totalNumberOfItems: number;
+  items: ArticlesManagementListItem[];
+}
+
+export interface ArticlesManagementListItem {
+  id: number;
+  pubId?: number;
+  title: string;
+  type?: ArticleType;
+  pubTime?: string | Date;
+  createdTime?: string | Date;
+  latestModify?: string | Date;
+  status?: ArticleStatus;
 }

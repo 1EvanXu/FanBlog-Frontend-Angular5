@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
-import {ArticlesManagementType, ManagementOperationResult} from '../../../../data-model/management';
+import {DeletedArticlesManagementListItem, ManagementOperationResult} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {delay} from 'rxjs/operators';
+import {ArticleStatus} from '../../../../data-model/article';
 
 @Component({
   selector: 'app-deleted-articles-management',
@@ -12,7 +13,7 @@ import {delay} from 'rxjs/operators';
       <h2 class="articles-management-banner">Deleted Articles Management</h2>
     </div>
     <div style="margin-bottom: 16px;">
-      <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="revoking" (click)="revokeDeletedArticles()">Revoke</button>
+      <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="operating" (click)="operate()">Revoke</button>
       <button nz-button [disabled]="disabledButton" [nzType]="'danger'" [nzLoading]="deletingPermanently" (click)="deleteArticlesPermanently()">Delete Permanently</button>
       <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
     </div>
@@ -45,38 +46,33 @@ import {delay} from 'rxjs/operators';
   `]
 })
 export class DeletedArticlesManagementComponent extends ArticlesManagementComponent implements OnInit {
-  revoking = false;
   deletingPermanently = false;
   constructor(
     public _managementService: ManagementService,
     public _nzMessageService: NzMessageService
   ) {
     super(_managementService, _nzMessageService);
-    this.articlesManagementType = ArticlesManagementType.Draft;
   }
 
   ngOnInit() {
-    this.getDataSet(this.articlesManagementType, 1);
+    this.loadDataSet( 1);
   }
 
-  revokeDeletedArticles() {
-    this.revoking = true;
-    this._managementService.revokeDeletedArticles(this.checkedArticleIds).pipe(delay(1000)).subscribe(
-      (value) => {
-        if (value === ManagementOperationResult.Success) {
-          this._nzMessageService.success('Revoke success!');
-        } else {
-          this._nzMessageService.error('Revoke failed!');
-        }
-      },
-      () => this._nzMessageService.error('Some errors happened!'),
-      () => { this.revoking = false; this.getDataSet(this.articlesManagementType, 1); }
-    );
+  initArticlesManagementListGetter() {
+    this.articlesManagementListGetter = this._managementService.getDeletedArticlesManagementList;
+  }
+
+  initArticlesOperation() {
+    this.articlesOperation = { state: ArticleStatus.Editing, info: 'Revoke deleted'};
+  }
+
+  get dataSet(): Array<DeletedArticlesManagementListItem> {
+    return <Array<DeletedArticlesManagementListItem>>this._dataSet;
   }
 
   deleteArticlesPermanently() {
     this.deletingPermanently = true;
-    this._managementService.revokeDeletedArticles(this.checkedArticleIds).pipe(delay(1000)).subscribe(
+    this._managementService.deleteArticlesPermanently(this.checkedArticleIds).pipe(delay(1000)).subscribe(
       (value) => {
         if (value === ManagementOperationResult.Success) {
           this._nzMessageService.success('Delete articles permanently success!');
@@ -85,7 +81,7 @@ export class DeletedArticlesManagementComponent extends ArticlesManagementCompon
         }
       },
       () => this._nzMessageService.error('Some errors happened!'),
-      () => { this.deletingPermanently = false; this.getDataSet(this.articlesManagementType, 1); }
+      () => { this.deletingPermanently = false; this.loadDataSet( 1); }
     );
   }
 }

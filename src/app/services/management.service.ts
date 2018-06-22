@@ -14,6 +14,7 @@ import {
   getDraftsManagementList,
   getPublishedArticlesManagementList
 } from '../mock-data/management';
+import {ArticleStatus} from '../data-model/article';
 
 @Injectable()
 export class ManagementService {
@@ -34,19 +35,11 @@ export class ManagementService {
     return of(getDeletedArticlesManagementList(pageIndex));
   }
 
-  deleteArticles(articlesId: number[]): Observable<ManagementOperationResult> {
+  updateArticlesStatus(articlesId: number[], articleStatus: ArticleStatus): Observable<ManagementOperationResult> {
     return of(ManagementOperationResult.Success);
   }
 
   deleteArticlesPermanently(articlesId: number[]): Observable<ManagementOperationResult> {
-    return of(ManagementOperationResult.Success);
-  }
-
-  revokeDeletedArticles(articlesId: number[]): Observable<ManagementOperationResult> {
-    return of(ManagementOperationResult.Success);
-  }
-
-  revokePublishedArticles(articlesId: number[]): Observable<ManagementOperationResult> {
     return of(ManagementOperationResult.Success);
   }
 

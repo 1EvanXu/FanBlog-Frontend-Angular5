@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
 import {ManagementService} from '../../../../services/management.service';
-import {ArticlesManagementType, ListFilter} from '../../../../data-model/management';
+import {AllArticlesManagementListItem, ListFilter} from '../../../../data-model/management';
 import {NzMessageService} from 'ng-zorro-antd';
 
 @Component({
@@ -10,18 +10,10 @@ import {NzMessageService} from 'ng-zorro-antd';
     <div>
       <h2 class="articles-management-banner">All Articles Management</h2>
     </div>
-    <div style="margin-bottom: 16px;">
-      <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="deleting" (click)="deleteArticles()">Delete</button>
-      <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
-    </div>
     <nz-table #nzTable [nzAjaxData]="dataSet" [nzPageSize]="pageSize" [nzTotal]="totalNumberOfItems" [nzIsPagination]="shouldPagination"
               [nzPageIndex]="" (nzPageIndexChange)="pageIndexChange($event)" [nzLoading]="loadingData">
       <thead nz-thead>
       <tr>
-        <th nz-th nzCheckbox>
-          <label nz-checkbox [(ngModel)]="allChecked" [nzIndeterminate]="indeterminate" (ngModelChange)="checkAll($event)">
-          </label>
-        </th>
         <th nz-th><span>Title</span></th>
         <th nz-th>
           <span>Type</span>
@@ -63,26 +55,18 @@ import {NzMessageService} from 'ng-zorro-antd';
                          (nzValueChange)="search('latestModify', $event)"></nz-table-sort>
         </th>
         <th nz-th><span>Status</span></th>
-        <th nz-th></th>
       </tr>
       </thead>
       <tbody nz-tbody>
       <tr nz-tbody-tr *ngFor="let data of nzTable.data">
-        <td nz-td nzCheckbox>
-          <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="refreshCheckStatus($event)">
-          </label>
-        </td>
         <td nz-td>{{data.title}}</td>
         <td nz-td>{{data.type}}</td>
         <td nz-td>{{data.createdTime}}</td>
         <td nz-td>{{data.latestModify}}</td>
         <td nz-td [ngSwitch]="data.status">
-            <nz-tag *ngSwitchCase="'Published'" [nzColor]="'#f50'">Published</nz-tag>
+            <nz-tag *ngSwitchCase="'Published'" [nzColor]="'#87d068'">Published</nz-tag>
             <nz-tag *ngSwitchCase="'Editing'" [nzColor]="'#2db7f5'">Editing</nz-tag>
-            <nz-tag *ngSwitchCase="'Deleted'" [nzColor]="'#87d068'">Deleted</nz-tag>
-        </td>
-        <td nz-td>
-          <a *ngIf="data.status === 'Editing'" [routerLink]="['/editor/', data.id]">Edit</a>
+            <nz-tag *ngSwitchCase="'Deleted'" [nzColor]="'#f50'">Deleted</nz-tag>
         </td>
       </tr>
       </tbody>
@@ -101,11 +85,20 @@ export class AllArticlesManagementComponent extends ArticlesManagementComponent 
     public _nzMessageService: NzMessageService
   ) {
     super(_managementService, _nzMessageService);
-    this.articlesManagementType = ArticlesManagementType.All;
     this.filter = new ListFilter();
   }
 
   ngOnInit() {
-    this.getDataSet(this.articlesManagementType, 1);
+    this.loadDataSet(1);
+  }
+
+  initArticlesManagementListGetter() {
+    this.articlesManagementListGetter = this._managementService.getAllArticlesManagementList;
+  }
+
+  initArticlesOperation() {}
+
+  get dataSet(): Array<AllArticlesManagementListItem> {
+    return <Array<AllArticlesManagementListItem>>this._dataSet;
   }
 }

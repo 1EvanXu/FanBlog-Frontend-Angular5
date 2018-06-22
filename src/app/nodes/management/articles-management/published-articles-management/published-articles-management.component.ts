@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
-import {ArticlesManagementType, ListFilter, ManagementOperationResult} from '../../../../data-model/management';
+import {ListFilter, ManagementOperationResult, PublishedArticlesManagementListItem} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {delay} from 'rxjs/operators';
+import {ArticleStatus} from '../../../../data-model/article';
 
 @Component({
   selector: 'app-published-articles-management',
@@ -12,8 +13,9 @@ import {delay} from 'rxjs/operators';
       <h2 class="articles-management-banner">Published Articles Management</h2>
     </div>
     <div style="margin-bottom: 16px;">
-      <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="revoking" (click)="revokePublishedArticles()">Revoke</button>
-      <button nz-button [disabled]="disabledButton" [nzLoading]="deleting" (click)="deleteArticles()">Delete</button>
+      <button nz-button [disabled]="disabledButton" [nzType]="'default'" [nzLoading]="operating" (click)="operate()">
+        Revoke Published
+      </button>
       <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
     </div>
     <nz-table #nzTable [nzAjaxData]="dataSet" [nzPageSize]="pageSize" [nzTotal]="totalNumberOfItems" [nzIsPagination]="shouldPagination"
@@ -81,32 +83,28 @@ import {delay} from 'rxjs/operators';
   `]
 })
 export class PublishedArticlesManagementComponent extends ArticlesManagementComponent implements OnInit {
-  revoking = false;
+
   constructor(
     public _managementService: ManagementService,
     public _nzMessageService: NzMessageService,
   ) {
     super(_managementService, _nzMessageService);
-    this.articlesManagementType = ArticlesManagementType.Published;
     this.filter = new ListFilter();
   }
 
   ngOnInit() {
-    this.getDataSet(this.articlesManagementType, 1);
+    this.loadDataSet(1);
   }
 
-  revokePublishedArticles() {
-    this.revoking = true;
-    this._managementService.revokePublishedArticles(this.checkedArticleIds).pipe(delay(1000)).subscribe(
-      (value) => {
-        if (value === ManagementOperationResult.Success) {
-          this._nzMessageService.success('Revoke success!');
-        } else {
-          this._nzMessageService.error('Revoke failed!');
-        }
-      },
-      () => this._nzMessageService.error('Some errors happened!'),
-      () => { this.revoking = false; this.getDataSet(this.articlesManagementType, 1); }
-    );
+  initArticlesManagementListGetter() {
+    this.articlesManagementListGetter = this._managementService.getPublishedArticlesManagementList;
+  }
+
+  initArticlesOperation() {
+    this.articlesOperation = {state: ArticleStatus.Editing, info: 'Revoke published'};
+  }
+
+  get dataSet(): Array<PublishedArticlesManagementListItem> {
+    return <Array<PublishedArticlesManagementListItem>>this._dataSet;
   }
 }
