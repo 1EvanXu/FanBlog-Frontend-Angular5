@@ -87,8 +87,9 @@ export abstract class ArticlesManagementComponent {
 
   operate() {
     this.operating = true;
+    console.log(this._managementService);
     this._managementService.updateArticlesStatus(this.checkedArticleIds, this.articlesOperation.state).pipe(delay(1000)).subscribe(
-      (value) => {
+      (value: ManagementOperationResult) => {
         if (value === ManagementOperationResult.Success) {
           this._nzMessageService.success(`${this.articlesOperation.info} success!`);
         } else {

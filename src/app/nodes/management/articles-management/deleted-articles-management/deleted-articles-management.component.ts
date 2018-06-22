@@ -13,12 +13,12 @@ import {ArticleStatus} from '../../../../data-model/article';
       <h2 class="articles-management-banner">Deleted Articles Management</h2>
     </div>
     <div style="margin-bottom: 16px;">
-      <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="operating" (click)="operate()">Revoke</button>
+      <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="operating" (click)="operate()">Revoke Deleted</button>
       <button nz-button [disabled]="disabledButton" [nzType]="'danger'" [nzLoading]="deletingPermanently" (click)="deleteArticlesPermanently()">Delete Permanently</button>
       <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
     </div>
     <nz-table #nzTable [nzAjaxData]="dataSet" [nzPageSize]="pageSize" [nzTotal]="totalNumberOfItems" [nzIsPagination]="shouldPagination"
-              [nzPageIndex]="" (nzPageIndexChange)="pageIndexChange($event)" [nzLoading]="loadingData">
+              [nzPageIndex]="" (nzPageIndexChange)="pageIndexChange($event)" [nzLoading]="loadingData || operating || deletingPermanently">
       <thead nz-thead>
       <tr>
         <th nz-th nzCheckbox>
