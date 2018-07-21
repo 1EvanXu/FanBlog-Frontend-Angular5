@@ -1,9 +1,10 @@
 import {ArticleType} from './article';
+import {ItemCollection} from './item-collection';
 
 export class PublishedArticleItem {
   pubId: number;
   title: string;
-  abstract: string;
+  articleAbstract: string;
   pubTime: string;
   type: ArticleType;
   category: string;
@@ -23,7 +24,7 @@ export class PublishedArticleItem {
     commentaryCount: number) {
     this.pubId = pubId;
     this.title = title;
-    this.abstract = abstract;
+    this.articleAbstract = abstract;
     this.pubTime = pubTime;
     this.type = type;
     this.category = category;
@@ -46,7 +47,7 @@ export class PublishedArticleItem {
   }
 }
 
-export class PublishedArticleItemCollection {
+export class PublishedArticleItemCollection implements ItemCollection {
   totalNumberOfItems: number;
   items: PublishedArticleItem[];
 }

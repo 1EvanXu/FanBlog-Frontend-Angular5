@@ -9,7 +9,7 @@ import {PublishedArticleItem} from '../../data-model/publised-article-item';
         <h1><a [routerLink]="['/blog/article', articleItem.pubId]" style="text-decoration-line: none">{{articleItem.title}}</a></h1>
       </div>
       <div nz-row class="article-abstract">
-        <p>{{articleItem.abstract | slice: 0:300}}</p>
+        <p>{{articleItem.articleAbstract | slice: 0:100}}</p>
       </div>
       <div nz-row >
         <div nz-col [nzSpan]="4">

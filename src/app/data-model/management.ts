@@ -58,6 +58,7 @@ export class ListFilter {
   timeFilterType: 'createdTime' | 'latestModify' | 'pubTime' | null;
   timeFilterOrder: 'ascend' | 'descend' | null;
   articleTypeFilter: ArticleType;
+  constructor() {}
 }
 
 export class CategoriesManagementListItem {
@@ -75,6 +76,7 @@ export class CategoriesManagementList {
 export class CategoriesListFilter {
   type = 'createdTime';
   order: 'ascend'|'descend'|null;
+  constructor() {}
 }
 
 export interface ArticlesManagementList {

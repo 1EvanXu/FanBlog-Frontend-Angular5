@@ -8,6 +8,7 @@ import {PublishedArticleItemsService} from '../../services/published-article-ite
 import {ArticlesDirective} from './articles.directive';
 import {ArticlesRoutingModule} from './articles-routing.module';
 import {RouterModule} from '@angular/router';
+import {PublishedArticlesItemsApiClient} from '../../apis/published-article-items.api.service';
 
 
 
@@ -24,7 +25,7 @@ import {RouterModule} from '@angular/router';
     ArticlesComponent,
     ArticlesDirective
   ],
-  providers: [PublishedArticleItemsService],
+  providers: [PublishedArticleItemsService, PublishedArticlesItemsApiClient],
   entryComponents: [ArticlesListComponent]
 })
 export class ArticlesModule { }

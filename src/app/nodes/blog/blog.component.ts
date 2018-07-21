@@ -73,7 +73,7 @@ export class BlogComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log(this.route.children);
+    // console.log(this.route.children);
   }
 
 }

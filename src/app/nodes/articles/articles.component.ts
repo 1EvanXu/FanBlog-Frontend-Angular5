@@ -77,9 +77,10 @@ export class ArticlesComponent implements OnInit {
     } else if (currentUrl.match('articles/category/\\d+$')) {
       this._pattern = 'category';
 
-      this.breadcrumbService.setBreadcrumb(['Articles', 'category']);
+      // this.breadcrumbService.setBreadcrumb(['Articles', 'category']);
 
-      this.params$ = this.route.firstChild.paramMap;
+      this.params$ = this.route.paramMap;
+
       this.params$.subscribe(params => {
         this._categoryId = +params.get('categoryId');
         this.getArticlesByCategory(this._categoryId, this.pageIndex);
@@ -89,16 +90,17 @@ export class ArticlesComponent implements OnInit {
     //   this.breadcrumbService.setBreadcrumb(['Articles', 'search'])
     //   this.getArticlesBySearch('', this.pageIndex);
     // }
-    this.route.url.subscribe(data => console.log(this.route, this._categoryId));
+    // this.route.url.subscribe(data => console.log(this.route, this._categoryId));
 
   }
 
   getAllArticles(pageIndex: number) {
     this.articlesService.getAllArticles(pageIndex).subscribe(
       data => {
-        this.articleItemsList = data.articleItems;
-        this.totalNumberOfArticles = data.totalNumber;
-        this.loadArticlesListComponent(data.articleItems);
+        this.articleItemsList = data.items;
+
+        this.totalNumberOfArticles = data.totalNumberOfItems;
+        this.loadArticlesListComponent(data.items);
         },
     () => {},
       () => { this.loading = false; this.firstInit =  false; }
@@ -108,10 +110,11 @@ export class ArticlesComponent implements OnInit {
   getArticlesByCategory(id: number, pageIndex: number) {
     this.articlesService.getArticlesByCategory(id, pageIndex).subscribe(
       data => {
-        this.articleItemsList = data.articleItems;
-        this.totalNumberOfArticles = data.totalNumber;
+        this.articleItemsList = data.items;
+        this.breadcrumbService.setBreadcrumb(['Articles', 'category', data.items[0].category]);
+        this.totalNumberOfArticles = data.totalNumberOfItems;
         // this.categoryName = data.categoryName;
-        this.loadArticlesListComponent(data.articleItems);
+        this.loadArticlesListComponent(data.items);
       },
       () => {
       },
