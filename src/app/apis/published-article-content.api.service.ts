@@ -3,7 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {PublishedArticle} from '../data-model/published-article';
 import {BASE_API_URL} from './common-api.config';
-import {retry} from 'rxjs/operators';
+import {map, retry} from 'rxjs/operators';
+import {BlogResponseResult} from '../data-model/blog-response-result';
 
 @Injectable()
 export class PublishedArticleContentApiClient {
@@ -12,8 +13,8 @@ export class PublishedArticleContentApiClient {
   constructor(private _http: HttpClient) { }
 
   getPublishedArticle(pubId: number): Observable<PublishedArticle> {
-    return this._http.get<PublishedArticle>(this._baseUrl + pubId)
-      .pipe(retry(2));
+    return this._http.get<BlogResponseResult>(this._baseUrl + pubId)
+      .pipe(map(value => value.data));
   }
 
   voteForPublishedArticle(pubId: number): Observable<boolean> {
