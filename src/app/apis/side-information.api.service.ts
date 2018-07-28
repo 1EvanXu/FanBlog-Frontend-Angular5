@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {BASE_API_URL} from './common-api.config';
 import {HttpClient} from '@angular/common/http';
 import {SideInformationCollection} from '../data-model/side-information';
-import {retry} from 'rxjs/operators';
+import {map, retry} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
+import {BlogResponseResult} from '../data-model/blog-response-result';
 
 @Injectable()
 export class SideInformationApiClient {
@@ -28,6 +29,6 @@ export class SideInformationApiClient {
       throw new Error('SideInfoType can not be empty');
     }
     const requestUrl = this._baseUrl + infoType;
-    return this._http.get<SideInformationCollection>(requestUrl).pipe(retry(1));
+    return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data), retry(1));
   }
 }
