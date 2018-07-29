@@ -1,7 +1,5 @@
-import {Component, ComponentFactoryResolver, Input, OnInit, Type, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Commentary} from '../../../data-model/commentary';
-import {CommentaryService} from '../../../services/commentary.service';
-import {CommentariesDirective} from '../commentaries.directive';
 
 @Component({
   selector: 'app-commentary-list',
@@ -11,7 +9,7 @@ import {CommentariesDirective} from '../commentaries.directive';
   styles: []
 })
 export class CommentaryListComponent implements OnInit {
-  commentaries: Commentary[];
+  commentaries: Array<Commentary>;
   constructor() {
   }
   ngOnInit() {

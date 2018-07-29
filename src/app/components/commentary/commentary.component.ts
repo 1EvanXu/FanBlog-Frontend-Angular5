@@ -51,14 +51,11 @@ export class CommentaryComponent implements OnInit {
   commentaries: Commentary[];
   currentPage = 1;
   numberOfAllCommentaries: number;
-  readonly NUMBER_OF_ITEMS_PER_PAGE = 10;
+  readonly NUMBER_OF_ITEMS_PER_PAGE = 8;
   constructor(private service: CommentaryService, private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     this.loadCommentaryList(this.currentPage);
-    // console.log(this.commentaries[0].commentator);
-    // this.numberOfAllCommentaries = 50;
-    // this.loadCommentaryListComponent();
   }
   get showPagination(): boolean {
     if (this.numberOfAllCommentaries) {
@@ -74,8 +71,8 @@ export class CommentaryComponent implements OnInit {
     (<CommentaryListComponent>componentRef.instance).commentaries = this.commentaries;
   }
   loadCommentaryList(page: number) {
-    this.service.loadCommentaries(this.currentPage).subscribe(
-      cs => { this.commentaries = cs.commentaries; this.numberOfAllCommentaries = cs.totalNumber; },
+    this.service.loadCommentaries(this.pubId, page).subscribe(
+      cs => { this.commentaries = cs.items; this.numberOfAllCommentaries = cs.totalNumberOfItems; },
       (error) => { console.log('Errors happened:', error); },
       () => { this.loadComponent(); }
     );

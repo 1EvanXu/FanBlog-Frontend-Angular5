@@ -1,7 +1,5 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {ChildCommentary, Commentary, CommonCommentary} from '../../../data-model/commentary';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CommentComponent} from '../comment/comment.component';
+import {ChildCommentary, Commentary} from '../../../data-model/commentary';
 import {ReplyService} from '../../../services/channel.service';
 
 @Component({
@@ -10,7 +8,7 @@ import {ReplyService} from '../../../services/channel.service';
     <div [ngClass]="{'commentary': !isChildCommentary, 'child-commentary': isChildCommentary}">
       <a style="vertical-align: middle;" >
         <nz-avatar nzSize="small" nzIcon="user" style="display:inline-block; vertical-align: middle;"></nz-avatar>
-        <span class="commentator">{{commentary.commentator}}</span>
+        <span class="commentator">{{commentary.commentator.name}}</span>
         <span class="comment-time">{{commentary.commentTime}}</span>
       </a>
       <a class="commentary-reply" (click)="reply()"
@@ -64,7 +62,7 @@ export class CommentaryItemComponent implements OnInit {
   @Input()
   isChildCommentary = false;
   @Input()
-  commentary: Commentary|ChildCommentary;
+  commentary: ChildCommentary | Commentary;
   showReply = false;
   constructor(private replyService: ReplyService) { }
   ngOnInit() {
@@ -83,12 +81,12 @@ export class CommentaryItemComponent implements OnInit {
     if (this.isChildCommentary) {
       this.replyService.setInfo({
         parentCommentary: (<ChildCommentary>this.commentary).parentCommentary,
-        replyTo:  {id: (<ChildCommentary>this.commentary).commentaryId, name: (<ChildCommentary>this.commentary).commentator}
+        replyTo:  {id: (<ChildCommentary>this.commentary).commentaryId, name: (<ChildCommentary>this.commentary).commentator.name}
       });
     } else {
       this.replyService.setInfo({
         parentCommentary: this.commentary.commentaryId,
-        replyTo:  {id: this.commentary.commentaryId, name: this.commentary.commentator}
+        replyTo:  {id: this.commentary.commentaryId, name: this.commentary.commentator.name}
       });
     }
   }

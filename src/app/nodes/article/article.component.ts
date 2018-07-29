@@ -10,12 +10,12 @@ import {PublishedArticle} from '../../data-model/published-article';
 @Component({
   template: `
     <div nz-col [nzSm]="24" [nzMd]="1" style="margin-top: 5px">
-      <app-side-tool-kits [pubId]="(article$ | async).pubId"></app-side-tool-kits>
+      <app-side-tool-kits [pubId]="pubId"></app-side-tool-kits>
     </div>
     <div nz-col [nzSm]="20" [nzMd]="17" style="min-height:800px; margin-top: 5px">
-      <app-article-content [loading]="articleLoading" [article]="article$|async"></app-article-content>
+      <app-article-content [loading]="articleLoading" [article$]="article$"></app-article-content>
       <app-comment></app-comment>
-      <app-commentary [pubId]="(article$ | async).pubId"></app-commentary>
+      <app-commentary [pubId]="pubId"></app-commentary>
     </div>
   `,
   styles: []
@@ -23,6 +23,7 @@ import {PublishedArticle} from '../../data-model/published-article';
 export class ArticleComponent implements OnInit {
   article$: Observable<PublishedArticle>;
   articleLoading: boolean;
+  pubId: number;
   constructor(
     private service: PublishedArticleContentService,
     private route: ActivatedRoute,
@@ -31,14 +32,18 @@ export class ArticleComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.article$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
         this.loadArticle(+params.get('pubId'))
       )
     );
+
     this.articleLoading = true;
   }
+
   private loadArticle(pubId: number) {
+    this.pubId = pubId;
     return this.service.getArticleContent(pubId);
   }
 

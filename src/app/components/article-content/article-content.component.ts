@@ -1,6 +1,8 @@
 import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
 import {PublishedArticle} from '../../data-model/published-article';
 import {DomSanitizer} from '@angular/platform-browser';
+import {Observable} from 'rxjs/Observable';
+import {delay} from 'rxjs/operators';
 
 
 @Component({
@@ -10,6 +12,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class ArticleContentComponent implements OnInit, AfterViewChecked {
   @Input()
+  article$: Observable<PublishedArticle>;
   article: PublishedArticle;
   @Input()
   loading: boolean;
@@ -17,6 +20,9 @@ export class ArticleContentComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    this.article$.subscribe(value => {
+      this.article = value;
+    });
   }
 
   ngAfterViewChecked(): void {
@@ -26,7 +32,8 @@ export class ArticleContentComponent implements OnInit, AfterViewChecked {
     return this.sanitizer.bypassSecurityTrustHtml(this.article.content);
   }
   get type(): string {
-    switch (this.article.type) {
+    const type = this.article.type;
+    switch (type) {
       case 'Original': return '原';
       case 'Translation': return '译';
       case 'Reproduced': return '转';
