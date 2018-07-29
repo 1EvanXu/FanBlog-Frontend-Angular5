@@ -6,10 +6,12 @@ import {SideInformation} from '../../data-model/side-information';
   selector: 'app-sidebar',
   template: `
     <app-side-info [infoTitle]="'Latest articles'" [extraTitle]="'more'" [extraUrl]="''" [infos]="latestArticles$"
-                   [loading]="latestArticlesLoading" >
+                   [loading]="latestArticlesLoading" [baseHref]="'/blog/article/'" >
     </app-side-info>
-    <app-side-info [infoTitle]="'Popular articles'" [infos]="popularArticles$" [loading]="popularArticlesLoading"></app-side-info>
-    <app-side-info [infoTitle]="'Categories'" [infos]="categories$" [loading]="categoriesLoading"></app-side-info>
+    <app-side-info [infoTitle]="'Popular articles'" [infos]="popularArticles$" 
+                   [loading]="popularArticlesLoading" [baseHref]="'/blog/article/'"></app-side-info>
+    <app-side-info [infoTitle]="'Categories'" [infos]="categories$" [loading]="categoriesLoading" 
+                   [baseHref]="'/blog/articles/category/'"></app-side-info>
   `,
   styles: []
 })
@@ -29,8 +31,8 @@ export class SidebarComponent implements OnInit {
   }
   getLatestArticles() {
     this.latestArticlesLoading = true;
-    this.sidebarService.getLatestArticles().subscribe((latestArticles) => {
-      this.latestArticles$ = latestArticles;
+    this.sidebarService.getLatestArticles().subscribe((latestArticlesCollection) => {
+      this.latestArticles$ = latestArticlesCollection.items;
     },
       () => {  },
       () => { this.latestArticlesLoading = false; });
@@ -38,7 +40,7 @@ export class SidebarComponent implements OnInit {
   getPopularArticles() {
     this.popularArticlesLoading = true;
     this.sidebarService.getPopularArticles().subscribe(
-      popularArticles => { this.popularArticles$ = popularArticles; },
+      popularArticlesCollection => { this.popularArticles$ = popularArticlesCollection.items; },
       () => {},
       () => { this.popularArticlesLoading = false; }
     );
@@ -46,7 +48,7 @@ export class SidebarComponent implements OnInit {
   getCategories() {
     this.categoriesLoading = true;
     this.sidebarService.getCategories().subscribe(
-      categories => { this.categories$ = categories; },
+      categoriesCollection => { this.categories$ = categoriesCollection.items; },
       () => {},
       () => { this.categoriesLoading = false; }
     );

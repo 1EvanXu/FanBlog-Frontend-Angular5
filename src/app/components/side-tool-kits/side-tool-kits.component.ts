@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {PublishedArticleContentService} from '../../services/published-article-content.service';
 
 @Component({
   selector: 'app-side-tool-kits',
   template: `
     <nz-affix>
-      <div style="padding: 3px;margin-top: 200px">
-        <div style="margin-bottom: 8px">
+      <div class="side-tools-container">
+        <div class="button-container">
           <button nz-button [nzType]="'default'" [nzShape]="'circle'" (click)="vote()">
-            <i [ngClass]="{'anticon': true, 'anticon-like-o': !voted, 'anticon-like': voted}"></i>
+            <i [ngClass]="voteButtonClass"></i>
           </button>
         </div>
-        <div style="margin-bottom: 8px">
-          <button nz-button [nzType]="'default'" [nzShape]="'circle'" routerLink="#comment-box">
+        <div class="button-container">
+          <button nz-button [nzType]="'default'" [nzShape]="'circle'">
             <i class="anticon anticon-message"></i>
           </button>
         </div>
-        <div style="margin-top: 60px">
+        <div class="back-top-container">
           <nz-back-top [nzVisibilityHeight]="100">
             <ng-template #nzTemplate>
               <div class="ant-back-top-inner">
@@ -44,18 +45,40 @@ import { Component, OnInit } from '@angular/core';
     :host ::ng-deep .dispaly-none {
       display: none;
     }
+    .side-tools-container {
+      padding: 3px;
+      margin-top: 200px
+    }
+    .button-container {
+      margin-bottom: 8px
+    }
+    .back-top-container {
+      margin-top: 60px
+    }
   `]
 })
-export class SideToolKitsComponent implements OnInit {
-  voted = false;
-  constructor() { }
+export class SideToolKitsComponent {
+  @Input() pubId: number;
+  @Input() voted: boolean;
+  constructor(private _articleContentService: PublishedArticleContentService) { }
 
-  ngOnInit() {
-  }
   vote() {
     if (!this.voted) {
-      this.voted = true;
+      this._articleContentService.vote(this.pubId).subscribe(
+        result => this.setVoted(result),
+    );
     }
   }
 
+  private setVoted(result: boolean) {
+    this.voted = result;
+  }
+
+  get voteButtonClass() {
+    return  {
+      'anticon': true,
+      'anticon-like-o': !this.voted,
+      'anticon-like': this.voted
+    };
+  }
 }

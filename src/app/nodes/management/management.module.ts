@@ -5,10 +5,12 @@ import { ManagementRoutingModule } from './management-routing.module';
 import {ManagementComponent} from './management.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {FormsModule} from '@angular/forms';
-import { AllArticlesManagementComponent } from '../../components/management/articles-management/all-articles-management/all-articles-management.component';
-import { PublishedArticlesManagementComponent } from '../../components/management/articles-management/published-articles-management/published-articles-management.component';
-import { DraftsManagementComponent } from '../../components/management/articles-management/drafts-management/drafts-management.component';
-import { DeletedArticlesManagementComponent } from '../../components/management/articles-management/deleted-articles-management/deleted-articles-management.component';
+import { AllArticlesManagementComponent } from './articles-management/all-articles-management/all-articles-management.component';
+import { PublishedArticlesManagementComponent } from './articles-management/published-articles-management/published-articles-management.component';
+import { DraftsManagementComponent } from './articles-management/drafts-management/drafts-management.component';
+import { DeletedArticlesManagementComponent } from './articles-management/deleted-articles-management/deleted-articles-management.component';
+import {ManagementService} from '../../services/management.service';
+import { CategoriesManagementComponent } from './categories-management/categories-management.component';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { DeletedArticlesManagementComponent } from '../../components/management/
     PublishedArticlesManagementComponent,
     DraftsManagementComponent,
     DeletedArticlesManagementComponent,
-  ]
+    CategoriesManagementComponent,
+  ],
+  providers: [ManagementService]
 })
 export class ManagementModule { }

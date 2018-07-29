@@ -1,19 +1,24 @@
+import {User} from './user';
+import {ItemCollection} from './item-collection';
+
 export interface CommonCommentary {
   commentaryId: number;
   commentTime: string;
-  commentator: string;
+  commentator: User;
   commentaryContent: string;
+  belongedPublishedArticle: number;
 }
 
 export class Commentary implements CommonCommentary {
   commentaryId: number;
-  commentator: string;
+  commentator: User;
   commentTime: string;
   commentaryContent: string;
-  childCommentaries: ChildCommentary[];
+  childCommentaries: Array<ChildCommentary>;
+  belongedPublishedArticle: number;
   constructor(
     commentaryId: number,
-    commentator: string,
+    commentator: User,
     commentTime: string,
     commentaryContent: string,
     childCommentaries: ChildCommentary[]) {
@@ -30,13 +35,14 @@ export class ChildCommentary implements CommonCommentary {
   parentCommentary: number;
   commentaryId: number;
   commentTime: string;
-  commentator: string;
+  commentator: User;
   commentaryContent: string;
-  replyTo?: number;
+  replyTo?: User;
+  belongedPublishedArticle: number;
 
 
-  constructor(parentCommentary: number, commentaryId: number, commentator: string, commentTime: string,
-              commentaryContent: string, replyTo?: number) {
+  constructor(parentCommentary: number, commentaryId: number, commentator: User, commentTime: string,
+              commentaryContent: string, replyTo?: User) {
     this.parentCommentary = parentCommentary;
     this.commentaryId = commentaryId;
     this.commentTime = commentTime;
@@ -44,6 +50,12 @@ export class ChildCommentary implements CommonCommentary {
     this.commentaryContent = commentaryContent;
     this.replyTo = replyTo;
   }
+}
+
+export class CommentaryCollection implements ItemCollection {
+  items: Array<Commentary>;
+  totalNumberOfItems: number;
+
 }
 
 export class Comment {

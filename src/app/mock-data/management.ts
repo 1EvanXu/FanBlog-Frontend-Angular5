@@ -1,4 +1,5 @@
 import {ArticleStatus, ArticleType} from '../data-model/article';
+import {CategoriesManagementListItem} from '../data-model/management';
 
 export function getCurrentTime() {
   const currentTime = new Date();
@@ -57,7 +58,6 @@ export function getDraftsManagementList(pageIndex: number) {
   return {totalNumberOfItems: 50, items: items};
 }
 export function getDeletedArticlesManagementList(pageIndex: number) {
-  const curTime = getCurrentTime();
   const items = [];
   for (let i = (pageIndex - 1) * 10; i < pageIndex * 10; i++) {
     items.push({
@@ -70,3 +70,17 @@ export function getDeletedArticlesManagementList(pageIndex: number) {
 export const articleTypes = [ArticleType.Original, ArticleType.Reproduced, ArticleType.Translation];
 
 export const articleStatuses = [ArticleStatus.Editing, ArticleStatus.Deleted, ArticleStatus.Published];
+
+export function getCategoriesManagementList(pageIndex: number) {
+  const curTime = getCurrentTime();
+  const items: CategoriesManagementListItem[] = [];
+  for (let i = (pageIndex - 1) * 10; i < pageIndex * 10; i++) {
+    items.push({
+      id: i,
+      name: `Category-${i}`,
+      createdTime: curTime,
+      numberOfIncludedArticles: parseInt((Math.random() * 10).toString(), 0)
+    });
+  }
+  return { totalNumberOfCategories: 50, items: items };
+}

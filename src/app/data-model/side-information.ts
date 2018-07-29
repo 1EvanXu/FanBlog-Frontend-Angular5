@@ -1,12 +1,21 @@
-export class SideInformation {
-  title: string;
-  link: string;
-  score?: number;
+import {ItemCollection} from './item-collection';
 
-  constructor(title: string, link: string, score?: number) {
+export class SideInformation {
+  id: number;
+  title: string;
+  number?: number;
+
+
+  constructor(id: number, title: string, number?: number) {
+    this.id = id;
     this.title = title;
-    this.link = link;
-    this.score = score;
+    this.number = number;
   }
+}
+
+export class SideInformationCollection implements ItemCollection{
+  totalNumberOfItems: number;
+  items: Array<SideInformation>;
+
 }
 

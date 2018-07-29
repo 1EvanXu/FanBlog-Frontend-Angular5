@@ -1,5 +1,5 @@
-import {Component, OnInit, Input, HostListener} from '@angular/core';
-import {ChildCommentary, Commentary} from '../../../data-model/commentary';
+import {Component, OnInit, Input} from '@angular/core';
+import {Commentary} from '../../../data-model/commentary';
 
 @Component({
   selector: 'app-commentary-item-box',
@@ -27,6 +27,8 @@ export class CommentaryItemBoxComponent implements OnInit {
   @Input()
   set commentary(value: Commentary) {
     this._commentary = value;
-    this.hasChildren = this._commentary.childCommentaries.length !== 0;
+    if (this._commentary.childCommentaries !== undefined && this._commentary.childCommentaries !== null) {
+      this.hasChildren = true;
+    }
   }
 }

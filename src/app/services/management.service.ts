@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  AllArticlesManagementList,
+  AllArticlesManagementList, CategoriesListFilter, CategoriesManagementList, CategoriesManagementListItem,
   DeletedArticlesManagementList,
   DraftsManagementList,
   ListFilter, ManagementOperationResult,
@@ -9,10 +9,12 @@ import {
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {
-  getAllArticlesManagementList,
+  getAllArticlesManagementList, getCategoriesManagementList,
   getDeletedArticlesManagementList,
   getDraftsManagementList,
-  getPublishedArticlesManagementList} from '../mock-data/articles-management';
+  getPublishedArticlesManagementList
+} from '../mock-data/management';
+import {ArticleStatus} from '../data-model/article';
 
 @Injectable()
 export class ManagementService {
@@ -33,7 +35,7 @@ export class ManagementService {
     return of(getDeletedArticlesManagementList(pageIndex));
   }
 
-  deleteArticles(articlesId: number[]): Observable<ManagementOperationResult> {
+  updateArticlesStatus(articlesId: number[], articleStatus: ArticleStatus): Observable<ManagementOperationResult> {
     return of(ManagementOperationResult.Success);
   }
 
@@ -41,17 +43,16 @@ export class ManagementService {
     return of(ManagementOperationResult.Success);
   }
 
-  revokeDeletedArticles(articlesId: number[]): Observable<ManagementOperationResult> {
-    return of(ManagementOperationResult.Success);
+  getCategoriesManagementList(pageIndex: number, filter?: CategoriesListFilter): Observable<CategoriesManagementList> {
+    return of(getCategoriesManagementList(pageIndex));
   }
 
-  revokePublishedArticles(articlesId: number[]): Observable<ManagementOperationResult> {
-    return of(ManagementOperationResult.Success);
+  deleteArticleCategories(categoryIds: number[]) {
+    return of(ManagementOperationResult.Failed);
   }
 
-  getArticleCategories(pageIndex: number) {}
-
-  deleteArticleCategories(categoryIds: number[]) {}
-
+  createCategory(categoryName: string): Observable<ManagementOperationResult> {
+    return of(ManagementOperationResult.Failed);
+  }
 
 }

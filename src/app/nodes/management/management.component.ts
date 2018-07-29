@@ -9,15 +9,16 @@ import { Component, OnInit } from '@angular/core';
           <img class="logo" src="../assets/logo.png">
           <span style="font-size: 20px; font-weight: bold">Management</span>
         </div>
-          <!--<div style="display: inline-block; padding: 10px; line-height: 60px">-->
-            <button nz-button>
-              <span><i class="anticon anticon-edit"></i><span style="margin-left: 5px">Write Article</span></span>
-            </button>
-          <!--</div>-->
-          <a style="padding: 10px; display: inline-block; float: right; vertical-align: middle">
+        <div style="display: inline-block;">
+          <button nz-button>
+            <span><i class="anticon anticon-edit"></i><span style="margin-left: 5px">Write Article</span></span>
+          </button>
+        </div>
+        <div style="padding: 10px;float: right;">
+          <a>
             <nz-avatar nzIcon="user"></nz-avatar>
-            <span>| Exit</span>
           </a>
+        </div>
       </nz-header>
       <nz-content style="padding:60px 50px;">
         <nz-layout style="padding:24px 0px; background: #fff;">
@@ -33,11 +34,15 @@ import { Component, OnInit } from '@angular/core';
                 </ul>
               </li>
               <li nz-menu-item>
-                <span title class="management-menu-title"><i class="anticon anticon-tags"></i>Category Management</span>
+                <span title class="management-menu-title">
+                  <a [routerLink]="['/management/categories']">
+                    <i class="anticon anticon-tags"></i>Category Management
+                  </a>
+                </span>
               </li>
-              <li nz-menu-item>
-                <span title class="management-menu-title"><i class="anticon anticon-mail"></i>Message</span>
-              </li>
+              <!--<li nz-menu-item>-->
+                <!--<span title class="management-menu-title"><i class="anticon anticon-mail"></i>Message</span>-->
+              <!--</li>-->
             </ul>
           </nz-sider>
           <nz-content style="padding: 24px; min-height: 500px;">
@@ -62,6 +67,10 @@ import { Component, OnInit } from '@angular/core';
       .management-menu-title {
         font-size: 14px;
       }
+    a {
+      text-decoration: none;
+      color: gray;
+    }
     `],
 })
 export class ManagementComponent implements OnInit {

@@ -11,6 +11,7 @@ import {CommentaryItemComponent} from './commentary-item/commentary-item.compone
 import {CommentaryComponent} from './commentary.component';
 import {CommentAlertComponent} from './comment-alert/comment-alert.component';
 import {ReplyService} from '../../services/channel.service';
+import {CommentaryApiClient} from '../../apis/commentary.api.service';
 
 @NgModule({
   imports: [
@@ -31,7 +32,7 @@ import {ReplyService} from '../../services/channel.service';
     CommentComponent,
     CommentaryComponent,
   ],
-  providers: [CommentaryService, ReplyService],
+  providers: [CommentaryService, ReplyService, CommentaryApiClient],
   entryComponents: [CommentaryListComponent]
 })
 export class CommentaryModule {

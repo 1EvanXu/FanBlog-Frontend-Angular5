@@ -5,18 +5,15 @@ import {ActivatedRoute} from '@angular/router';
   selector: 'app-blog',
   template: `
     <nz-layout class="layout">
-      <nz-header>
-        <div style="overflow: auto">
+      <nz-header style="overflow:hidden;">
+        <div>
           <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 63px;">
             <li>
               <img class="logo" src="../assets/logo.png">
             </li>
-            <li nz-menu-item>FM</li>
-            <li nz-menu-item>IP Location</li>
-            <li nz-menu-item>Message</li>
             <li nz-menu-item>About</li>
             <li nz-menu-item style="float: right">
-              Login
+              <span>Login Via<i class="anticon anticon-github" style="font-size: 20px; margin-left: 10px"></i></span>
             </li>
             <li>
               <nz-input [nzType]="'search'" style="width: 180px;margin-left: 100px"></nz-input>
@@ -31,7 +28,7 @@ import {ActivatedRoute} from '@angular/router';
           </div>
         </div>
         <div nz-row>
-          <div nz-col [nzOffset]="3" [nzSm]="24" [nzMd]="18">
+          <div nz-col [nzOffset]="2" [nzSm]="24" [nzMd]="20">
             <div style="padding: 10px">
               <div nz-row [nzGutter]="10">
                 <router-outlet></router-outlet>
@@ -46,7 +43,7 @@ import {ActivatedRoute} from '@angular/router';
         </div>
       </nz-content>
       <nz-footer style="float: bottom;text-align: center;width: 100%">
-        Ant Design ©2017 Implement By Angular
+        Evan.Xu © 2018 Powered By Angular5, AliCloud NG-ZORRO
       </nz-footer>
     </nz-layout>
   `,
@@ -76,7 +73,7 @@ export class BlogComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log(this.route.children);
+    // console.log(this.route.children);
   }
 
 }

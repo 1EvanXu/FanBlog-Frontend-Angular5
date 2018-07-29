@@ -89,8 +89,9 @@ export class MarkdownEditorComponent implements OnInit {
   detectContentChanges() {
     this.saveStatus = SaveStatus.SAVING;
   }
-  private getHtmlContent() {
-    return this.editorMdComponent.getHtmlContent();
+  private getHtmlContent(): String {
+    // return this.editorMdComponent.getHtmlContent();
+    return this._el.nativeElement.querySelector('.editormd-preview-container').innerHTML.toString();
   }
 
   manualSaveContent() {
@@ -129,7 +130,8 @@ export class MarkdownEditorComponent implements OnInit {
 
   constructor(
     private _mdEditorService: MarkdownEditorService,
-    private _nzModalService: NzModalService
+    private _nzModalService: NzModalService,
+    private _el: ElementRef
   ) { }
 }
 

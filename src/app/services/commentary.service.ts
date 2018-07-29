@@ -1,14 +1,16 @@
 import {Injectable} from '@angular/core';
-import {of} from 'rxjs/observable/of';
-import {COMMENTARIES_1, COMMENTARIES_2} from '../mock-data/commentaries';
 import {Observable} from 'rxjs/Observable';
-import {Commentary, Comment} from '../data-model/commentary';
+import {Comment, CommentaryCollection} from '../data-model/commentary';
+import {CommentaryApiClient} from '../apis/commentary.api.service';
 
 
 @Injectable()
 export class CommentaryService {
-  loadCommentaries(pageIndex: number): Observable<{commentaries: Commentary[]; totalNumber: number}> {
-    return pageIndex === 1 ? of({commentaries: COMMENTARIES_1, totalNumber: 10}) : of({commentaries: COMMENTARIES_2, totalNumber: 10});
+
+  constructor(private _apiClient: CommentaryApiClient) {}
+
+  loadCommentaries(pubId: number, pageIndex: number): Observable<CommentaryCollection> {
+    return this._apiClient.getCommentaries(pubId, pageIndex);
   }
   postCommentary(comment: Comment) {}
 }
