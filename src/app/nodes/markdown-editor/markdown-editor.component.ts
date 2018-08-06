@@ -1,16 +1,7 @@
-import {Component, DoCheck, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {EditorMdComponent} from './editor-md/editor-md.component';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl
-} from '@angular/forms';
-import {Subject} from 'rxjs/Subject';
 import {debounceTime, delay, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
-import {Observable} from 'rxjs/Observable';
-import {NzMessageService, NzModalService} from 'ng-zorro-antd';
+import {NzModalService} from 'ng-zorro-antd';
 import {MarkdownEditorService, SaveStatus} from '../../services/markdown-editor.service';
 import {ArticlePublishFormComponent} from './article-publish-form/article-publish-form.component';
 

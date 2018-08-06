@@ -80,13 +80,13 @@ export class CommentaryItemComponent implements OnInit {
   reply() {
     if (this.isChildCommentary) {
       this.replyService.setInfo({
-        parentCommentary: (<ChildCommentary>this.commentary).parentCommentary,
-        replyTo:  {id: (<ChildCommentary>this.commentary).commentaryId, name: (<ChildCommentary>this.commentary).commentator.name}
+        parent: (<ChildCommentary>this.commentary).parentCommentary,
+        replyTo:  {id: (<ChildCommentary>this.commentary).id, name: (<ChildCommentary>this.commentary).commentator.name},
       });
     } else {
       this.replyService.setInfo({
-        parentCommentary: this.commentary.commentaryId,
-        replyTo:  {id: this.commentary.commentaryId, name: this.commentary.commentator.name}
+        parent: this.commentary.id,
+        replyTo:  {id: this.commentary.id, name: this.commentary.commentator.name},
       });
     }
   }

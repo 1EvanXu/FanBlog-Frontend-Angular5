@@ -57,12 +57,14 @@ export class CommentaryComponent implements OnInit {
   ngOnInit() {
     this.loadCommentaryList(this.currentPage);
   }
+
   get showPagination(): boolean {
     if (this.numberOfAllCommentaries) {
       return this.numberOfAllCommentaries > this.NUMBER_OF_ITEMS_PER_PAGE;
     }
     return false;
   }
+
   loadComponent() {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CommentaryListComponent);
     const viewContainerRef = this.directive.viewContainerRef;
@@ -70,13 +72,16 @@ export class CommentaryComponent implements OnInit {
     const componentRef = viewContainerRef.createComponent(componentFactory);
     (<CommentaryListComponent>componentRef.instance).commentaries = this.commentaries;
   }
+
   loadCommentaryList(page: number) {
+    // console.log('Invoke loadCommentaryList()');
     this.service.loadCommentaries(this.pubId, page).subscribe(
       cs => { this.commentaries = cs.items; this.numberOfAllCommentaries = cs.totalNumberOfItems; },
       (error) => { console.log('Errors happened:', error); },
       () => { this.loadComponent(); }
     );
   }
+
   pageChange() {
     this.loadCommentaryList(this.currentPage);
   }
