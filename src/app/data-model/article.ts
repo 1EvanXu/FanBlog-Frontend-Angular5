@@ -1,7 +1,6 @@
 export  class Article {
   id: number;
   title: string;
-  type: string;
   createdTime: string | Date;
   latestModify: string | Date;
   htmlContent: string;

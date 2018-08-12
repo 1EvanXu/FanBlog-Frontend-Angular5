@@ -2,7 +2,6 @@ import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
 import {PublishedArticle} from '../../data-model/published-article';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Observable} from 'rxjs/Observable';
-import {delay} from 'rxjs/operators';
 
 
 @Component({

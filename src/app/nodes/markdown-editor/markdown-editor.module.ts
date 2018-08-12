@@ -7,11 +7,36 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
 import { EditorMdComponent } from './editor-md/editor-md.component';
 import {MarkdownEditorService} from '../../services/markdown-editor.service';
 import { ArticlePublishFormComponent } from './article-publish-form/article-publish-form.component';
+import {MarkdownEditorApiClient} from '../../apis/markdown-editor.api.service';
 
 const routes: Routes = [
   {
     path: 'editor',
-    component: MarkdownEditorComponent
+    children: [
+      {
+        path: 'article',
+        children: [
+          {
+            path: ':articleId',
+            component: MarkdownEditorComponent
+          },
+          {
+            path: 'new',
+            component: MarkdownEditorComponent
+          },
+          {
+            path: '',
+            redirectTo: 'new',
+            pathMatch: 'full'
+          }
+        ]
+      },
+      {
+        path: '',
+        redirectTo: 'article',
+        pathMatch: 'full'
+      }
+    ],
   }
 ];
 
@@ -28,7 +53,7 @@ const routes: Routes = [
     NgZorroAntdModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  providers: [MarkdownEditorService],
+  providers: [MarkdownEditorService, MarkdownEditorApiClient],
   entryComponents: [ArticlePublishFormComponent]
 })
 export class MarkdownEditorModule { }

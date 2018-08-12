@@ -4,6 +4,7 @@ import {debounceTime, delay, distinctUntilChanged, switchMap} from 'rxjs/operato
 import {NzModalService} from 'ng-zorro-antd';
 import {MarkdownEditorService, SaveStatus} from '../../services/markdown-editor.service';
 import {ArticlePublishFormComponent} from './article-publish-form/article-publish-form.component';
+import {markDirty} from '@angular/core/src/render3';
 
 
 @Component({
@@ -65,6 +66,7 @@ import {ArticlePublishFormComponent} from './article-publish-form/article-publis
   `]
 })
 export class MarkdownEditorComponent implements OnInit {
+  articleId: number;
   markdownContent: string;
   title: string;
   isConfirmLoading = false;
@@ -89,7 +91,7 @@ export class MarkdownEditorComponent implements OnInit {
     if (!(this.saveStatus === SaveStatus.SAVED)) {
       console.log('manual save', this.saveStatus);
       this.detectContentChanges();
-      this._mdEditorService.saveArticleMarkdownContent(1).pipe(delay(500));
+      this._mdEditorService.saveArticleMarkdownContent(1, this.markdownContent).pipe(delay(500));
     }
   }
 
@@ -98,7 +100,7 @@ export class MarkdownEditorComponent implements OnInit {
       debounceTime(2000),
       distinctUntilChanged(),
       switchMap(value =>  {
-        return this._mdEditorService.saveArticleMarkdownContent(1).pipe(delay(500));
+        return this._mdEditorService.saveArticleMarkdownContent(1, this.markdownContent);
       })).subscribe(
         value => this.saveStatus = value
     );
