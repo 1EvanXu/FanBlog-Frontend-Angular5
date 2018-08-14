@@ -24,3 +24,7 @@ export enum ArticleStatus {
   Editing = 'Editing',
   Deleted = 'Deleted'
 }
+
+export class Draft extends Article {
+  tempArticleId: number;
+}

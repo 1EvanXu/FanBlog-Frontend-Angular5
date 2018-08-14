@@ -1,10 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {EditorMdComponent} from './editor-md/editor-md.component';
-import {debounceTime, delay, distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {NzModalService} from 'ng-zorro-antd';
 import {MarkdownEditorService, SaveStatus} from '../../services/markdown-editor.service';
 import {ArticlePublishFormComponent} from './article-publish-form/article-publish-form.component';
-import {markDirty} from '@angular/core/src/render3';
+import {Article, Draft} from '../../data-model/article';
+import {ActivatedRoute, Router} from '@angular/router';
+import {of} from 'rxjs/observable/of';
 
 
 @Component({
@@ -38,7 +40,7 @@ import {markDirty} from '@angular/core/src/render3';
         </div>
       </div>
     </div>
-    <app-editor-md (saveAction)="manualSaveContent()" [mdContent]="markdownContent" (mdContentChange)="detectContentChanges()">
+    <app-editor-md (saveAction)="manualSaveContent()" [mdContent]="loadedMarkdownContent" (mdContentChange)="detectContentChanges()">
     </app-editor-md>
   `,
   styles: [`
@@ -66,33 +68,68 @@ import {markDirty} from '@angular/core/src/render3';
   `]
 })
 export class MarkdownEditorComponent implements OnInit {
+  tempArticleId: number;
   articleId: number;
-  markdownContent: string;
+  loadedMarkdownContent: string;
+  OutputMarkdownContent: string;
   title: string;
-  isConfirmLoading = false;
+
   saveStatus = SaveStatus.UNKNOWN;
+  draft: Draft = new Draft();
   @ViewChild(EditorMdComponent) private editorMdComponent: EditorMdComponent;
+
   get canPublish(): boolean {
     return this.saveStatus === SaveStatus.SAVED && Boolean(this.title);
   }
 
   ngOnInit() {
+    const currentUrl = this.router.url;
+
+    if (currentUrl.match('editor/article/new$')) {
+      this._mdEditorService.writeArticle().subscribe(
+        value => { this.tempArticleId = value; console.log(`===>${this.tempArticleId}`); }
+      );
+    } else if (currentUrl.match('editor/article/\\d+$')) {
+      this.route.paramMap.subscribe(
+        param => {
+          this.articleId = +param.get('articleId');
+          this.loadArticleContent(this.articleId);
+        }
+      );
+    }
+
     this.autoSaveContent();
   }
+
   detectContentChanges() {
     this.saveStatus = SaveStatus.SAVING;
   }
-  private getHtmlContent(): String {
-    // return this.editorMdComponent.getHtmlContent();
+
+  private getHtmlContent(): string {
+
     return this._el.nativeElement.querySelector('.editormd-preview-container').innerHTML.toString();
   }
 
   manualSaveContent() {
-    if (!(this.saveStatus === SaveStatus.SAVED)) {
-      console.log('manual save', this.saveStatus);
-      this.detectContentChanges();
-      this._mdEditorService.saveArticleMarkdownContent(1, this.markdownContent).pipe(delay(500));
-    }
+
+    console.log('manual save', this.saveStatus);
+
+    this.detectContentChanges();
+
+    const article: Article  = <Article>this.getArticle();
+    article.htmlContent = this.getHtmlContent();
+    this._mdEditorService.saveArticle(article).subscribe(
+      value => {
+        if (value) {
+          this.articleId = value;
+          this.saveStatus = SaveStatus.SAVED;
+        } else {
+          this.saveStatus = SaveStatus.UNSAVED;
+        }
+
+      },
+      () => this.saveStatus = SaveStatus.UNSAVED
+    );
   }
 
   autoSaveContent() {
@@ -100,13 +137,40 @@ export class MarkdownEditorComponent implements OnInit {
       debounceTime(2000),
       distinctUntilChanged(),
       switchMap(value =>  {
-        return this._mdEditorService.saveArticleMarkdownContent(1, this.markdownContent);
+        this.OutputMarkdownContent = value;
+        return this._mdEditorService.saveArticleMarkdownContent(this.getDraft());
       })).subscribe(
         value => this.saveStatus = value
     );
   }
 
-  loadMarkdownContent() {
+  getDraft(): Draft {
+    this.draft.tempArticleId = this.tempArticleId;
+    this.draft.markdownContent = this.OutputMarkdownContent;
+    this.draft.id = this.articleId;
+    this.draft.title = this.title;
+    console.log(this.draft);
+    return this.draft;
+  }
+
+  getArticle(): Draft {
+    this.draft.tempArticleId = this.tempArticleId;
+    this.draft.markdownContent = this.editorMdComponent.getMarkContent();
+    this.draft.id = this.articleId;
+    this.draft.title = this.title;
+    console.log(this.draft);
+    return this.draft;
+  }
+
+  loadArticleContent(articleId: number) {
+    this._mdEditorService.getArticle(articleId).subscribe(
+      data => {
+          console.log(data);
+          this.draft = data;
+          this.loadedMarkdownContent = data.markdownContent;
+          this.title = data.title;
+      }
+    );
   }
 
   showArticlePublishModal() {
@@ -115,7 +179,8 @@ export class MarkdownEditorComponent implements OnInit {
       content: ArticlePublishFormComponent,
       footer: false,
       componentParams: {
-        articleTitle: this.title
+        articleTitle: this.title,
+        articleId: this.articleId
       }
     });
     subscription.subscribe(res => console.log(res));
@@ -124,7 +189,9 @@ export class MarkdownEditorComponent implements OnInit {
   constructor(
     private _mdEditorService: MarkdownEditorService,
     private _nzModalService: NzModalService,
-    private _el: ElementRef
+    private _el: ElementRef,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 }
 

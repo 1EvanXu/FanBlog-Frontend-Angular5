@@ -35,3 +35,10 @@ export  class PublishedArticle {
     );
   }
 }
+
+export class PublishingArticle {
+  title: string;
+  type: ArticleType;
+  category: number;
+  articleId: number;
+}

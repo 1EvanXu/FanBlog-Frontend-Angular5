@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 import {NZ_MESSAGE_CONFIG, NzMessageService, NzModalSubject} from 'ng-zorro-antd';
+import {MarkdownEditorService} from '../../../services/markdown-editor.service';
+import {PublishingArticle} from '../../../data-model/published-article';
 
 @Component({
   selector: 'app-article-publish-form',
@@ -81,21 +83,22 @@ export class ArticlePublishFormComponent implements OnInit {
   typeOptions = [];
   defaultSelectedTypeOption: {value: string; label: string};
   categoryOptions = [];
-  selectedCategoryOption: {value: string; label: string};
-
+  selectedCategoryOption: {value: number; label: string};
+  articleId: number;
   articlePublishForm: FormGroup;
   isSubmitting: boolean;
-  @Input() articleTitle: string;
+  articleTitle: string;
   constructor(
     private _formBuilder: FormBuilder,
     private _nzModalSubject: NzModalSubject,
-    private _nzMessageService: NzMessageService
+    private _nzMessageService: NzMessageService,
+    private _mdEditorService: MarkdownEditorService
   ) {}
 
   ngOnInit() {
     this.typeOptions = [
       { value: 'Original', label: 'Original' },
-      { value: 'Reprint', label: 'Reprint' },
+      { value: 'Reproduced', label: 'Reproduced' },
       { value: 'Translation', label: 'Translation'}
     ];
     this.defaultSelectedTypeOption = this.typeOptions[0];
@@ -120,12 +123,34 @@ export class ArticlePublishFormComponent implements OnInit {
     for (const key in this.articlePublishForm.controls) {
       this.articlePublishForm.controls[ key ].markAsDirty();
     }
-    console.log(value);
-    setTimeout( () => {
-      this._nzMessageService.success('Publish success!');
-      this._nzModalSubject.destroy('onCancel');
-      this.isSubmitting = false;
-    }, 1000);
+
+    // setTimeout( () => {
+    //   this._nzMessageService.success('Publish success!');
+    //   this._nzModalSubject.destroy('onCancel');
+    //   this.isSubmitting = false;
+    // }, 1000);
+    const publishingArticle: PublishingArticle = {
+      title: value.title,
+      type: value.type.value,
+      category: value.category[0].value,
+      articleId: this.articleId
+    };
+    console.log(publishingArticle);
+
+    this._mdEditorService.publishArticle(publishingArticle).subscribe(
+      result => {
+        if (result) {
+            this._nzMessageService.success('Publish succeed!');
+        } else {
+          this._nzMessageService.error('Publish failed!');
+        }
+      },
+      () => { this._nzMessageService.success('Error happened!'); },
+      () => {
+        this._nzModalSubject.destroy('onCancel');
+        this.isSubmitting = false;
+      }
+    );
   }
 
   resetForm($event: MouseEvent) {
@@ -138,11 +163,12 @@ export class ArticlePublishFormComponent implements OnInit {
 
   searchCategory(keywords) {
     const query = encodeURI(keywords);
-    this.categoryOptions = [
-      { value: 'JAVA', label: 'JAVA' },
-      { value: 'Python', label: 'Python' },
-      { value: 'C++', label: 'C++'}
-    ];
+
+    this._mdEditorService.searchCategories(query).subscribe(
+      value => {
+        this.categoryOptions = value.map(item => { return {label: item.name, value: item.id}; });
+      }
+    );
   }
 
 }

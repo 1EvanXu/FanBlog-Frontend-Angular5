@@ -1,8 +1,13 @@
 import {ArticleStatus, ArticleType} from './article';
+import {ItemCollection} from './item-collection';
 
-export class AllArticlesManagementListItem implements ArticlesManagementListItem {
+export abstract class ArticlesManagementListItem {
   id: number;
   title: string;
+}
+
+export class AllArticlesManagementListItem extends ArticlesManagementListItem {
+
   type: ArticleType;
   createdTime: string | Date;
   latestModify: string | Date;
@@ -14,9 +19,8 @@ export class AllArticlesManagementList implements ArticlesManagementList {
   items: AllArticlesManagementListItem[];
 }
 
-export class PublishedArticlesManagementListItem implements ArticlesManagementListItem {
-  id: number;
-  title: string;
+export class PublishedArticlesManagementListItem extends ArticlesManagementListItem {
+
   pubId: number;
   type: ArticleType;
   pubTime: string | Date;
@@ -27,9 +31,8 @@ export class PublishedArticlesManagementList implements ArticlesManagementList {
   items: PublishedArticlesManagementListItem[];
 }
 
-export class DeletedArticlesManagementListItem implements ArticlesManagementListItem {
-  id: number;
-  title: string;
+export class DeletedArticlesManagementListItem extends ArticlesManagementListItem {
+
 }
 
 export class DeletedArticlesManagementList implements ArticlesManagementList {
@@ -37,9 +40,8 @@ export class DeletedArticlesManagementList implements ArticlesManagementList {
   items: DeletedArticlesManagementListItem[];
 }
 
-export class DraftsManagementListItem implements ArticlesManagementListItem {
-  id: number;
-  title: string;
+export class DraftsManagementListItem extends ArticlesManagementListItem {
+
   createdTime: string | Date;
   latestModify: string | Date;
 }
@@ -54,13 +56,6 @@ export enum ManagementOperationResult {
   Failed = 'Failed'
 }
 
-export class ListFilter {
-  timeFilterType: 'createdTime' | 'latestModify' | 'pubTime' | null;
-  timeFilterOrder: 'ascend' | 'descend' | null;
-  articleTypeFilter: ArticleType;
-  constructor() {}
-}
-
 export class CategoriesManagementListItem {
   id: number;
   name: string;
@@ -68,29 +63,49 @@ export class CategoriesManagementListItem {
   numberOfIncludedArticles = 0;
 }
 
-export class CategoriesManagementList {
-  totalNumberOfCategories: number;
+export class CategoriesManagementList implements ItemCollection {
+  totalNumberOfItems: number;
   items: CategoriesManagementListItem[];
 }
 
-export class CategoriesListFilter {
-  type = 'createdTime';
-  order: 'ascend'|'descend'|null;
-  constructor() {}
-}
 
-export interface ArticlesManagementList {
+export interface ArticlesManagementList extends ItemCollection {
   totalNumberOfItems: number;
   items: ArticlesManagementListItem[];
 }
 
-export interface ArticlesManagementListItem {
-  id: number;
-  pubId?: number;
-  title: string;
-  type?: ArticleType;
-  pubTime?: string | Date;
-  createdTime?: string | Date;
-  latestModify?: string | Date;
-  status?: ArticleStatus;
+
+
+export abstract class QueryFilter {
+  orderField: string;
+  order: 'Desc'|'Asc';
+
+  protected constructor(orderField: string, order: 'Desc'|'Asc') {
+    this.orderField = orderField;
+    this.order = order;
+  }
 }
+
+export class ArticleQueryFilter extends QueryFilter {
+  status: ArticleStatus;
+  constructor(orderField: string, order: 'Desc'|'Asc', status: ArticleStatus) {
+    super(orderField, order);
+    this.status = status;
+  }
+}
+
+export class PublishedArticleQueryFilter extends QueryFilter {
+  type: ArticleType;
+  constructor(orderField: string, order: 'Desc'|'Asc', type: ArticleType) {
+    super(orderField, order);
+    this.type = type;
+  }
+}
+
+export class CategoryQueryFilter extends QueryFilter {
+  constructor(orderField: string, order: 'Desc'|'Asc') {
+    super(orderField, order);
+  }
+}
+
+

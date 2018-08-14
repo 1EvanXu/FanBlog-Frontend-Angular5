@@ -12,7 +12,7 @@ import {PublishedArticleContentService} from '../../services/published-article-c
           </button>
         </div>
         <div class="button-container">
-          <button nz-button [nzType]="'default'" [nzShape]="'circle'">
+          <button nz-button [nzType]="'default'" [nzShape]="'circle'" (click)="toComment()">
             <i class="anticon anticon-message"></i>
           </button>
         </div>
@@ -80,5 +80,9 @@ export class SideToolKitsComponent {
       'anticon-like-o': !this.voted,
       'anticon-like': this.voted
     };
+  }
+
+  toComment() {
+    location.href = '#comment-box';
   }
 }
