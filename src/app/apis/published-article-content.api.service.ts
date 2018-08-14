@@ -19,8 +19,9 @@ export class PublishedArticleContentApiClient {
 
   voteForPublishedArticle(pubId: number): Observable<boolean> {
     const requestUrl = this._baseUrl + pubId + '/vote/';
-    return this._http.put<boolean>(requestUrl, null);
+    return this._http.put<BlogResponseResult>(requestUrl, null)
+      .pipe(map((value): boolean => {
+        return value.status === 200;
+      }));
   }
-
-
 }

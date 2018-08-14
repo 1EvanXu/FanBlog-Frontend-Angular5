@@ -1,7 +1,6 @@
 import {
   ArticlesManagementList, ArticlesManagementListItem,
-  ListFilter,
-  ManagementOperationResult,
+  ManagementOperationResult, QueryFilter,
 } from '../../../data-model/management';
 import {ManagementService} from '../../../services/management.service';
 import {delay} from 'rxjs/operators';
@@ -11,7 +10,7 @@ import {ArticleStatus} from '../../../data-model/article';
 
 export abstract class ArticlesManagementComponent {
 
-  filter?: ListFilter;
+  abstract filter: QueryFilter;
   allChecked = false;
   disabledButton = true;
   checkedNumber = 0;
@@ -20,7 +19,7 @@ export abstract class ArticlesManagementComponent {
   operating = false;
   totalNumberOfItems: number;
   checkedArticleIds = [];
-  protected articlesManagementListGetter: (pageIndex: number, filter?: ListFilter) => Observable<ArticlesManagementList>;
+  protected articlesManagementListGetter: (pageIndex: number, filter?: QueryFilter) => Observable<ArticlesManagementList>;
   readonly pageSize = 10;
   protected _dataSet = [];
   protected articlesOperation: {state: ArticleStatus; info: string};
@@ -53,7 +52,7 @@ export abstract class ArticlesManagementComponent {
     this.refreshCheckStatus();
   }
 
-  loadDataSet(pageIndex: number, filter?: ListFilter) {
+  loadDataSet(pageIndex: number, filter?: QueryFilter) {
     this.loadingData = true;
     this.articlesManagementListGetter(pageIndex, filter)
       .pipe(delay(1000)).subscribe(
@@ -72,17 +71,18 @@ export abstract class ArticlesManagementComponent {
     this.loadDataSet(pageIndex, this.filter);
   }
 
-  search(timeFilterType?: 'createdTime' | 'latestModify' | 'pubTime' | null, timeFilterOrder?: 'ascend' | 'descend' | null) {
-    if (timeFilterType) {
-      this.filter.timeFilterType = timeFilterType;
+  search(orderField?: string, order?: 'Asc' | 'Desc' | null) {
+    if (orderField) {
+      this.filter.orderField = orderField;
     }
-    this.filter.timeFilterOrder = timeFilterOrder;
+    this.filter.order = order;
     this.loadDataSet(1, this.filter);
   }
 
-  resetArticleTypeFilter() {
-    this.filter.articleTypeFilter = null;
-    this.loadDataSet(1);
+
+  resetRadioFilter() {
+    this.resetRadioField();
+    this.loadDataSet(1, this.filter);
   }
 
   operate() {
@@ -109,5 +109,7 @@ export abstract class ArticlesManagementComponent {
   abstract initArticlesOperation();
 
   abstract get dataSet(): Array<ArticlesManagementListItem>;
+
+  abstract resetRadioField();
 
 }

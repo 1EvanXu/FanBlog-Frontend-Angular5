@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-management',
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
           <span style="font-size: 20px; font-weight: bold">Management</span>
         </div>
         <div style="display: inline-block;">
-          <button nz-button>
+          <button nz-button (click)="writeArticle()">
             <span><i class="anticon anticon-edit"></i><span style="margin-left: 5px">Write Article</span></span>
           </button>
         </div>
@@ -27,7 +28,6 @@ import { Component, OnInit } from '@angular/core';
               <li nz-submenu [nzOpen]="true">
                 <span title class="management-menu-title"><i class="anticon anticon-file-text"></i>Articles Management</span>
                 <ul>
-                  <li nz-menu-item><a [routerLink]="['/management/articles/all']">All Articles</a></li>
                   <li nz-menu-item><a [routerLink]="['/management/articles/published']">Published Articles</a></li>
                   <li nz-menu-item><a [routerLink]="['/management/articles/draft']">Drafts</a></li>
                   <li nz-menu-item><a [routerLink]="['/management/articles/deleted']">Deleted Articles</a></li>
@@ -40,9 +40,6 @@ import { Component, OnInit } from '@angular/core';
                   </a>
                 </span>
               </li>
-              <!--<li nz-menu-item>-->
-                <!--<span title class="management-menu-title"><i class="anticon anticon-mail"></i>Message</span>-->
-              <!--</li>-->
             </ul>
           </nz-sider>
           <nz-content style="padding: 24px; min-height: 500px;">
@@ -75,9 +72,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManagementComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  writeArticle() {
+    this.router.navigate(['/editor/article/new']);
   }
 
 }

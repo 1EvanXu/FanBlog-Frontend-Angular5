@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
-import {DeletedArticlesManagementListItem, ManagementOperationResult} from '../../../../data-model/management';
+import {ArticleQueryFilter, DeletedArticlesManagementListItem, ManagementOperationResult} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {delay} from 'rxjs/operators';
@@ -46,12 +46,15 @@ import {ArticleStatus} from '../../../../data-model/article';
   `]
 })
 export class DeletedArticlesManagementComponent extends ArticlesManagementComponent implements OnInit {
+  filter: ArticleQueryFilter;
+
   deletingPermanently = false;
   constructor(
     public _managementService: ManagementService,
     public _nzMessageService: NzMessageService
   ) {
     super(_managementService, _nzMessageService);
+    this.filter = new ArticleQueryFilter('latest_edit_time', 'Desc', ArticleStatus.Deleted);
   }
 
   ngOnInit() {
@@ -84,4 +87,6 @@ export class DeletedArticlesManagementComponent extends ArticlesManagementCompon
       () => { this.deletingPermanently = false; this.loadDataSet( 1); }
     );
   }
+
+  resetRadioField() {}
 }

@@ -5,7 +5,6 @@ import { ManagementRoutingModule } from './management-routing.module';
 import {ManagementComponent} from './management.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {FormsModule} from '@angular/forms';
-import { AllArticlesManagementComponent } from './articles-management/all-articles-management/all-articles-management.component';
 import { PublishedArticlesManagementComponent } from './articles-management/published-articles-management/published-articles-management.component';
 import { DraftsManagementComponent } from './articles-management/drafts-management/drafts-management.component';
 import { DeletedArticlesManagementComponent } from './articles-management/deleted-articles-management/deleted-articles-management.component';
@@ -21,7 +20,6 @@ import { CategoriesManagementComponent } from './categories-management/categorie
   ],
   declarations: [
     ManagementComponent,
-    AllArticlesManagementComponent,
     PublishedArticlesManagementComponent,
     DraftsManagementComponent,
     DeletedArticlesManagementComponent,

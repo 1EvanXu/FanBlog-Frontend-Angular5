@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ManagementService} from '../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
-import {CategoriesListFilter, CategoriesManagementList, ManagementOperationResult} from '../../../data-model/management';
+import {CategoriesManagementList, CategoryQueryFilter, ManagementOperationResult} from '../../../data-model/management';
 import {delay} from 'rxjs/operators';
 
 @Component({
@@ -10,11 +10,7 @@ import {delay} from 'rxjs/operators';
     <div style="margin-bottom: 16px;">
       <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="deletingCategories" (click)="deleteCategories()">Delete Categories</button>
       <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
-      <!--<div style="display: inline-block; float: right;">-->
-        <!--<button nz-button [nzType]="'dashed'">-->
-          <!--<i class="anticon anticon-plus"></i><span style="margin-right: 4px;">Create</span>-->
-        <!--</button>-->
-      <!--</div>-->
+
     </div>
     <nz-table #nzTable [nzDataSource]="dataSet" [nzPageSize]="10" [nzTotal]="totalNumberOfCategories" (nzPageIndexChange)="pageChange($event)" [nzLoading]="loadingData">
       <thead nz-thead>
@@ -26,7 +22,7 @@ import {delay} from 'rxjs/operators';
         <th nz-th><span>Name</span></th>
         <th nz-th>
           <span>Created Time</span>
-          <nz-table-sort [(nzValue)]="categoriesListFilter.order" (nzValueChange)="search($event)"></nz-table-sort>
+          <nz-table-sort [(nzValue)]="categoryQueryFilter.order" (nzValueChange)="search($event)"></nz-table-sort>
         </th>
         <th nz-th><span>Included Articles</span></th>
       </tr>
@@ -40,7 +36,7 @@ import {delay} from 'rxjs/operators';
         <td nz-td>{{data.name}}</td>
         <td nz-td>{{data.createdTime}}</td>
         <td nz-td>
-          {{data.numberOfIncludedArticles}}
+          <nz-badge [nzStyle]="getBadgeStyle(data.numberOfIncludedArticles)" [nzCount]="data.numberOfIncludedArticles"></nz-badge>
         </td>
       </tr>
       </tbody>
@@ -57,26 +53,27 @@ export class CategoriesManagementComponent implements OnInit {
   dataSet = [];
   indeterminate = false;
   checkedCategoriesId: number[] = [];
-  categoriesListFilter = new CategoriesListFilter();
+  categoryQueryFilter = new CategoryQueryFilter('created_time', 'Desc');
   loadingData = false;
   totalNumberOfCategories: number;
+
 
   constructor(
     private _managementService: ManagementService,
     private _nzMessageService: NzMessageService
   ) { }
 
-  getBadgeStyle(n: number) {
-    if (n <= 5) {
-      return {};
+  getBadgeStyle(n: number): { 'background-color': string } {
+    if (n <= 2) {
+      return { 'background-color': 'orange' } ;
     }
-    if (n > 20) {
-      return {backgroundColor: ''};
+    if (n > 7) {
+      return { 'background-color': 'firebrick' } ;
     }
-    if (n > 10) {
-      return {backgroundColor: '#00c4ff'};
+    if (n > 5) {
+      return { 'background-color': 'dodgerblue' } ;
     }
-    return {};
+    return { 'background-color': 'forestgreen' };
   }
   refreshStatus() {
     const allChecked = this.dataSet.every(value => value.checked === true);
@@ -101,13 +98,13 @@ export class CategoriesManagementComponent implements OnInit {
     this.getCategoriesSet(1);
   }
 
-  getCategoriesSet(pageIndex: number, filter?: CategoriesListFilter) {
+  getCategoriesSet(pageIndex: number, filter?: CategoryQueryFilter) {
     this.loadingData = true;
     this._managementService.getCategoriesManagementList(pageIndex, filter)
       .pipe(delay(1000)).subscribe(
       (value: CategoriesManagementList) => {
         this.dataSet = value.items;
-        this.totalNumberOfCategories = value.totalNumberOfCategories;
+        this.totalNumberOfCategories = value.totalNumberOfItems;
         this.refreshStatus();
       },
       () => {},
@@ -118,7 +115,7 @@ export class CategoriesManagementComponent implements OnInit {
   }
 
   pageChange(pageIndex: number) {
-    this.getCategoriesSet(pageIndex, this.categoriesListFilter);
+    this.getCategoriesSet(pageIndex, this.categoryQueryFilter);
   }
 
   deleteCategories() {
@@ -131,16 +128,16 @@ export class CategoriesManagementComponent implements OnInit {
         } else {
           this._nzMessageService.error('Delete categories failed!');
         }
-        this.getCategoriesSet(1, this.categoriesListFilter);
+        this.getCategoriesSet(1, this.categoryQueryFilter);
       },
       () => this._nzMessageService.error('Some errors happened!'),
       () => this.deletingCategories = false
     );
   }
 
-  search(order: 'ascend'|'descend'|null) {
-    this.categoriesListFilter.order = order;
-    this.getCategoriesSet(1, this.categoriesListFilter);
+  search(order: 'Asc'|'Desc') {
+    this.categoryQueryFilter.order = order;
+    this.getCategoriesSet(1, this.categoryQueryFilter);
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
-import {DraftsManagementListItem, ListFilter} from '../../../../data-model/management';
+import {ArticleQueryFilter, DraftsManagementListItem} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {ArticleStatus} from '../../../../data-model/article';
@@ -24,12 +24,12 @@ import {ArticleStatus} from '../../../../data-model/article';
         <th nz-th><span>Title</span></th>
         <th nz-th>
           <span>CreatedTime</span>
-          <nz-table-sort [nzValue]="filter.timeFilterType === 'createdTime' ? filter.timeFilterOrder : null"
+          <nz-table-sort [nzValue]="filter.orderField === 'createdTime' ? filter.order : null"
                          (nzValueChange)="search('createdTime', $event)"></nz-table-sort>
         </th>
         <th nz-th>
           <span>LatestModify</span>
-          <nz-table-sort [nzValue]="filter.timeFilterType === 'latestModify' ? filter.timeFilterOrder : null"
+          <nz-table-sort [nzValue]="filter.orderField === 'latestModify' ? filter.order : null"
                          (nzValueChange)="search('latestModify', $event)"></nz-table-sort>
         </th>
         <th nz-th></th>
@@ -45,7 +45,7 @@ import {ArticleStatus} from '../../../../data-model/article';
         <td nz-td>{{data.createdTime}}</td>
         <td nz-td>{{data.latestModify}}</td>
         <td nz-td>
-          <a [routerLink]="['/editor/', data.id]">Edit</a>
+          <a [routerLink]="['/editor/article', data.id]">Edit</a>
         </td>
       </tr>
       </tbody>
@@ -59,12 +59,16 @@ import {ArticleStatus} from '../../../../data-model/article';
   `]
 })
 export class DraftsManagementComponent extends ArticlesManagementComponent implements OnInit {
+
+  filter: ArticleQueryFilter;
+
   constructor(
     public _managementService: ManagementService,
     public _nzMessageService: NzMessageService
   ) {
     super(_managementService, _nzMessageService);
-    this.filter = new ListFilter();
+    this.filter = new ArticleQueryFilter('created_time', 'Desc', ArticleStatus.Editing);
+
   }
 
   ngOnInit() {
@@ -81,5 +85,9 @@ export class DraftsManagementComponent extends ArticlesManagementComponent imple
 
   get dataSet(): Array<DraftsManagementListItem> {
     return <Array<DraftsManagementListItem>>this._dataSet;
+  }
+
+  resetRadioField() {
+    this.filter.status = null;
   }
 }

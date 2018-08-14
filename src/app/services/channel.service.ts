@@ -15,9 +15,9 @@ export class BreadcrumbService {
 
 @Injectable()
 export class ReplyService {
-  private info = new Subject<{ parentCommentary: number; replyTo: {id: number; name: string}}>();
+  private info = new Subject<{ parent: number; replyTo: {id: number; name: string}}>();
   info$ = this.info.asObservable();
-  setInfo(info: { parentCommentary: number; replyTo: {id: number; name: string}}) {
+  setInfo(info: { parent: number; replyTo: {id: number; name: string}}) {
     this.info.next(info);
   }
 }

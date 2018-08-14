@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
-import {ListFilter, ManagementOperationResult, PublishedArticlesManagementListItem} from '../../../../data-model/management';
+import {PublishedArticleQueryFilter, PublishedArticlesManagementListItem} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
-import {delay} from 'rxjs/operators';
 import {ArticleStatus} from '../../../../data-model/article';
 
 @Component({
@@ -32,7 +31,7 @@ import {ArticleStatus} from '../../../../data-model/article';
           <nz-dropdown [nzTrigger]="'click'">
             <i class="anticon anticon-filter" nz-dropdown></i>
             <ul nz-menu>
-              <nz-radio-group [(ngModel)]="filter.articleTypeFilter">
+              <nz-radio-group [(ngModel)]="filter.type">
                 <li nz-menu-item>
                   <label nz-radio [nzValue]="'Original'">
                     <span>Original</span>
@@ -52,7 +51,7 @@ import {ArticleStatus} from '../../../../data-model/article';
             </ul>
             <div nz-table-filter>
               <span nz-table-filter-confirm (click)="search()">OK</span>
-              <span nz-table-filter-clear (click)="resetArticleTypeFilter()">Reset</span>
+              <span nz-table-filter-clear (click)="resetRadioFilter()">Reset</span>
             </div>
           </nz-dropdown>
         </th>
@@ -83,13 +82,13 @@ import {ArticleStatus} from '../../../../data-model/article';
   `]
 })
 export class PublishedArticlesManagementComponent extends ArticlesManagementComponent implements OnInit {
-
+  filter: PublishedArticleQueryFilter;
   constructor(
     public _managementService: ManagementService,
     public _nzMessageService: NzMessageService,
   ) {
     super(_managementService, _nzMessageService);
-    this.filter = new ListFilter();
+    this.filter = new PublishedArticleQueryFilter('pub_time', 'Desc', null);
   }
 
   ngOnInit() {
@@ -106,5 +105,9 @@ export class PublishedArticlesManagementComponent extends ArticlesManagementComp
 
   get dataSet(): Array<PublishedArticlesManagementListItem> {
     return <Array<PublishedArticlesManagementListItem>>this._dataSet;
+  }
+
+  resetRadioField() {
+    this.filter.type = null;
   }
 }

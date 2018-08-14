@@ -18,7 +18,7 @@ export class CommentaryItemBoxComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    // console.log('CommentaryItemBoxComponent======.', this.commentary.childCommentaries[0]);
+    // console.log('CommentaryItemBoxComponent======.', this.commentary);
     // console.log('hasChild', this.hasChildren);
   }
   get commentary(): Commentary {

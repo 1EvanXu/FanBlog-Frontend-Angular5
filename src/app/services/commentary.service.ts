@@ -12,5 +12,7 @@ export class CommentaryService {
   loadCommentaries(pubId: number, pageIndex: number): Observable<CommentaryCollection> {
     return this._apiClient.getCommentaries(pubId, pageIndex);
   }
-  postCommentary(comment: Comment) {}
+  postCommentary(pubId: number, comment: Comment): Observable<'success'|'failed'> {
+    return this._apiClient.postComment(pubId, comment);
+  }
 }

@@ -1,7 +1,6 @@
 export  class Article {
   id: number;
   title: string;
-  type: string;
   createdTime: string | Date;
   latestModify: string | Date;
   htmlContent: string;
@@ -24,4 +23,8 @@ export enum ArticleStatus {
   Published = 'Published',
   Editing = 'Editing',
   Deleted = 'Deleted'
+}
+
+export class Draft extends Article {
+  tempArticleId: number;
 }

@@ -2,7 +2,7 @@ import {User} from './user';
 import {ItemCollection} from './item-collection';
 
 export interface CommonCommentary {
-  commentaryId: number;
+  id: number;
   commentTime: string;
   commentator: User;
   commentaryContent: string;
@@ -10,20 +10,20 @@ export interface CommonCommentary {
 }
 
 export class Commentary implements CommonCommentary {
-  commentaryId: number;
+  id: number;
   commentator: User;
   commentTime: string;
   commentaryContent: string;
   childCommentaries: Array<ChildCommentary>;
   belongedPublishedArticle: number;
   constructor(
-    commentaryId: number,
+    id: number,
     commentator: User,
     commentTime: string,
     commentaryContent: string,
     childCommentaries: ChildCommentary[]) {
 
-    this.commentaryId = commentaryId;
+    this.id = id;
     this.commentTime = commentTime;
     this.commentator = commentator;
     this.commentaryContent = commentaryContent;
@@ -33,7 +33,7 @@ export class Commentary implements CommonCommentary {
 
 export class ChildCommentary implements CommonCommentary {
   parentCommentary: number;
-  commentaryId: number;
+  id: number;
   commentTime: string;
   commentator: User;
   commentaryContent: string;
@@ -41,10 +41,10 @@ export class ChildCommentary implements CommonCommentary {
   belongedPublishedArticle: number;
 
 
-  constructor(parentCommentary: number, commentaryId: number, commentator: User, commentTime: string,
+  constructor(parentCommentary: number, id: number, commentator: User, commentTime: string,
               commentaryContent: string, replyTo?: User) {
     this.parentCommentary = parentCommentary;
-    this.commentaryId = commentaryId;
+    this.id = id;
     this.commentTime = commentTime;
     this.commentator = commentator;
     this.commentaryContent = commentaryContent;
@@ -59,8 +59,10 @@ export class CommentaryCollection implements ItemCollection {
 }
 
 export class Comment {
+  commentator: number;
+  content: string;
   parent?: number;
   replyTo?: number;
-  commentator: string;
-  content: string;
+
+
 }

@@ -82,5 +82,5 @@ export function getCategoriesManagementList(pageIndex: number) {
       numberOfIncludedArticles: parseInt((Math.random() * 10).toString(), 0)
     });
   }
-  return { totalNumberOfCategories: 50, items: items };
+  return { totalNumberOfItems: 50, items: items };
 }
