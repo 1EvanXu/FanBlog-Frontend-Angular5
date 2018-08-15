@@ -1,4 +1,4 @@
-import {ArticleType} from './article';
+import {ArticleCategory, ArticleType} from './article';
 
 export  class PublishedArticle {
   pubId: number;
@@ -39,6 +39,6 @@ export  class PublishedArticle {
 export class PublishingArticle {
   title: string;
   type: ArticleType;
-  category: number;
+  category: ArticleCategory;
   articleId: number;
 }

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PublishedArticleItem} from '../../data-model/publised-article-item';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article-item',
@@ -9,7 +10,7 @@ import {PublishedArticleItem} from '../../data-model/publised-article-item';
         <h1><a [routerLink]="['/blog/article', articleItem.pubId]" style="text-decoration-line: none">{{articleItem.title}}</a></h1>
       </div>
       <div nz-row class="article-abstract">
-        <p>{{articleItem.articleAbstract | slice: 0:100}}</p>
+        <p [innerHtml]="content"></p>
       </div>
       <div nz-row >
         <div nz-col [nzSpan]="4">
@@ -69,9 +70,11 @@ export class ArticleItemComponent implements OnInit {
 
   @Input() articleItem: PublishedArticleItem;
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
   }
-
+  get content() {
+    return this.sanitizer.bypassSecurityTrustHtml(this.articleItem.articleAbstract);
+  }
 }

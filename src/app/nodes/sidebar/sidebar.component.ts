@@ -5,12 +5,12 @@ import {SideInformation} from '../../data-model/side-information';
 @Component({
   selector: 'app-sidebar',
   template: `
-    <app-side-info [infoTitle]="'Latest articles'" [extraTitle]="'more'" [extraUrl]="''" [infos]="latestArticles$"
+    <app-side-info [infoTitle]="'最新文章'" [extraTitle]="'more'" [extraUrl]="''" [infos]="latestArticles$"
                    [loading]="latestArticlesLoading" [baseHref]="'/blog/article/'" >
     </app-side-info>
-    <app-side-info [infoTitle]="'Popular articles'" [infos]="popularArticles$" 
+    <app-side-info [infoTitle]="'最热文章'" [infos]="popularArticles$" 
                    [loading]="popularArticlesLoading" [baseHref]="'/blog/article/'"></app-side-info>
-    <app-side-info [infoTitle]="'Categories'" [infos]="categories$" [loading]="categoriesLoading" 
+    <app-side-info [infoTitle]="'文章分类'" [infos]="categories$" [loading]="categoriesLoading" 
                    [baseHref]="'/blog/articles/category/'"></app-side-info>
   `,
   styles: []

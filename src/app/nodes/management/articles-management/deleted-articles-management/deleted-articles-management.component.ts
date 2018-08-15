@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
-import {ArticleQueryFilter, DeletedArticlesManagementListItem, ManagementOperationResult} from '../../../../data-model/management';
+import {ArticleQueryFilter, ArticlesManagementList, DeletedArticlesManagementListItem, ManagementOperationResult, QueryFilter} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
-import {delay} from 'rxjs/operators';
 import {ArticleStatus} from '../../../../data-model/article';
 
 @Component({
@@ -26,6 +25,10 @@ import {ArticleStatus} from '../../../../data-model/article';
           </label>
         </th>
         <th nz-th><span>Title</span></th>
+        <th nz-th>
+          <span>Deleted Time</span>
+          <nz-table-sort (nzValueChange)="search('latest_edited_time', $event)"></nz-table-sort>
+        </th>
       </tr>
       </thead>
       <tbody nz-tbody>
@@ -35,6 +38,7 @@ import {ArticleStatus} from '../../../../data-model/article';
           </label>
         </td>
         <td nz-td><span style="color: red">{{data.title}}</span></td>
+        <td nz-td>{{data.latestEditedTime}}</td>
       </tr>
       </tbody>
     </nz-table>
@@ -61,10 +65,6 @@ export class DeletedArticlesManagementComponent extends ArticlesManagementCompon
     this.loadDataSet( 1);
   }
 
-  initArticlesManagementListGetter() {
-    this.articlesManagementListGetter = this._managementService.getDeletedArticlesManagementList;
-  }
-
   initArticlesOperation() {
     this.articlesOperation = { state: ArticleStatus.Editing, info: 'Revoke deleted'};
   }
@@ -75,7 +75,7 @@ export class DeletedArticlesManagementComponent extends ArticlesManagementCompon
 
   deleteArticlesPermanently() {
     this.deletingPermanently = true;
-    this._managementService.deleteArticlesPermanently(this.checkedArticleIds).pipe(delay(1000)).subscribe(
+    this._managementService.deleteArticlesPermanently(this.checkedArticleIds).subscribe(
       (value) => {
         if (value === ManagementOperationResult.Success) {
           this._nzMessageService.success('Delete articles permanently success!');
@@ -89,4 +89,18 @@ export class DeletedArticlesManagementComponent extends ArticlesManagementCompon
   }
 
   resetRadioField() {}
+
+  loadDataSet(pageIndex: number, filter?: QueryFilter) {
+    this.loadingData = true;
+    this._managementService.getDeletedArticlesManagementList(pageIndex, this.filter).subscribe(
+      (value: ArticlesManagementList) => {
+        this._dataSet = value.items;
+        this.totalNumberOfItems = value.totalNumberOfItems;
+        this.refreshCheckStatus();
+      },
+      () => {
+      },
+      () => this.loadingData = false
+    );
+  }
 }

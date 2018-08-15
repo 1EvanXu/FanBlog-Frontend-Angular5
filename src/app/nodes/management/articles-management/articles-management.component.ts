@@ -19,13 +19,11 @@ export abstract class ArticlesManagementComponent {
   operating = false;
   totalNumberOfItems: number;
   checkedArticleIds = [];
-  protected articlesManagementListGetter: (pageIndex: number, filter?: QueryFilter) => Observable<ArticlesManagementList>;
-  readonly pageSize = 10;
+  readonly pageSize = 6;
   protected _dataSet = [];
   protected articlesOperation: {state: ArticleStatus; info: string};
 
   protected constructor(public _managementService: ManagementService, public _nzMessageService: NzMessageService) {
-    this.initArticlesManagementListGetter();
     this.initArticlesOperation();
   }
 
@@ -52,30 +50,21 @@ export abstract class ArticlesManagementComponent {
     this.refreshCheckStatus();
   }
 
-  loadDataSet(pageIndex: number, filter?: QueryFilter) {
-    this.loadingData = true;
-    this.articlesManagementListGetter(pageIndex, filter)
-      .pipe(delay(1000)).subscribe(
-      (value: ArticlesManagementList) => {
-        this._dataSet = value.items;
-        this.totalNumberOfItems = value.totalNumberOfItems;
-        this.refreshCheckStatus();
-      },
-      () => {
-      },
-      () => this.loadingData = false
-    );
-  }
 
   pageIndexChange(pageIndex: number) {
     this.loadDataSet(pageIndex, this.filter);
   }
 
-  search(orderField?: string, order?: 'Asc' | 'Desc' | null) {
+  search(orderField?: string, order?: 'ascend' | 'descend' | null) {
+
     if (orderField) {
       this.filter.orderField = orderField;
     }
-    this.filter.order = order;
+    switch (order) {
+      case 'ascend': this.filter.order = 'Asc'; break;
+      case 'descend': this.filter.order = 'Desc'; break;
+      default: this.filter.order = null;
+    }
     this.loadDataSet(1, this.filter);
   }
 
@@ -87,8 +76,8 @@ export abstract class ArticlesManagementComponent {
 
   operate() {
     this.operating = true;
-    console.log(this._managementService);
-    this._managementService.updateArticlesStatus(this.checkedArticleIds, this.articlesOperation.state).pipe(delay(1000)).subscribe(
+    console.log(this.checkedArticleIds);
+    this._managementService.updateArticlesStatus(this.checkedArticleIds, this.articlesOperation.state).subscribe(
       (value: ManagementOperationResult) => {
         if (value === ManagementOperationResult.Success) {
           this._nzMessageService.success(`${this.articlesOperation.info} success!`);
@@ -104,12 +93,13 @@ export abstract class ArticlesManagementComponent {
     );
   }
 
-  abstract initArticlesManagementListGetter();
 
   abstract initArticlesOperation();
 
   abstract get dataSet(): Array<ArticlesManagementListItem>;
 
   abstract resetRadioField();
+
+  abstract loadDataSet(pageIndex: number, filter?: QueryFilter);
 
 }

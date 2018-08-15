@@ -22,32 +22,28 @@ export class ManagementApiClient {
   constructor(private _http: HttpClient) { }
 
   getPublishedArticlesManagementList(pageIndex: number, filter?: PublishedArticleQueryFilter): Observable<PublishedArticlesManagementList> {
-    let requestUrl = this.managementApiUrl + `publishedArticles/p/${pageIndex}`;
-    if (filter) {
-      requestUrl += `?filter=${filter}`;
-    }
+    const requestUrl = this.managementApiUrl + `publishedArticles/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}&type=${filter.type}`;
+
+    console.log(requestUrl);
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
   getDraftsManagementList(pageIndex: number, filter?: ArticleQueryFilter): Observable<DraftsManagementList> {
-    let requestUrl = this.managementApiUrl + `drafts/p/${pageIndex}`;
-    if (filter) {
-      requestUrl += `?filter=${filter}`;
-    }
+    const requestUrl = this.managementApiUrl + `drafts/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}`;
+    console.log(requestUrl);
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
   getDeletedArticlesManagementList(pageIndex: number, filter?: ArticleQueryFilter): Observable<DeletedArticlesManagementList> {
-    let requestUrl = this.managementApiUrl + `drafts/p/${pageIndex}`;
-    if (filter) {
-      requestUrl += `?filter=${filter}`;
-    }
+    const requestUrl = this.managementApiUrl + `deletedArticles/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}`;
+
+    console.log(requestUrl);
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
   updateArticlesStatus(articlesIds: number[], articleStatus: ArticleStatus): Observable<ManagementOperationResult> {
     const requestUrl = this.managementApiUrl + 'articles/status';
-    return this._http.put<BlogResponseResult>(requestUrl, {ids: articlesIds, status: articleStatus}).pipe(map(value => {
+    return this._http.put<BlogResponseResult>(requestUrl, {articleIds: articlesIds, status: articleStatus}).pipe(map(value => {
         if (value.status === 200) {
           return ManagementOperationResult.Success;
         }
@@ -56,9 +52,9 @@ export class ManagementApiClient {
     ));
   }
 
-  revokePublishedArticles(pubIds: number[]): Observable<ManagementOperationResult> {
-    const requestUrl = this.managementApiUrl + 'publishedArticles';
-    return this._http.put<BlogResponseResult>(requestUrl, pubIds).pipe(map(
+  deletePublishedArticles(pubIds: number[]): Observable<ManagementOperationResult> {
+    const requestUrl = this.managementApiUrl + `publishedArticles?ids=${pubIds}`;
+    return this._http.delete<BlogResponseResult>(requestUrl).pipe(map(
       value => {
         if (value.status === 200) {
           return ManagementOperationResult.Success;
@@ -69,8 +65,9 @@ export class ManagementApiClient {
   }
 
   deleteArticlesPermanently(articlesIds: number[]): Observable<ManagementOperationResult> {
-    const requestUrl = this.managementApiUrl + 'articles';
-    return this._http.put<BlogResponseResult>(requestUrl, articlesIds).pipe(map(
+    const requestUrl = this.managementApiUrl + `articles?ids=${articlesIds}`;
+    console.log(requestUrl);
+    return this._http.delete<BlogResponseResult>(requestUrl).pipe(map(
       value => {
         if (value.status === 200) {
           return ManagementOperationResult.Success;
@@ -81,7 +78,8 @@ export class ManagementApiClient {
   }
 
   getCategoriesManagementList(pageIndex: number, filter?: CategoryQueryFilter): Observable<CategoriesManagementList> {
-    const requestUrl = this.managementApiUrl + 'categories';
+    const requestUrl = this.managementApiUrl + `categories/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}`;
+    console.log(requestUrl);
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 

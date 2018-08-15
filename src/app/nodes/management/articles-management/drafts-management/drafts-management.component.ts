@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
-import {ArticleQueryFilter, DraftsManagementListItem} from '../../../../data-model/management';
+import {ArticleQueryFilter, ArticlesManagementList, DraftsManagementListItem, QueryFilter} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {ArticleStatus} from '../../../../data-model/article';
@@ -24,13 +24,13 @@ import {ArticleStatus} from '../../../../data-model/article';
         <th nz-th><span>Title</span></th>
         <th nz-th>
           <span>CreatedTime</span>
-          <nz-table-sort [nzValue]="filter.orderField === 'createdTime' ? filter.order : null"
-                         (nzValueChange)="search('createdTime', $event)"></nz-table-sort>
+          <nz-table-sort [nzValue]="filter.orderField === 'created_time' ? filter.order : null"
+                         (nzValueChange)="search('created_time', $event)"></nz-table-sort>
         </th>
         <th nz-th>
           <span>LatestModify</span>
-          <nz-table-sort [nzValue]="filter.orderField === 'latestModify' ? filter.order : null"
-                         (nzValueChange)="search('latestModify', $event)"></nz-table-sort>
+          <nz-table-sort [nzValue]="filter.orderField === 'latest_edited_time' ? filter.order : null"
+                         (nzValueChange)="search('latest_edited_time', $event)"></nz-table-sort>
         </th>
         <th nz-th></th>
       </tr>
@@ -43,7 +43,7 @@ import {ArticleStatus} from '../../../../data-model/article';
         </td>
         <td nz-td>{{data.title}}</td>
         <td nz-td>{{data.createdTime}}</td>
-        <td nz-td>{{data.latestModify}}</td>
+        <td nz-td>{{data.latestEditedTime}}</td>
         <td nz-td>
           <a [routerLink]="['/editor/article', data.id]">Edit</a>
         </td>
@@ -75,10 +75,6 @@ export class DraftsManagementComponent extends ArticlesManagementComponent imple
     this.loadDataSet( 1);
   }
 
-  initArticlesManagementListGetter() {
-    this.articlesManagementListGetter = this._managementService.getDraftsManagementList;
-  }
-
   initArticlesOperation() {
     this.articlesOperation = {state: ArticleStatus.Deleted, info: 'Delete articles'};
   }
@@ -89,5 +85,19 @@ export class DraftsManagementComponent extends ArticlesManagementComponent imple
 
   resetRadioField() {
     this.filter.status = null;
+  }
+
+  loadDataSet(pageIndex: number, filter?: QueryFilter) {
+    this.loadingData = true;
+    this._managementService.getDraftsManagementList(pageIndex, this.filter).subscribe(
+      (value: ArticlesManagementList) => {
+        this._dataSet = value.items;
+        this.totalNumberOfItems = value.totalNumberOfItems;
+        this.refreshCheckStatus();
+      },
+      () => {
+      },
+      () => this.loadingData = false
+    );
   }
 }

@@ -4,6 +4,9 @@ import 'rxjs/add/operator/map';
 import {NZ_MESSAGE_CONFIG, NzMessageService, NzModalSubject} from 'ng-zorro-antd';
 import {MarkdownEditorService} from '../../../services/markdown-editor.service';
 import {PublishingArticle} from '../../../data-model/published-article';
+import {ArticleCategory} from '../../../data-model/article';
+import {assertNumber} from '@angular/core/src/render3/assert';
+import {isNumber} from 'util';
 
 @Component({
   selector: 'app-article-publish-form',
@@ -123,18 +126,20 @@ export class ArticlePublishFormComponent implements OnInit {
     for (const key in this.articlePublishForm.controls) {
       this.articlePublishForm.controls[ key ].markAsDirty();
     }
+    let category: ArticleCategory;
+    if (isNumber(value.category[0].value)) {
+      category = {id: value.category[0].value, name: value.category[0].label};
+    } else {
+      category = {id: null, name: value.category[0]};
+    }
 
-    // setTimeout( () => {
-    //   this._nzMessageService.success('Publish success!');
-    //   this._nzModalSubject.destroy('onCancel');
-    //   this.isSubmitting = false;
-    // }, 1000);
     const publishingArticle: PublishingArticle = {
       title: value.title,
       type: value.type.value,
-      category: value.category[0].value,
+      category: category,
       articleId: this.articleId
     };
+
     console.log(publishingArticle);
 
     this._mdEditorService.publishArticle(publishingArticle).subscribe(

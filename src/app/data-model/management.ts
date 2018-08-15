@@ -6,19 +6,6 @@ export abstract class ArticlesManagementListItem {
   title: string;
 }
 
-export class AllArticlesManagementListItem extends ArticlesManagementListItem {
-
-  type: ArticleType;
-  createdTime: string | Date;
-  latestModify: string | Date;
-  status: ArticleStatus;
-}
-
-export class AllArticlesManagementList implements ArticlesManagementList {
-  totalNumberOfItems: number;
-  items: AllArticlesManagementListItem[];
-}
-
 export class PublishedArticlesManagementListItem extends ArticlesManagementListItem {
 
   pubId: number;
@@ -32,7 +19,7 @@ export class PublishedArticlesManagementList implements ArticlesManagementList {
 }
 
 export class DeletedArticlesManagementListItem extends ArticlesManagementListItem {
-
+  latestEditedTime: string | Date;
 }
 
 export class DeletedArticlesManagementList implements ArticlesManagementList {
@@ -43,7 +30,7 @@ export class DeletedArticlesManagementList implements ArticlesManagementList {
 export class DraftsManagementListItem extends ArticlesManagementListItem {
 
   createdTime: string | Date;
-  latestModify: string | Date;
+  latestEditedTime: string | Date;
 }
 
 export class DraftsManagementList implements ArticlesManagementList {
@@ -60,7 +47,7 @@ export class CategoriesManagementListItem {
   id: number;
   name: string;
   createdTime: string | Date;
-  numberOfIncludedArticles = 0;
+  numberOfIncludedPubArticles = 0;
 }
 
 export class CategoriesManagementList implements ItemCollection {

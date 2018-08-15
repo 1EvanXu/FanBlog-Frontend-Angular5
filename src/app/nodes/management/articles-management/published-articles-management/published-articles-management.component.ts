@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticlesManagementComponent} from '../articles-management.component';
-import {PublishedArticleQueryFilter, PublishedArticlesManagementListItem} from '../../../../data-model/management';
+import {ArticlesManagementList, ManagementOperationResult, PublishedArticleQueryFilter, PublishedArticlesManagementListItem, QueryFilter} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {ArticleStatus} from '../../../../data-model/article';
@@ -12,13 +12,13 @@ import {ArticleStatus} from '../../../../data-model/article';
       <h2 class="articles-management-banner">Published Articles Management</h2>
     </div>
     <div style="margin-bottom: 16px;">
-      <button nz-button [disabled]="disabledButton" [nzType]="'default'" [nzLoading]="operating" (click)="operate()">
+      <button nz-button [disabled]="disabledButton" [nzType]="'default'" [nzLoading]="operating" (click)="operate()" disabled>
         Revoke Published
       </button>
       <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
     </div>
     <nz-table #nzTable [nzAjaxData]="dataSet" [nzPageSize]="pageSize" [nzTotal]="totalNumberOfItems" [nzIsPagination]="shouldPagination"
-              [nzPageIndex]="" (nzPageIndexChange)="pageIndexChange($event)" [nzLoading]="loadingData || operating">
+               (nzPageIndexChange)="pageIndexChange($event)" [nzLoading]="loadingData || operating">
       <thead nz-thead>
       <tr>
         <th nz-th nzCheckbox>
@@ -57,7 +57,7 @@ import {ArticleStatus} from '../../../../data-model/article';
         </th>
         <th nz-th>
           <span>Published Time</span>
-          <nz-table-sort (nzValueChange)="search('pubTime', $event)"></nz-table-sort>
+          <nz-table-sort (nzValueChange)="search('pub_time', $event)"></nz-table-sort>
         </th>
       </tr>
       </thead>
@@ -95,8 +95,23 @@ export class PublishedArticlesManagementComponent extends ArticlesManagementComp
     this.loadDataSet(1);
   }
 
-  initArticlesManagementListGetter() {
-    this.articlesManagementListGetter = this._managementService.getPublishedArticlesManagementList;
+  operate() {
+    this.operating = true;
+    console.log(this._managementService);
+    this._managementService.deletePublishedArticles(this.checkedArticleIds).subscribe(
+      (value: ManagementOperationResult) => {
+        if (value === ManagementOperationResult.Success) {
+          this._nzMessageService.success(`${this.articlesOperation.info} success!`);
+        } else {
+          this._nzMessageService.error(`${this.articlesOperation.info} failed!`);
+        }
+      },
+      () => this._nzMessageService.error('Some errors happened!'),
+      () => {
+        this.operating = false;
+        this.loadDataSet(1);
+      }
+    );
   }
 
   initArticlesOperation() {
@@ -109,5 +124,19 @@ export class PublishedArticlesManagementComponent extends ArticlesManagementComp
 
   resetRadioField() {
     this.filter.type = null;
+  }
+
+  loadDataSet(pageIndex: number, filter?: QueryFilter) {
+    this.loadingData = true;
+    this._managementService.getPublishedArticlesManagementList(pageIndex, this.filter).subscribe(
+      (value: ArticlesManagementList) => {
+        this._dataSet = value.items;
+        this.totalNumberOfItems = value.totalNumberOfItems;
+        this.refreshCheckStatus();
+      },
+      () => {
+      },
+      () => this.loadingData = false
+    );
   }
 }

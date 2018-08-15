@@ -12,7 +12,8 @@ import {delay} from 'rxjs/operators';
       <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
 
     </div>
-    <nz-table #nzTable [nzDataSource]="dataSet" [nzPageSize]="10" [nzTotal]="totalNumberOfCategories" (nzPageIndexChange)="pageChange($event)" [nzLoading]="loadingData">
+    <nz-table #nzTable [nzAjaxData]="dataSet" [nzPageSize]="pageSize" [nzTotal]="totalNumberOfCategories"
+              [nzIsPagination]="shouldPagination" (nzPageIndexChange)="pageChange($event)" [nzLoading]="loadingData || deletingCategories">
       <thead nz-thead>
       <tr>
         <th nz-th nzCheckbox>
@@ -22,7 +23,7 @@ import {delay} from 'rxjs/operators';
         <th nz-th><span>Name</span></th>
         <th nz-th>
           <span>Created Time</span>
-          <nz-table-sort [(nzValue)]="categoryQueryFilter.order" (nzValueChange)="search($event)"></nz-table-sort>
+          <nz-table-sort [(nzValue)]="filter.order" (nzValueChange)="search($event)"></nz-table-sort>
         </th>
         <th nz-th><span>Included Articles</span></th>
       </tr>
@@ -36,7 +37,8 @@ import {delay} from 'rxjs/operators';
         <td nz-td>{{data.name}}</td>
         <td nz-td>{{data.createdTime}}</td>
         <td nz-td>
-          <nz-badge [nzStyle]="getBadgeStyle(data.numberOfIncludedArticles)" [nzCount]="data.numberOfIncludedArticles"></nz-badge>
+          <nz-badge [nzShowZero]="true"
+            [nzStyle]="getBadgeStyle(data.numberOfIncludedPubArticles)" [nzCount]="data.numberOfIncludedPubArticles"></nz-badge>
         </td>
       </tr>
       </tbody>
@@ -53,9 +55,10 @@ export class CategoriesManagementComponent implements OnInit {
   dataSet = [];
   indeterminate = false;
   checkedCategoriesId: number[] = [];
-  categoryQueryFilter = new CategoryQueryFilter('created_time', 'Desc');
+  filter = new CategoryQueryFilter('created_time', 'Desc');
   loadingData = false;
   totalNumberOfCategories: number;
+  readonly pageSize = 6;
 
 
   constructor(
@@ -98,24 +101,21 @@ export class CategoriesManagementComponent implements OnInit {
     this.getCategoriesSet(1);
   }
 
-  getCategoriesSet(pageIndex: number, filter?: CategoryQueryFilter) {
+  getCategoriesSet(pageIndex: number) {
     this.loadingData = true;
-    this._managementService.getCategoriesManagementList(pageIndex, filter)
-      .pipe(delay(1000)).subscribe(
+    this._managementService.getCategoriesManagementList(pageIndex, this.filter).subscribe(
       (value: CategoriesManagementList) => {
         this.dataSet = value.items;
         this.totalNumberOfCategories = value.totalNumberOfItems;
         this.refreshStatus();
       },
       () => {},
-      () => {
-        this.loadingData = false;
-      }
+      () => this.loadingData = false
     );
   }
 
   pageChange(pageIndex: number) {
-    this.getCategoriesSet(pageIndex, this.categoryQueryFilter);
+    this.getCategoriesSet(pageIndex);
   }
 
   deleteCategories() {
@@ -128,16 +128,25 @@ export class CategoriesManagementComponent implements OnInit {
         } else {
           this._nzMessageService.error('Delete categories failed!');
         }
-        this.getCategoriesSet(1, this.categoryQueryFilter);
+        this.getCategoriesSet(1);
       },
       () => this._nzMessageService.error('Some errors happened!'),
       () => this.deletingCategories = false
     );
   }
 
-  search(order: 'Asc'|'Desc') {
-    this.categoryQueryFilter.order = order;
-    this.getCategoriesSet(1, this.categoryQueryFilter);
+  search(order: 'ascend'|'descend'|null) {
+
+    switch (order) {
+      case 'ascend': this.filter.order = 'Asc'; break;
+      case 'descend': this.filter.order = 'Desc'; break;
+      default: this.filter.order = null;
+    }
+    this.getCategoriesSet(1);
+  }
+
+  get shouldPagination(): boolean {
+    return this.totalNumberOfCategories > this.pageSize;
   }
 
 }
