@@ -6,7 +6,7 @@ import {ManagementService} from '../../../services/management.service';
 import {delay} from 'rxjs/operators';
 import {NzMessageService} from 'ng-zorro-antd';
 import {Observable} from 'rxjs/Observable';
-import {ArticleStatus} from '../../../data-model/article';
+import {ArticleStatus} from '../../../data-model/draft';
 
 export abstract class ArticlesManagementComponent {
 

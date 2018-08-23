@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PublishedArticleItem} from '../../data-model/publised-article-item';
+import {PublishedArticleItem} from '../../data-model/article-item';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({

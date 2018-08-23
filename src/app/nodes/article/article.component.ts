@@ -4,7 +4,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {BreadcrumbService} from '../../services/channel.service';
-import {PublishedArticle} from '../../data-model/published-article';
+import {Article} from '../../data-model/article';
 import {CommentaryComponent} from '../../components/commentary/commentary.component';
 
 
@@ -22,7 +22,7 @@ import {CommentaryComponent} from '../../components/commentary/commentary.compon
   styles: []
 })
 export class ArticleComponent implements OnInit {
-  article$: Observable<PublishedArticle>;
+  article$: Observable<Article>;
   articleLoading: boolean;
   pubId: number;
   @ViewChild(CommentaryComponent) commentaryComponent: CommentaryComponent;
@@ -30,7 +30,7 @@ export class ArticleComponent implements OnInit {
     private service: PublishedArticleContentService,
     private route: ActivatedRoute,
     private breadcrumbService: BreadcrumbService) {
-    this.breadcrumbService.setBreadcrumb(['Article', 'content']);
+    this.breadcrumbService.setBreadcrumb(['Draft', 'content']);
   }
 
   ngOnInit() {

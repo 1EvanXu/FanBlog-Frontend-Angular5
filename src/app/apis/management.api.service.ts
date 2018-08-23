@@ -12,7 +12,7 @@ import {
 import {Observable} from 'rxjs/Observable';
 import {BlogResponseResult} from '../data-model/blog-response-result';
 import {map} from 'rxjs/operators';
-import {ArticleStatus} from '../data-model/article';
+import {ArticleStatus} from '../data-model/draft';
 
 @Injectable()
 export class ManagementApiClient {

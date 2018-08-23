@@ -1,30 +1,32 @@
+import {ArticleCategory, ArticleType} from './draft';
+
 export  class Article {
-  id: number;
+  pubId: number;
   title: string;
-  createdTime: string | Date;
-  latestModify: string | Date;
-  htmlContent: string;
-  markdownContent: string;
-  status = ArticleStatus.Editing;
+  pubTime: string | Date;
+  type: ArticleType;
+  category: string;
+  visitorCount: number;
+  voteCount: number;
+  content: string;
+
+
+  constructor(pubId: number, title: string, pubTime: string, type: ArticleType, category: string,
+              visitorCount: number, voteCount: number, content: string) {
+    this.pubId = pubId;
+    this.title = title;
+    this.pubTime = pubTime;
+    this.type = type;
+    this.category = category;
+    this.visitorCount = visitorCount;
+    this.voteCount = voteCount;
+    this.content = content;
+  }
 }
 
-export class ArticleCategory {
-  id: number;
-  name: string;
-}
-
-export enum ArticleType {
-  Original = 'Original',
-  Reproduced = 'Reproduced',
-  Translation = 'Translation'
-}
-
-export enum ArticleStatus {
-  Published = 'Published',
-  Editing = 'Editing',
-  Deleted = 'Deleted'
-}
-
-export class Draft extends Article {
-  tempArticleId: number;
+export class TempArticle {
+  title: string;
+  type: ArticleType;
+  category: ArticleCategory;
+  draftId: number;
 }

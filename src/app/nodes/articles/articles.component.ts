@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {ArticlesDirective} from './articles.directive';
 import {ArticlesListComponent} from '../../components/articles-list/articles-list.component';
 import {BreadcrumbService} from '../../services/channel.service';
-import {PublishedArticleItem} from '../../data-model/publised-article-item';
+import {PublishedArticleItem} from '../../data-model/article-item';
 
 
 @Component({

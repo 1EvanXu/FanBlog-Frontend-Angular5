@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 import {NZ_MESSAGE_CONFIG, NzMessageService, NzModalSubject} from 'ng-zorro-antd';
 import {MarkdownEditorService} from '../../../services/markdown-editor.service';
-import {PublishingArticle} from '../../../data-model/published-article';
-import {ArticleCategory} from '../../../data-model/article';
+import {TempArticle} from '../../../data-model/article';
+import {ArticleCategory} from '../../../data-model/draft';
 import {assertNumber} from '@angular/core/src/render3/assert';
 import {isNumber} from 'util';
 
@@ -133,16 +133,16 @@ export class ArticlePublishFormComponent implements OnInit {
       category = {id: null, name: value.category[0]};
     }
 
-    const publishingArticle: PublishingArticle = {
+    const tempArticle: TempArticle = {
       title: value.title,
       type: value.type.value,
       category: category,
-      articleId: this.articleId
+      draftId: this.articleId
     };
 
-    console.log(publishingArticle);
+    console.log(TempArticle);
 
-    this._mdEditorService.publishArticle(publishingArticle).subscribe(
+    this._mdEditorService.publishArticle(TempArticle).subscribe(
       result => {
         if (result) {
             this._nzMessageService.success('Publish succeed!');
@@ -171,7 +171,7 @@ export class ArticlePublishFormComponent implements OnInit {
 
     this._mdEditorService.searchCategories(query).subscribe(
       value => {
-        this.categoryOptions = value.map(item => { return {label: item.name, value: item.id}; });
+        this.categoryOptions = value.map(item => ({label: item.name, value: item.id}));
       }
     );
   }

@@ -8,7 +8,7 @@ import {
   PublishedArticlesManagementList, QueryFilter
 } from '../data-model/management';
 import {Observable} from 'rxjs/Observable';
-import {ArticleStatus} from '../data-model/article';
+import {ArticleStatus} from '../data-model/draft';
 import {ManagementApiClient} from '../apis/management.api.service';
 import {of} from 'rxjs/observable/of';
 

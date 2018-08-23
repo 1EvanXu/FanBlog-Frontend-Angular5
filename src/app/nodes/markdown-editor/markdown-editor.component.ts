@@ -4,7 +4,7 @@ import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {NzModalService} from 'ng-zorro-antd';
 import {MarkdownEditorService, SaveStatus} from '../../services/markdown-editor.service';
 import {ArticlePublishFormComponent} from './article-publish-form/article-publish-form.component';
-import {Article, Draft} from '../../data-model/article';
+import {Draft, TempDraft} from '../../data-model/draft';
 import {ActivatedRoute, Router} from '@angular/router';
 import {of} from 'rxjs/observable/of';
 
@@ -75,7 +75,7 @@ export class MarkdownEditorComponent implements OnInit {
   title: string;
 
   saveStatus = SaveStatus.UNKNOWN;
-  draft: Draft = new Draft();
+  draft: TempDraft = new TempDraft();
   @ViewChild(EditorMdComponent) private editorMdComponent: EditorMdComponent;
 
   get canPublish(): boolean {
@@ -116,7 +116,7 @@ export class MarkdownEditorComponent implements OnInit {
 
     this.detectContentChanges();
 
-    const article: Article  = <Article>this.getArticle();
+    const article: Draft  = <Draft>this.getArticle();
     article.htmlContent = this.getHtmlContent();
     this._mdEditorService.saveArticle(article).subscribe(
       value => {
@@ -144,8 +144,8 @@ export class MarkdownEditorComponent implements OnInit {
     );
   }
 
-  getDraft(): Draft {
-    this.draft.tempArticleId = this.tempArticleId;
+  getDraft(): TempDraft {
+    this.draft.tempDraftId = this.tempArticleId;
     this.draft.markdownContent = this.OutputMarkdownContent;
     this.draft.id = this.articleId;
     this.draft.title = this.title;
@@ -153,8 +153,8 @@ export class MarkdownEditorComponent implements OnInit {
     return this.draft;
   }
 
-  getArticle(): Draft {
-    this.draft.tempArticleId = this.tempArticleId;
+  getArticle(): TempDraft {
+    this.draft.tempDraftId = this.tempArticleId;
     this.draft.markdownContent = this.editorMdComponent.getMarkContent();
     this.draft.id = this.articleId;
     this.draft.title = this.title;

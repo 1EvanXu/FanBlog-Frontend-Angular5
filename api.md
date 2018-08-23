@@ -13,7 +13,7 @@ ArticleItem:
     "link": "string",
 }
 
-Article:
+Draft:
 {
     "pubId": 0,
     "title": "string",
@@ -69,7 +69,7 @@ Comment
 |/blog/articles/all/p/${pageIndex}|GET|{articleItems:ArticleItem[],totalNumber: number}|
 |/blog/articles/category/${categoryId}/p/${pageIndex}|GET|{articleItems:ArticleItem[],totalNumber: number, categoryName: string}|
 |/blog/articles/search/p/${pageIndex}?keywords=${keywords}|GET|{articleItems:ArticleItem[],totalNumber: number}|
-|/blog/article/${pubId}|GET|Article|
+|/blog/article/${pubId}|GET|Draft|
 |/blog/article/${pubId}/commentaries/p/${pageIndex}|GET|{commentaries: Commentary[], totalNumber: number}|
 |/blog/article/${pubId}/vote|POST|Boolean|
 |/blog/article/${pubId}/commentary|POST|Boolean|Comment

@@ -3,9 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {BASE_API_URL} from './common-api.config';
 import {BlogResponseResult} from '../data-model/blog-response-result';
-import {Article, ArticleCategory, Draft} from '../data-model/article';
+import {Draft, ArticleCategory, TempDraft} from '../data-model/draft';
 import {map} from 'rxjs/operators';
-import {PublishingArticle} from '../data-model/published-article';
+import {TempArticle} from '../data-model/article';
 
 @Injectable()
 export class MarkdownEditorApiClient {
@@ -19,24 +19,24 @@ export class MarkdownEditorApiClient {
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
-  getArticleContent(articleId: number): Observable<Draft> {
+  getArticleContent(articleId: number): Observable<TempDraft> {
     const requestUrl = this.editorApiUrl + `article/${articleId}`;
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
-  saveDraftInCache(draft: Draft): Observable<boolean> {
+  saveDraftInCache(tempDraft: TempDraft): Observable<boolean> {
     const requestUrl = this.editorApiUrl + `cache/`;
-    return this._http.put<BlogResponseResult>(requestUrl, draft).map(value =>  value.status === 200);
+    return this._http.put<BlogResponseResult>(requestUrl, tempDraft).map(value =>  value.status === 200);
   }
 
-  saveArticle(article: Article): Observable<number> {
+  saveArticle(article: Draft): Observable<number> {
     const requestUrl = this.editorApiUrl + 'article/';
     return this._http.post<BlogResponseResult>(requestUrl, article).pipe(map(value => value.data));
   }
 
-  publishArticle(publishingArticle: PublishingArticle): Observable<boolean> {
+  publishArticle(tempArticle: TempArticle): Observable<boolean> {
     const requestUrl = this.editorApiUrl + 'publish/';
-    return this._http.post<BlogResponseResult>(requestUrl, publishingArticle).map(value => value.status === 200);
+    return this._http.post<BlogResponseResult>(requestUrl, tempArticle).map(value => value.status === 200);
   }
 
   searchCategories(keyword: string): Observable<Array<ArticleCategory>> {

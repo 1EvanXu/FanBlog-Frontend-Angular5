@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Article, ArticleCategory, Draft} from '../data-model/article';
+import {Draft, ArticleCategory, TempDraft} from '../data-model/draft';
 import {MarkdownEditorApiClient} from '../apis/markdown-editor.api.service';
-import {PublishingArticle} from '../data-model/published-article';
+import {TempArticle} from '../data-model/article';
 
 @Injectable()
 export class MarkdownEditorService {
@@ -13,12 +13,12 @@ export class MarkdownEditorService {
     return this._apiClient.writeArticle();
   }
 
-  getArticle(articleId: number): Observable<Draft> {
+  getArticle(articleId: number): Observable<TempDraft> {
     return this._apiClient.getArticleContent(articleId);
   }
 
-  saveArticleMarkdownContent(draft: Draft): Observable<SaveStatus> {
-    return this._apiClient.saveDraftInCache(draft).map(
+  saveArticleMarkdownContent(tempDraft: TempDraft): Observable<SaveStatus> {
+    return this._apiClient.saveDraftInCache(tempDraft).map(
       value => {
         if (value) {
           return SaveStatus.SAVED;
@@ -28,12 +28,12 @@ export class MarkdownEditorService {
     );
   }
 
-  saveArticle(article: Article): Observable<number> {
+  saveArticle(article: Draft): Observable<number> {
     return this._apiClient.saveArticle(article);
   }
 
-  publishArticle(article: PublishingArticle): Observable<boolean> {
-    return this._apiClient.publishArticle(article);
+  publishArticle(tempArticle: TempArticle): Observable<boolean> {
+    return this._apiClient.publishArticle(tempArticle);
   }
 
   searchCategories(keyword: string): Observable<Array<ArticleCategory>> {

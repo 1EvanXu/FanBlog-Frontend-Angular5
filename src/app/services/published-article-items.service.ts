@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {PublishedArticleItemCollection} from '../data-model/publised-article-item';
+import {PublishedArticleItemCollection} from '../data-model/article-item';
 import {PublishedArticlesItemsApiClient} from '../apis/published-article-items.api.service';
 
 

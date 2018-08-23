@@ -1,5 +1,5 @@
 import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
-import {PublishedArticle} from '../../data-model/published-article';
+import {Article} from '../../data-model/article';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Observable} from 'rxjs/Observable';
 
@@ -11,8 +11,8 @@ import {Observable} from 'rxjs/Observable';
 })
 export class ArticleContentComponent implements OnInit, AfterViewChecked {
   @Input()
-  article$: Observable<PublishedArticle>;
-  article: PublishedArticle;
+  article$: Observable<Article>;
+  article: Article;
   @Input()
   loading: boolean;
   constructor(private sanitizer: DomSanitizer) {

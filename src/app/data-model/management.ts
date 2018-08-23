@@ -1,4 +1,4 @@
-import {ArticleStatus, ArticleType} from './article';
+import {ArticleStatus, ArticleType} from './draft';
 import {ItemCollection} from './item-collection';
 
 export abstract class ArticlesManagementListItem {

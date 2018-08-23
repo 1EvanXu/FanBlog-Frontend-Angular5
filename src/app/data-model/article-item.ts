@@ -1,4 +1,4 @@
-import {ArticleType} from './article';
+import {ArticleType} from './draft';
 import {ItemCollection} from './item-collection';
 
 export class PublishedArticleItem {
@@ -31,19 +31,6 @@ export class PublishedArticleItem {
     this.visitorCount = visitorCount;
     this.voteCount = voteCount;
     this.commentaryCount = commentaryCount;
-  }
-  public static createInstance(object: Object): PublishedArticleItem {
-    return new PublishedArticleItem(
-      object['pubId'],
-      object['title'],
-      object['abstract'],
-      object['pubTime'],
-      object['type'],
-      object['category'],
-      object['visitorCount'],
-      object['voteCount'],
-      object['commentaryCount'],
-    );
   }
 }
 

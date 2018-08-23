@@ -3,7 +3,7 @@ import {ArticlesManagementComponent} from '../articles-management.component';
 import {ArticlesManagementList, ManagementOperationResult, PublishedArticleQueryFilter, PublishedArticlesManagementListItem, QueryFilter} from '../../../../data-model/management';
 import {ManagementService} from '../../../../services/management.service';
 import {NzMessageService} from 'ng-zorro-antd';
-import {ArticleStatus} from '../../../../data-model/article';
+import {ArticleStatus} from '../../../../data-model/draft';
 
 @Component({
   selector: 'app-published-articles-management',
