@@ -86,7 +86,7 @@ export class CommentComponent implements OnInit, DoCheck {
         this.showAlert = true;
         this.reload.emit();
       },
-    () => {},
+    () => { this.isSending = false; this.result = 'failed'; this.showAlert = true; },
       () => { this.isSending = false; }
     );
     setTimeout(() => {this.showAlert = false; }, 2000);
