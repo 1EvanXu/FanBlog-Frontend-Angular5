@@ -21,7 +21,7 @@ export class ManagementApiClient {
 
   constructor(private _http: HttpClient) { }
 
-  getPublishedArticlesManagementList(pageIndex: number, filter?: PublishedArticleQueryFilter): Observable<PublishedArticlesManagementList> {
+  getArticlesManagementList(pageIndex: number, filter?: PublishedArticleQueryFilter): Observable<PublishedArticlesManagementList> {
     const requestUrl = this.managementApiUrl + `articles/managementItems/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}&type=${filter.type}`;
 
     console.log(requestUrl);
@@ -34,13 +34,13 @@ export class ManagementApiClient {
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
-  getDeletedArticlesManagementList(pageIndex: number, filter?: ArticleQueryFilter): Observable<DeletedArticlesManagementList> {
+  getDeletedManagementList(pageIndex: number, filter?: ArticleQueryFilter): Observable<DeletedArticlesManagementList> {
     const requestUrl = this.managementApiUrl + `drafts/managementItems/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}&status=${filter.status}`;
     console.log(requestUrl);
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
-  updateArticlesStatus(articlesIds: number[], articleStatus: ArticleStatus): Observable<ManagementOperationResult> {
+  updateDraftsStatus(articlesIds: number[], articleStatus: ArticleStatus): Observable<ManagementOperationResult> {
     const requestUrl = this.managementApiUrl + 'drafts/status';
     return this._http.put<BlogResponseResult>(requestUrl, {articleIds: articlesIds, status: articleStatus}).pipe(map(value => {
         if (value.status === 200) {
@@ -51,7 +51,7 @@ export class ManagementApiClient {
     ));
   }
 
-  deletePublishedArticles(pubIds: number[]): Observable<ManagementOperationResult> {
+  deleteArticles(pubIds: number[]): Observable<ManagementOperationResult> {
     const requestUrl = this.managementApiUrl + `articles?ids=${pubIds}`;
     return this._http.delete<BlogResponseResult>(requestUrl).pipe(map(
       value => {
@@ -63,7 +63,7 @@ export class ManagementApiClient {
     ));
   }
 
-  deleteArticlesPermanently(articlesIds: number[]): Observable<ManagementOperationResult> {
+  deleteDraftsPermanently(articlesIds: number[]): Observable<ManagementOperationResult> {
     const requestUrl = this.managementApiUrl + `drafts?ids=${articlesIds}`;
     console.log(requestUrl);
     return this._http.delete<BlogResponseResult>(requestUrl).pipe(map(

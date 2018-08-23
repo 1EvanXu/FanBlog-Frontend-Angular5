@@ -19,23 +19,23 @@ export class ManagementService {
 
   getPublishedArticlesManagementList(pageIndex: number, filter?: QueryFilter): Observable<PublishedArticlesManagementList> {
 
-    return this._apiClient.getPublishedArticlesManagementList(pageIndex, <PublishedArticleQueryFilter>filter);
+    return this._apiClient.getArticlesManagementList(pageIndex, <PublishedArticleQueryFilter>filter);
   }
 
   getDraftsManagementList(pageIndex: number, filter?: QueryFilter): Observable<DraftsManagementList> {
     return this._apiClient.getDraftsManagementList(pageIndex, <ArticleQueryFilter>filter);
   }
 
-  getDeletedArticlesManagementList(pageIndex: number, filter?: QueryFilter): Observable<DeletedArticlesManagementList> {
-    return this._apiClient.getDeletedArticlesManagementList(pageIndex, <ArticleQueryFilter>filter);
+  getDeletedDraftsManagementList(pageIndex: number, filter?: QueryFilter): Observable<DeletedArticlesManagementList> {
+    return this._apiClient.getDeletedManagementList(pageIndex, <ArticleQueryFilter>filter);
   }
 
-  updateArticlesStatus(articlesIds: number[], articleStatus: ArticleStatus): Observable<ManagementOperationResult> {
-    return this._apiClient.updateArticlesStatus(articlesIds, articleStatus);
+  updateDraftsStatus(articlesIds: number[], articleStatus: ArticleStatus): Observable<ManagementOperationResult> {
+    return this._apiClient.updateDraftsStatus(articlesIds, articleStatus);
   }
 
-  deleteArticlesPermanently(articlesIds: number[]): Observable<ManagementOperationResult> {
-    return this._apiClient.deleteArticlesPermanently(articlesIds);
+  deleteDraftsPermanently(articlesIds: number[]): Observable<ManagementOperationResult> {
+    return this._apiClient.deleteDraftsPermanently(articlesIds);
   }
 
   getCategoriesManagementList(pageIndex: number, filter?: CategoryQueryFilter): Observable<CategoriesManagementList> {
@@ -43,7 +43,7 @@ export class ManagementService {
   }
 
   deletePublishedArticles(pubIds: number[]): Observable<ManagementOperationResult> {
-    return this._apiClient.deletePublishedArticles(pubIds);
+    return this._apiClient.deleteArticles(pubIds);
   }
 
   deleteArticleCategories(categoryIds: number[]): Observable<ManagementOperationResult> {

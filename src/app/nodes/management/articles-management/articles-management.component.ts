@@ -1,11 +1,9 @@
 import {
-  ArticlesManagementList, ArticlesManagementListItem,
+  ArticlesManagementListItem,
   ManagementOperationResult, QueryFilter,
 } from '../../../data-model/management';
 import {ManagementService} from '../../../services/management.service';
-import {delay} from 'rxjs/operators';
 import {NzMessageService} from 'ng-zorro-antd';
-import {Observable} from 'rxjs/Observable';
 import {ArticleStatus} from '../../../data-model/draft';
 
 export abstract class ArticlesManagementComponent {
@@ -77,7 +75,7 @@ export abstract class ArticlesManagementComponent {
   operate() {
     this.operating = true;
     console.log(this.checkedArticleIds);
-    this._managementService.updateArticlesStatus(this.checkedArticleIds, this.articlesOperation.state).subscribe(
+    this._managementService.updateDraftsStatus(this.checkedArticleIds, this.articlesOperation.state).subscribe(
       (value: ManagementOperationResult) => {
         if (value === ManagementOperationResult.Success) {
           this._nzMessageService.success(`${this.articlesOperation.info} success!`);

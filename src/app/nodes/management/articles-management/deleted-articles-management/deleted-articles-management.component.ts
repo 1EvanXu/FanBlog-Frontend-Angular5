@@ -75,7 +75,7 @@ export class DeletedArticlesManagementComponent extends ArticlesManagementCompon
 
   deleteArticlesPermanently() {
     this.deletingPermanently = true;
-    this._managementService.deleteArticlesPermanently(this.checkedArticleIds).subscribe(
+    this._managementService.deleteDraftsPermanently(this.checkedArticleIds).subscribe(
       (value) => {
         if (value === ManagementOperationResult.Success) {
           this._nzMessageService.success('Delete articles permanently success!');
@@ -92,7 +92,7 @@ export class DeletedArticlesManagementComponent extends ArticlesManagementCompon
 
   loadDataSet(pageIndex: number, filter?: QueryFilter) {
     this.loadingData = true;
-    this._managementService.getDeletedArticlesManagementList(pageIndex, this.filter).subscribe(
+    this._managementService.getDeletedDraftsManagementList(pageIndex, this.filter).subscribe(
       (value: ArticlesManagementList) => {
         this._dataSet = value.items;
         this.totalNumberOfItems = value.totalNumberOfItems;
