@@ -8,7 +8,7 @@ import {BlogResponseResult} from '../data-model/blog-response-result';
 
 @Injectable()
 export class PublishedArticleContentApiClient {
-  private _baseUrl = BASE_API_URL + 'article/';
+  private _baseUrl = BASE_API_URL + 'cache/articles/';
 
   constructor(private _http: HttpClient) { }
 

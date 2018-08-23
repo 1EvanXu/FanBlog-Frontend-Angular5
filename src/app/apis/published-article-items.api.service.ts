@@ -13,13 +13,13 @@ export class PublishedArticlesItemsApiClient {
   constructor(private _http: HttpClient) { }
 
   getAllPublishedArticleItems(pageIndex: number): Observable<PublishedArticleItemCollection> {
-    const requestUrl = this._baseUrl + `all/p/${pageIndex}`;
+    const requestUrl = this._baseUrl + `items/p/${pageIndex}`;
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
 
   }
 
   getPublishedArticleItemsByCategory(categoryId: number, pageIndex: number): Observable<PublishedArticleItemCollection> {
-    const requestUrl = this._baseUrl + `category/${categoryId}/p/${pageIndex}`;
+    const requestUrl = this._baseUrl + `items/p/${pageIndex}?categoryId=${categoryId}`;
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
