@@ -140,9 +140,9 @@ export class ArticlePublishFormComponent implements OnInit {
       draftId: this.articleId
     };
 
-    console.log(TempArticle);
+    console.log(tempArticle);
 
-    this._mdEditorService.publishArticle(TempArticle).subscribe(
+    this._mdEditorService.publishArticle(tempArticle).subscribe(
       result => {
         if (result) {
             this._nzMessageService.success('Publish succeed!');
