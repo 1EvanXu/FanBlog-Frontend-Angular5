@@ -10,37 +10,37 @@ import {TempArticle} from '../data-model/article';
 @Injectable()
 export class MarkdownEditorApiClient {
 
-  private editorApiUrl = BASE_API_URL + 'editor/';
+  private editorApiUrl = BASE_API_URL;
 
   constructor(private _http: HttpClient) {}
 
   writeArticle(): Observable<number> {
-    const requestUrl = this.editorApiUrl + 'article/new';
+    const requestUrl = this.editorApiUrl + 'cache/drafts';
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
   getArticleContent(articleId: number): Observable<TempDraft> {
-    const requestUrl = this.editorApiUrl + `article/${articleId}`;
+    const requestUrl = this.editorApiUrl + `cache/drafts/${articleId}`;
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
   saveDraftInCache(tempDraft: TempDraft): Observable<boolean> {
-    const requestUrl = this.editorApiUrl + `cache/`;
+    const requestUrl = this.editorApiUrl + `cache/drafts`;
     return this._http.put<BlogResponseResult>(requestUrl, tempDraft).map(value =>  value.status === 200);
   }
 
   saveArticle(article: Draft): Observable<number> {
-    const requestUrl = this.editorApiUrl + 'article/';
+    const requestUrl = this.editorApiUrl + 'drafts/';
     return this._http.post<BlogResponseResult>(requestUrl, article).pipe(map(value => value.data));
   }
 
   publishArticle(tempArticle: TempArticle): Observable<boolean> {
-    const requestUrl = this.editorApiUrl + 'publish/';
+    const requestUrl = this.editorApiUrl + 'articles/';
     return this._http.post<BlogResponseResult>(requestUrl, tempArticle).map(value => value.status === 200);
   }
 
-  searchCategories(keyword: string): Observable<Array<ArticleCategory>> {
-    const requestUrl = this.editorApiUrl + `category?keyword=${keyword}`;
+  searchCategories(keywords: string): Observable<Array<ArticleCategory>> {
+    const requestUrl = this.editorApiUrl + `categories?keywords=${keywords}`;
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 }
