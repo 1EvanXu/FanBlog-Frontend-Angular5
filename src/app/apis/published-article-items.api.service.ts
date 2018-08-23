@@ -24,7 +24,7 @@ export class PublishedArticlesItemsApiClient {
   }
 
   getPublishedArticleItemsBySearch(keywords: string, pageIndex: number): Observable<PublishedArticleItemCollection> {
-    const requestUrl = this._baseUrl + `search/p/${pageIndex}`;
+    const requestUrl = this._baseUrl + `items/p/${pageIndex}?keywords=${keywords}`;
     return this._http.get<PublishedArticleItemCollection>(requestUrl);
   }
 }
