@@ -30,7 +30,7 @@ export class MarkdownEditorApiClient {
   }
 
   saveArticle(article: Draft): Observable<number> {
-    const requestUrl = this.editorApiUrl + 'drafts/';
+    const requestUrl = this.editorApiUrl + 'cache/drafts/';
     return this._http.post<BlogResponseResult>(requestUrl, article).pipe(map(value => value.data));
   }
 

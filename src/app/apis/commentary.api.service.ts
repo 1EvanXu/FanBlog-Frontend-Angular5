@@ -9,17 +9,17 @@ import {map} from 'rxjs/operators';
 @Injectable()
 export class CommentaryApiClient {
 
-  private commentaryUrl = BASE_API_URL + 'article/';
+  private commentaryUrl = BASE_API_URL + 'commentaries/';
 
   constructor(private _http: HttpClient) { }
 
   getCommentaries(pubId: number, pageIndex: number): Observable<CommentaryCollection> {
-    const url = this.commentaryUrl + `${pubId}/commentary/p/${pageIndex}`;
+    const url = this.commentaryUrl + `${pubId}/p/${pageIndex}`;
     return this._http.get<BlogResponseResult>(url).pipe(map(value => value.data));
   }
 
   postComment(pubId: number, comment: Comment): Observable<'success'|'failed'> {
-    const url = this.commentaryUrl + `${pubId}/commentary`;
+    const url = this.commentaryUrl + `${pubId}`;
     return this._http.post<BlogResponseResult>(url, comment).pipe(map(value => {
       if (value.status === 200) {
         return 'success';

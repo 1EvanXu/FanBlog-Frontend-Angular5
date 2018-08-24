@@ -7,7 +7,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   template: `
     <div class="article-item">
       <div nz-row style="padding: 2px;">
-        <h1><a [routerLink]="['/blog/article', articleItem.pubId]" style="text-decoration-line: none">{{articleItem.title}}</a></h1>
+        <h1><a [routerLink]="['/site/article', articleItem.pubId]" style="text-decoration-line: none">{{articleItem.title}}</a></h1>
       </div>
       <div nz-row class="article-abstract">
         <p [innerHtml]="content"></p>

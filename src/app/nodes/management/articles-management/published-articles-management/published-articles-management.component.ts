@@ -67,7 +67,7 @@ import {ArticleStatus} from '../../../../data-model/draft';
           <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="refreshCheckStatus($event)">
           </label>
         </td>
-        <td nz-td><a [routerLink]="['/blog/article', data.pubId]">{{data.title}}</a></td>
+        <td nz-td><a [routerLink]="['/site/article', data.pubId]">{{data.title}}</a></td>
         <td nz-td>{{data.type}}</td>
         <td nz-td>{{data.pubTime}}</td>
       </tr>
