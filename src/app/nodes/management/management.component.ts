@@ -5,20 +5,30 @@ import {Router} from '@angular/router';
   selector: 'app-management',
   template: `
     <nz-layout class="layout">
-      <nz-header>
-        <div style="vertical-align: center; display: inline-block">
-          <img class="logo" src="../assets/logo.png">
-          <span style="font-size: 20px; font-weight: bold">Management</span>
+      <nz-header style="border-bottom: lightgray solid 1px;">
+        <div style="vertical-align: center; display: inline-block;">
+          <img class="logo" src="../assets/logo-1.png">
+          <span style="font-size: 19px; font-weight: bold">Management</span>
         </div>
-        <div style="display: inline-block;">
+        <div style="display: inline-block; margin-left: 20px">
           <button nz-button (click)="writeArticle()">
             <span><i class="anticon anticon-edit"></i><span style="margin-left: 5px">Write Article</span></span>
           </button>
         </div>
-        <div style="padding: 10px;float: right;">
-          <a>
-            <nz-avatar nzIcon="user"></nz-avatar>
-          </a>
+        <div style="float: right; height: 64px">
+          <nz-dropdown [nzPlacement]="'bottomCenter'" [nzTrigger]="'click'">
+            <nz-avatar [nzIcon]="'user'" nz-dropdown></nz-avatar>
+            <ul nz-menu>
+              <li nz-menu-item>
+                <a target="_blank" rel="noopener noreferrer" [routerLink]="['/site/articles']">
+                  <i class="anticon anticon-home"></i>&nbsp;Back to Home</a>
+              </li>
+              <li nz-menu-item>
+                <a target="_blank" rel="noopener noreferrer" [routerLink]="['/site/articles']">
+                  <i class="anticon anticon-logout"></i>&nbsp;Logout</a>
+              </li>
+            </ul>
+          </nz-dropdown>
         </div>
       </nz-header>
       <nz-content style="padding:60px 50px;">
@@ -52,8 +62,8 @@ import {Router} from '@angular/router';
   `,
   styles  : [
     `:host ::ng-deep .logo {
-      width: 120px;
-      height: 31px;
+      width: 30px;
+      height: 30px;
       border-radius: 6px;
       margin: 16px 10px 16px 0;
       float: left;

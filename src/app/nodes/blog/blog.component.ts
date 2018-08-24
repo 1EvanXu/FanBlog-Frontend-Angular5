@@ -15,9 +15,9 @@ import {ActivatedRoute} from '@angular/router';
             <li nz-menu-item style="float: right">
               <span>Login Via<i class="anticon anticon-github" style="font-size: 20px; margin-left: 10px"></i></span>
             </li>
-            <li>
-              <nz-input [nzType]="'search'" style="width: 180px;margin-left: 100px"></nz-input>
-            </li>
+            <!--<li>-->
+              <!--<nz-input [nzType]="'search'" style="width: 180px;margin-left: 100px"></nz-input>-->
+            <!--</li>-->
           </ul>
         </div>
       </nz-header>

@@ -11,18 +11,20 @@ import {ActivatedRoute, Router} from '@angular/router';
   selector: 'app-markdown-editor',
   template: `
     <nav style="height: 54px; padding: 13px; border-bottom: lightgray solid 1px;">
-      <img class="logo" src="../../../assets/logo.png">
+      <button nz-button [nzType]="'default'" [nzSize]="'small'" style="position: relative; left: 30px" (click)="backToManagement()">
+        <i class="anticon anticon-home" style="font-size: 15px; font-weight: bold"></i>
+      </button>
       <span style="font-size: 16px;font-weight: bold; margin-left: 50px">
         Markdown Editor
       </span>
-      <a [routerLink]="['/management']">Management Home</a>
+      <nz-avatar class="user-avatar" [nzSize]="'small'" [nzIcon]="'user'"></nz-avatar>
     </nav>
     <div style="padding: 10px 25px; background-color: whitesmoke">
       <div nz-row>
-        <div nz-col [nzSm]="19" [nzMd]="20" [nzLg]="21">
+        <div nz-col [nzSm]="16" [nzMd]="20" [nzLg]="21">
           <nz-input [nzSize]="'large'" [(ngModel)]="title"></nz-input>
         </div>
-        <div nz-col [nzSm]="4" [nzMd]="3" [nzLg]="2">
+        <div nz-col [nzSm]="7" [nzMd]="3" [nzLg]="2">
           <button nz-button [nzSize]="'large'" [nzType]="'primary'"
                   style="margin: 0px 15px" (click)="showArticlePublishModal()">Publish</button>
         </div>
@@ -64,6 +66,11 @@ import {ActivatedRoute, Router} from '@angular/router';
       font-size: 13px;
       margin: 8px 4px
     }
+    .user-avatar {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
   `]
 })
 export class MarkdownEditorComponent implements OnInit {
@@ -78,6 +85,10 @@ export class MarkdownEditorComponent implements OnInit {
 
   tempDraft: TempDraft = new TempDraft();
   @ViewChild(EditorMdComponent) private editorMdComponent: EditorMdComponent;
+
+  backToManagement() {
+    this.router.navigate(['/management']);
+  }
 
   canPublish(): boolean {
     if (!this.isValidTitle(this.title)) {
