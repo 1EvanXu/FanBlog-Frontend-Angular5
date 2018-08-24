@@ -4,23 +4,16 @@ import {ArticleContentComponent} from '../../components/article-content/article-
 import {ArticleComponent} from './article.component';
 import {CommentaryModule} from '../../components/commentary/commentary.module';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
-import {RouterModule, Routes} from '@angular/router';
 import {SideToolKitsComponent} from '../../components/side-tool-kits/side-tool-kits.component';
 import {PublishedArticleContentService} from '../../services/published-article-content.service';
 import {PublishedArticleContentApiClient} from '../../apis/published-article-content.api.service';
+import {ArticleResolverService} from './article-resolver.service';
 
-// const articleRoutes: Routes = [
-//   {
-//     path: 'article/:pubId',
-//     component: ArticleComponent
-//   }
-// ];
 
 @NgModule({
   imports: [
     CommonModule,
     CommentaryModule,
-    // RouterModule.forChild(articleRoutes),
     NgZorroAntdModule.forRoot()
   ],
   declarations: [
@@ -29,6 +22,6 @@ import {PublishedArticleContentApiClient} from '../../apis/published-article-con
     SideToolKitsComponent,
   ],
   exports: [],
-  providers: [PublishedArticleContentService, PublishedArticleContentApiClient]
+  providers: [PublishedArticleContentService, PublishedArticleContentApiClient, ArticleResolverService]
 })
 export class ArticleModule { }

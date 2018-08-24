@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {ArticlesComponent} from '../articles/articles.component';
 import {ArticleComponent} from '../article/article.component';
 import {BlogComponent} from './blog.component';
+import {ArticleResolverService} from '../article/article-resolver.service';
 
 const blogRoutes: Routes = [
   {
@@ -33,7 +34,8 @@ const blogRoutes: Routes = [
       },
       {
         path: 'article/:pubId',
-        component: ArticleComponent
+        component: ArticleComponent,
+        resolve: {article: ArticleResolverService}
       },
       {
         path: '',
@@ -41,6 +43,11 @@ const blogRoutes: Routes = [
         pathMatch: 'full'
       }
     ]
+  },
+  {
+    path: '',
+    redirectTo: 'site',
+    pathMatch: 'full'
   }
 ];
 

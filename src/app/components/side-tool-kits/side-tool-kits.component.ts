@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PublishedArticleContentService} from '../../services/published-article-content.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-side-tool-kits',
@@ -11,11 +12,11 @@ import {PublishedArticleContentService} from '../../services/published-article-c
             <i [ngClass]="voteButtonClass"></i>
           </button>
         </div>
-        <div class="button-container">
-          <button nz-button [nzType]="'default'" [nzShape]="'circle'" (click)="toComment()">
-            <i class="anticon anticon-message"></i>
-          </button>
-        </div>
+        <!--<div class="button-container">-->
+          <!--<button nz-button [nzType]="'default'" [nzShape]="'circle'" (click)="toComment()">-->
+            <!--<i class="anticon anticon-message"></i>-->
+          <!--</button>-->
+        <!--</div>-->
         <div class="back-top-container">
           <nz-back-top [nzVisibilityHeight]="100">
             <ng-template #nzTemplate>
@@ -52,6 +53,12 @@ import {PublishedArticleContentService} from '../../services/published-article-c
     .button-container {
       margin-bottom: 8px
     }
+    .comment-anchor-container {
+      height: 30px;
+      width: 30px;
+      border: whitesmoke 1px solid;
+      border-radius: 15px;
+    }
     .back-top-container {
       margin-top: 60px
     }
@@ -60,7 +67,7 @@ import {PublishedArticleContentService} from '../../services/published-article-c
 export class SideToolKitsComponent {
   @Input() pubId: number;
   @Input() voted: boolean;
-  constructor(private _articleContentService: PublishedArticleContentService) { }
+  constructor(private _articleContentService: PublishedArticleContentService, private router: Router) { }
 
   vote() {
     if (!this.voted) {
@@ -83,6 +90,6 @@ export class SideToolKitsComponent {
   }
 
   toComment() {
-    location.href = '#comment-box';
+    this.router.navigate(['#comment-box']);
   }
 }

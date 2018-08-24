@@ -1,8 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {PublishedArticleContentService} from '../../services/published-article-content.service';
-import {ActivatedRoute, ParamMap} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs/Observable';
+import {ActivatedRoute} from '@angular/router';
 import {BreadcrumbService} from '../../services/channel.service';
 import {Article} from '../../data-model/article';
 import {CommentaryComponent} from '../../components/commentary/commentary.component';
@@ -14,7 +11,7 @@ import {CommentaryComponent} from '../../components/commentary/commentary.compon
       <app-side-tool-kits [pubId]="pubId"></app-side-tool-kits>
     </div>
     <div nz-col [nzSm]="20" [nzMd]="17" style="min-height:800px; margin-top: 5px">
-      <app-article-content [loading]="articleLoading" [article$]="article$"></app-article-content>
+      <app-article-content [loading]="articleLoading" [article]="article"></app-article-content>
       <app-comment [pubId]="pubId" (reload)="reloadCommentaries()"></app-comment>
       <app-commentary [pubId]="pubId"></app-commentary>
     </div>
@@ -22,31 +19,24 @@ import {CommentaryComponent} from '../../components/commentary/commentary.compon
   styles: []
 })
 export class ArticleComponent implements OnInit {
-  article$: Observable<Article>;
+  article: Article;
   articleLoading: boolean;
   pubId: number;
   @ViewChild(CommentaryComponent) commentaryComponent: CommentaryComponent;
   constructor(
-    private service: PublishedArticleContentService,
     private route: ActivatedRoute,
     private breadcrumbService: BreadcrumbService) {
-    this.breadcrumbService.setBreadcrumb(['Draft', 'content']);
+    this.breadcrumbService.setBreadcrumb(['Article', 'content']);
   }
 
   ngOnInit() {
-
-    this.article$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.loadArticle(+params.get('pubId'))
-      )
-    );
+    this.route.paramMap.subscribe(param => { this.pubId = +param.get('pubId'); });
+    this.route.data
+      .subscribe((data: { article: Article }) => {
+        this.article = data.article;
+      });
 
     this.articleLoading = true;
-  }
-
-  private loadArticle(pubId: number) {
-    this.pubId = pubId;
-    return this.service.getArticleContent(pubId);
   }
 
   reloadCommentaries() {

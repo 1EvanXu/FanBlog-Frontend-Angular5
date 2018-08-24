@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-blog',
   template: `
     <nz-layout class="layout">
-      <nz-header style="overflow:hidden;">
+      <nz-header style="overflow:hidden;border-bottom: lightgray solid 1px;">
         <div>
           <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 63px;">
             <li>
@@ -21,9 +20,9 @@ import {ActivatedRoute} from '@angular/router';
           </ul>
         </div>
       </nz-header>
-      <nz-content style="padding:0 30px;">
+      <nz-content style="padding:0 20px;">
         <div nz-row [nzGutter]="5">
-          <div nz-col [nzOffset]="4" [nzSm]="24" [nzMd]="16">
+          <div nz-col [nzOffset]="3" [nzSm]="24" [nzMd]="18">
             <app-breadcrumb></app-breadcrumb>
           </div>
         </div>
@@ -70,10 +69,9 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class BlogComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
-    // console.log(this.route.children);
   }
 
 }

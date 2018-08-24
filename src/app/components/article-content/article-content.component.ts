@@ -1,7 +1,7 @@
 import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
 import {Article} from '../../data-model/article';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Observable} from 'rxjs/Observable';
+
 
 
 @Component({
@@ -10,19 +10,15 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./article-content.component.css']
 })
 export class ArticleContentComponent implements OnInit, AfterViewChecked {
+
   @Input()
-  article$: Observable<Article>;
   article: Article;
   @Input()
   loading: boolean;
   constructor(private sanitizer: DomSanitizer) {
   }
 
-  ngOnInit() {
-    this.article$.subscribe(value => {
-      this.article = value;
-    });
-  }
+  ngOnInit() { }
 
   ngAfterViewChecked(): void {
     setTimeout(() => { this.loading = false; }, 100);

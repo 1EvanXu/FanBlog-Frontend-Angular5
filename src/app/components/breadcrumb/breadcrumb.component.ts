@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {BreadcrumbService} from '../../services/channel.service';
 
 @Component({
@@ -6,7 +6,7 @@ import {BreadcrumbService} from '../../services/channel.service';
   template: `
     <nz-breadcrumb style="margin:12px 0;">
       <nz-breadcrumb-item>
-        <a routerLink="/">
+        <a [routerLink]="['/site']">
           <b><i class="anticon anticon-home"></i>&nbsp;Home</b>
         </a>
       </nz-breadcrumb-item>
@@ -21,13 +21,9 @@ import {BreadcrumbService} from '../../services/channel.service';
     `
   ],
 })
-export class BreadcrumbComponent implements OnInit {
+export class BreadcrumbComponent {
   breadcrumbItems: string[] = [];
   constructor(private breadcrumbService: BreadcrumbService) {
     this.breadcrumbService.breadcrumbItems$.subscribe(items => this.breadcrumbItems = items);
   }
-
-  ngOnInit() {
-  }
-
 }
