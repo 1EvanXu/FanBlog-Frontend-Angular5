@@ -11,9 +11,11 @@ import {ActivatedRoute, Router} from '@angular/router';
   selector: 'app-markdown-editor',
   template: `
     <nav style="height: 54px; padding: 13px; border-bottom: lightgray solid 1px;">
-      <button nz-button [nzType]="'default'" [nzSize]="'small'" style="position: relative; left: 30px" (click)="backToManagement()">
-        <i class="anticon anticon-home" style="font-size: 15px; font-weight: bold"></i>
-      </button>
+      <nz-tooltip [nzTitle]="'Back to Management'" [nzPlacement]="'bottomLeft'">
+        <button nz-button nz-tooltip [nzType]="'default'" [nzSize]="'small'" style="position: relative; left: 30px" (click)="backToManagement()">
+          <i class="anticon anticon-appstore-o" style="font-size: 15px;"></i>
+        </button>
+      </nz-tooltip>
       <span style="font-size: 16px;font-weight: bold; margin-left: 50px">
         Markdown Editor
       </span>
@@ -45,12 +47,7 @@ import {ActivatedRoute, Router} from '@angular/router';
     </app-editor-md>
   `,
   styles: [`
-    .logo {
-      width: 90px;
-      height: 25px;
-      border-radius: 6px;
-      float: left;
-    }
+    
     .saved {
       color: forestgreen;
       font-size: 13px;
@@ -74,7 +71,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   `]
 })
 export class MarkdownEditorComponent implements OnInit {
-  tempArticleId: number;
+  tempDraftId: number;
   draftId: number;
   loadedMarkdownContent: string;
   OutputMarkdownContent: string;
@@ -125,7 +122,7 @@ export class MarkdownEditorComponent implements OnInit {
 
     if (currentUrl.match('editor/article/new$')) {
       this._mdEditorService.writeArticle().subscribe(
-        value => { this.tempArticleId = value; console.log(`===>${this.tempArticleId}`); }
+        value => { this.tempDraftId = value; console.log(`> TempDraftId: ${this.tempDraftId}`); }
       );
     } else if (currentUrl.match('editor/article/\\d+$')) {
       this.route.paramMap.subscribe(
@@ -144,18 +141,20 @@ export class MarkdownEditorComponent implements OnInit {
   }
 
   private getHtmlContent(): string {
-
     return this._el.nativeElement.querySelector('.editormd-preview-container').innerHTML.toString();
   }
 
   manualSaveDraftContent() {
 
-    console.log('manual save', this.saveStatusOfDraft);
+    console.log('Manual Save', this.saveStatusOfDraft);
 
     this.detectContentChanges();
 
-    const draft: Draft  = <Draft>this.getDraft();
+    const draft: TempDraft  = new TempDraft();
     draft.htmlContent = this.getHtmlContent();
+    draft.tempDraftId = this.tempDraftId;
+    draft.id = this.draftId;
+    console.log(draft);
     this._mdEditorService.saveArticle(draft).subscribe(
       value => {
         if (value) {
@@ -173,7 +172,7 @@ export class MarkdownEditorComponent implements OnInit {
 
   autoSaveDraftContent() {
     this.editorMdComponent.mdContentChange$.pipe(
-      debounceTime(2000),
+      debounceTime(3000),
       distinctUntilChanged(),
       switchMap(value =>  {
         this.OutputMarkdownContent = value;
@@ -184,7 +183,7 @@ export class MarkdownEditorComponent implements OnInit {
   }
 
   getTmpDraft(): TempDraft {
-    this.tempDraft.tempDraftId = this.tempArticleId;
+    this.tempDraft.tempDraftId = this.tempDraftId;
     this.tempDraft.markdownContent = this.OutputMarkdownContent;
     this.tempDraft.id = this.draftId;
     this.tempDraft.title = this.title;

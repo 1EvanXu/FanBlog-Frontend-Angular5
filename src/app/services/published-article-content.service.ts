@@ -11,7 +11,12 @@ export class PublishedArticleContentService {
   getArticleContent(pubId: number): Observable<Article> {
     return this._apiClient.getPublishedArticle(pubId);
   }
+
   vote(pubId: number): Observable<boolean> {
     return this._apiClient.voteForPublishedArticle(pubId);
+  }
+
+  hasVoted(pubId: number): Observable<boolean> {
+    return this._apiClient.hasVoted(pubId);
   }
 }

@@ -64,10 +64,17 @@ import {Router} from '@angular/router';
     }
   `]
 })
-export class SideToolKitsComponent {
+export class SideToolKitsComponent implements OnInit {
   @Input() pubId: number;
   @Input() voted: boolean;
+
   constructor(private _articleContentService: PublishedArticleContentService, private router: Router) { }
+
+  ngOnInit() {
+    this._articleContentService.hasVoted(this.pubId).subscribe(
+      data => this.voted = data
+    );
+  }
 
   vote() {
     if (!this.voted) {
