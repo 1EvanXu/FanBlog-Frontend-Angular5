@@ -8,6 +8,7 @@ import { EditorMdComponent } from './editor-md/editor-md.component';
 import {MarkdownEditorService} from '../../services/markdown-editor.service';
 import { ArticlePublishFormComponent } from './article-publish-form/article-publish-form.component';
 import {MarkdownEditorApiClient} from '../../apis/markdown-editor.api.service';
+import {EditorDeactivateGuard} from './editor-deactivate-guard';
 
 const routes: Routes = [
   {
@@ -18,11 +19,13 @@ const routes: Routes = [
         children: [
           {
             path: ':articleId',
-            component: MarkdownEditorComponent
+            component: MarkdownEditorComponent,
+            canDeactivate: [EditorDeactivateGuard]
           },
           {
             path: 'new',
-            component: MarkdownEditorComponent
+            component: MarkdownEditorComponent,
+            canDeactivate: [EditorDeactivateGuard]
           },
           {
             path: '',
@@ -53,7 +56,7 @@ const routes: Routes = [
     NgZorroAntdModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  providers: [MarkdownEditorService, MarkdownEditorApiClient],
+  providers: [MarkdownEditorService, MarkdownEditorApiClient, EditorDeactivateGuard],
   entryComponents: [ArticlePublishFormComponent]
 })
 export class MarkdownEditorModule { }

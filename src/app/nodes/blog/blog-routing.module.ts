@@ -6,7 +6,7 @@ import {BlogComponent} from './blog.component';
 
 const blogRoutes: Routes = [
   {
-    path: 'blog',
+    path: 'site',
     component: BlogComponent,
     children: [
       {

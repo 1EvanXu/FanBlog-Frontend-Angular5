@@ -1,12 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 import {NZ_MESSAGE_CONFIG, NzMessageService, NzModalSubject} from 'ng-zorro-antd';
 import {MarkdownEditorService} from '../../../services/markdown-editor.service';
 import {TempArticle} from '../../../data-model/article';
 import {ArticleCategory} from '../../../data-model/draft';
-import {assertNumber} from '@angular/core/src/render3/assert';
 import {isNumber} from 'util';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-article-publish-form',
@@ -95,6 +95,7 @@ export class ArticlePublishFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _nzModalSubject: NzModalSubject,
     private _nzMessageService: NzMessageService,
+    private _router: Router,
     private _mdEditorService: MarkdownEditorService
   ) {}
 
@@ -124,7 +125,7 @@ export class ArticlePublishFormComponent implements OnInit {
     this.isSubmitting = true;
     $event.preventDefault();
     for (const key in this.articlePublishForm.controls) {
-      this.articlePublishForm.controls[ key ].markAsDirty();
+      this.articlePublishForm.controls[key].markAsDirty();
     }
     let category: ArticleCategory;
     if (isNumber(value.category[0].value)) {
@@ -146,6 +147,7 @@ export class ArticlePublishFormComponent implements OnInit {
       result => {
         if (result) {
             this._nzMessageService.success('Publish succeed!');
+            this._router.navigate(['/management/articles/published']);
         } else {
           this._nzMessageService.error('Publish failed!');
         }

@@ -1,22 +1,21 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {EditorMdComponent} from './editor-md/editor-md.component';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {NzModalService} from 'ng-zorro-antd';
+import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {MarkdownEditorService, SaveStatus} from '../../services/markdown-editor.service';
 import {ArticlePublishFormComponent} from './article-publish-form/article-publish-form.component';
 import {Draft, TempDraft} from '../../data-model/draft';
 import {ActivatedRoute, Router} from '@angular/router';
-import {of} from 'rxjs/observable/of';
-
 
 @Component({
   selector: 'app-markdown-editor',
   template: `
-    <nav style="height: 50px; padding: 15px; border-bottom: lightgray solid 1px;">
+    <nav style="height: 54px; padding: 13px; border-bottom: lightgray solid 1px;">
       <img class="logo" src="../../../assets/logo.png">
-      <span style="font-size: 15px;font-weight: bold; margin-left: 50px">
-        &nbsp;Article Editor
+      <span style="font-size: 16px;font-weight: bold; margin-left: 50px">
+        Markdown Editor
       </span>
+      <a [routerLink]="['/management']">Management Home</a>
     </nav>
     <div style="padding: 10px 25px; background-color: whitesmoke">
       <div nz-row>
@@ -25,9 +24,9 @@ import {of} from 'rxjs/observable/of';
         </div>
         <div nz-col [nzSm]="4" [nzMd]="3" [nzLg]="2">
           <button nz-button [nzSize]="'large'" [nzType]="'primary'"
-                  style="margin: 0px 15px" [disabled]="!canPublish" (click)="showArticlePublishModal()">Publish</button>
+                  style="margin: 0px 15px" (click)="showArticlePublishModal()">Publish</button>
         </div>
-        <div nz-col [nzSm]="1" [nzMd]="1" [nzLg]="1" [ngSwitch]="saveStatus">
+        <div nz-col [nzSm]="1" [nzMd]="1" [nzLg]="1" [ngSwitch]="saveStatusOfTmpDraft">
           <span  *ngSwitchCase="'SAVED'">
             <i class="anticon anticon-check-circle saved"></i>
           </span>
@@ -40,7 +39,7 @@ import {of} from 'rxjs/observable/of';
         </div>
       </div>
     </div>
-    <app-editor-md (saveAction)="manualSaveContent()" [mdContent]="loadedMarkdownContent" (mdContentChange)="detectContentChanges()">
+    <app-editor-md (saveAction)="manualSaveDraftContent()" [mdContent]="loadedMarkdownContent" (mdContentChange)="detectContentChanges()">
     </app-editor-md>
   `,
   styles: [`
@@ -69,17 +68,45 @@ import {of} from 'rxjs/observable/of';
 })
 export class MarkdownEditorComponent implements OnInit {
   tempArticleId: number;
-  articleId: number;
+  draftId: number;
   loadedMarkdownContent: string;
   OutputMarkdownContent: string;
   title: string;
 
-  saveStatus = SaveStatus.UNKNOWN;
-  draft: TempDraft = new TempDraft();
+  saveStatusOfTmpDraft = SaveStatus.UNKNOWN;
+  saveStatusOfDraft = SaveStatus.UNKNOWN;
+
+  tempDraft: TempDraft = new TempDraft();
   @ViewChild(EditorMdComponent) private editorMdComponent: EditorMdComponent;
 
-  get canPublish(): boolean {
-    return this.saveStatus === SaveStatus.SAVED && Boolean(this.title);
+  canPublish(): boolean {
+    if (!this.isValidTitle(this.title)) {
+      this._nzMessageService.warning('The length of title must between 3 and 30!');
+      return false;
+    }
+    if (this.saveStatusOfDraft !== SaveStatus.SAVED) {
+      this._nzMessageService.warning('Auto save not completed!');
+      return false;
+    }
+
+    if (this.saveStatusOfTmpDraft !== SaveStatus.SAVED) {
+      this._nzMessageService.warning('Unsaved!');
+      return false;
+    }
+    return true;
+  }
+
+  canDeactivate(): boolean {
+    return this.saveStatusOfDraft === SaveStatus.SAVED && this.saveStatusOfTmpDraft === SaveStatus.SAVED;
+  }
+
+
+  isValidTitle(title: string): boolean {
+    if (title === undefined) {
+      return false;
+    }
+    const len = title.length;
+    return len >= 3 && len < 30;
   }
 
   ngOnInit() {
@@ -92,17 +119,17 @@ export class MarkdownEditorComponent implements OnInit {
     } else if (currentUrl.match('editor/article/\\d+$')) {
       this.route.paramMap.subscribe(
         param => {
-          this.articleId = +param.get('articleId');
-          this.loadArticleContent(this.articleId);
+          this.draftId = +param.get('articleId');
+          this.loadDraftContent(this.draftId);
         }
       );
     }
 
-    this.autoSaveContent();
+    this.autoSaveDraftContent();
   }
 
   detectContentChanges() {
-    this.saveStatus = SaveStatus.SAVING;
+    this.saveStatusOfTmpDraft = SaveStatus.SAVING;
   }
 
   private getHtmlContent(): string {
@@ -110,63 +137,62 @@ export class MarkdownEditorComponent implements OnInit {
     return this._el.nativeElement.querySelector('.editormd-preview-container').innerHTML.toString();
   }
 
-  manualSaveContent() {
+  manualSaveDraftContent() {
 
-    console.log('manual save', this.saveStatus);
+    console.log('manual save', this.saveStatusOfDraft);
 
     this.detectContentChanges();
 
-    const article: Draft  = <Draft>this.getArticle();
-    article.htmlContent = this.getHtmlContent();
-    this._mdEditorService.saveArticle(article).subscribe(
+    const draft: Draft  = <Draft>this.getDraft();
+    draft.htmlContent = this.getHtmlContent();
+    this._mdEditorService.saveArticle(draft).subscribe(
       value => {
         if (value) {
-          this.articleId = value;
-          this.saveStatus = SaveStatus.SAVED;
+          this.draftId = value;
+          this.saveStatusOfDraft = SaveStatus.SAVED;
+          this.saveStatusOfTmpDraft = SaveStatus.SAVED;
         } else {
-          this.saveStatus = SaveStatus.UNSAVED;
+          this.saveStatusOfDraft = SaveStatus.UNSAVED;
         }
 
       },
-      () => this.saveStatus = SaveStatus.UNSAVED
+      () => this.saveStatusOfDraft = SaveStatus.UNSAVED
     );
   }
 
-  autoSaveContent() {
+  autoSaveDraftContent() {
     this.editorMdComponent.mdContentChange$.pipe(
       debounceTime(2000),
       distinctUntilChanged(),
       switchMap(value =>  {
         this.OutputMarkdownContent = value;
-        return this._mdEditorService.saveArticleMarkdownContent(this.getDraft());
+        return this._mdEditorService.saveArticleMarkdownContent(this.getTmpDraft());
       })).subscribe(
-        value => this.saveStatus = value
+        value => this.saveStatusOfTmpDraft = value
     );
   }
 
+  getTmpDraft(): TempDraft {
+    this.tempDraft.tempDraftId = this.tempArticleId;
+    this.tempDraft.markdownContent = this.OutputMarkdownContent;
+    this.tempDraft.id = this.draftId;
+    this.tempDraft.title = this.title;
+    console.log(this.tempDraft);
+    return this.tempDraft;
+  }
+
   getDraft(): TempDraft {
-    this.draft.tempDraftId = this.tempArticleId;
-    this.draft.markdownContent = this.OutputMarkdownContent;
-    this.draft.id = this.articleId;
-    this.draft.title = this.title;
-    console.log(this.draft);
-    return this.draft;
+    this.getTmpDraft();
+    this.tempDraft.markdownContent = this.editorMdComponent.getMarkContent();
+    console.log(this.tempDraft);
+    return this.tempDraft;
   }
 
-  getArticle(): TempDraft {
-    this.draft.tempDraftId = this.tempArticleId;
-    this.draft.markdownContent = this.editorMdComponent.getMarkContent();
-    this.draft.id = this.articleId;
-    this.draft.title = this.title;
-    console.log(this.draft);
-    return this.draft;
-  }
-
-  loadArticleContent(articleId: number) {
+  loadDraftContent(articleId: number) {
     this._mdEditorService.getArticle(articleId).subscribe(
       data => {
           console.log(data);
-          this.draft = data;
+          this.tempDraft = data;
           this.loadedMarkdownContent = data.markdownContent;
           this.title = data.title;
       }
@@ -174,13 +200,16 @@ export class MarkdownEditorComponent implements OnInit {
   }
 
   showArticlePublishModal() {
+    if (!this.canPublish()) {
+      return;
+    }
     const subscription = this._nzModalService.open({
       title: 'Publish Article',
       content: ArticlePublishFormComponent,
       footer: false,
       componentParams: {
         articleTitle: this.title,
-        articleId: this.articleId
+        articleId: this.draftId
       }
     });
     subscription.subscribe(res => console.log(res));
@@ -189,6 +218,7 @@ export class MarkdownEditorComponent implements OnInit {
   constructor(
     private _mdEditorService: MarkdownEditorService,
     private _nzModalService: NzModalService,
+    private _nzMessageService: NzMessageService,
     private _el: ElementRef,
     private route: ActivatedRoute,
     private router: Router,
