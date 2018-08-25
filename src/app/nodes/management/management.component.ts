@@ -52,7 +52,7 @@ import {Router} from '@angular/router';
               </li>
             </ul>
           </nz-sider>
-          <nz-content style="padding: 24px; min-height: 500px;">
+          <nz-content style="padding: 24px; min-height: 600px;">
             <router-outlet></router-outlet>
           </nz-content>
         </nz-layout>
@@ -71,9 +71,12 @@ import {Router} from '@angular/router';
     :host ::ng-deep .ant-layout-header {
       background: white;
     }
-      .management-menu-title {
-        font-size: 14px;
-      }
+    .layout {
+      
+    }
+    .management-menu-title {
+      font-size: 14px;
+    }
     a {
       text-decoration: none;
       color: gray;

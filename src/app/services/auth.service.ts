@@ -5,7 +5,7 @@ import {NzMessageService} from 'ng-zorro-antd';
 @Injectable()
 export class AuthService {
   isLoggedIn = false;
-  redirectUrl: string;
+  redirectUrl = '/site';
 
   constructor(private router: Router, private messageService: NzMessageService) {}
 

@@ -5,22 +5,22 @@ import {SideInformation} from '../../data-model/side-information';
 @Component({
   selector: 'app-sidebar',
   template: `
-    <app-side-info [infoTitle]="'最新文章'" [extraTitle]="'more'" [extraUrl]="''" [infos]="latestArticles$"
-                   [loading]="latestArticlesLoading" [baseHref]="'/blog/article/'" >
+    <app-side-info [infoTitle]="'最新文章'" [extraTitle]="'more'" [extraUrl]="''" [infos]="latestArticles"
+                   [loading]="latestArticlesLoading" [baseHref]="'/blog/site/article/'" >
     </app-side-info>
-    <app-side-info [infoTitle]="'最热文章'" [infos]="popularArticles$" 
-                   [loading]="popularArticlesLoading" [baseHref]="'/blog/article/'"></app-side-info>
-    <app-side-info [infoTitle]="'文章分类'" [infos]="categories$" [loading]="categoriesLoading" 
-                   [baseHref]="'/blog/articles/category/'"></app-side-info>
+    <app-side-info [infoTitle]="'最热文章'" [infos]="popularArticles" 
+                   [loading]="popularArticlesLoading" [baseHref]="'/blog/site/article/'"></app-side-info>
+    <app-side-info [infoTitle]="'文章分类'" [infos]="categories" [loading]="categoriesLoading" 
+                   [baseHref]="'/blog/site/articles/category/'"></app-side-info>
   `,
   styles: []
 })
 export class SidebarComponent implements OnInit {
-  latestArticles$: SideInformation[];
+  latestArticles: SideInformation[];
   latestArticlesLoading = false;
-  popularArticles$: SideInformation[];
+  popularArticles: SideInformation[];
   popularArticlesLoading = false;
-  categories$: SideInformation[];
+  categories: SideInformation[];
   categoriesLoading = false;
   constructor(private sidebarService: SidebarService) { }
 
@@ -32,7 +32,7 @@ export class SidebarComponent implements OnInit {
   getLatestArticles() {
     this.latestArticlesLoading = true;
     this.sidebarService.getLatestArticles().subscribe((latestArticlesCollection) => {
-      this.latestArticles$ = latestArticlesCollection.items;
+      this.latestArticles = latestArticlesCollection.items;
     },
       () => {  },
       () => { this.latestArticlesLoading = false; });
@@ -40,7 +40,7 @@ export class SidebarComponent implements OnInit {
   getPopularArticles() {
     this.popularArticlesLoading = true;
     this.sidebarService.getPopularArticles().subscribe(
-      popularArticlesCollection => { this.popularArticles$ = popularArticlesCollection.items; },
+      popularArticlesCollection => { this.popularArticles = popularArticlesCollection.items; console.log(this.popularArticles); },
       () => {},
       () => { this.popularArticlesLoading = false; }
     );
@@ -48,7 +48,7 @@ export class SidebarComponent implements OnInit {
   getCategories() {
     this.categoriesLoading = true;
     this.sidebarService.getCategories().subscribe(
-      categoriesCollection => { this.categories$ = categoriesCollection.items; },
+      categoriesCollection => { this.categories = categoriesCollection.items; },
       () => {},
       () => { this.categoriesLoading = false; }
     );
