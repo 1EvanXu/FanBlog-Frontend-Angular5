@@ -70,7 +70,7 @@ class EditorConfig {
   public sequenceDiagram = true;
   public imageUpload = true;
   public imageFormats = ['jpg', 'jpeg', 'gif', 'png'];
-  public imageUploadURL = '/Users/xuyifan/WebstormProjects/FanBlog';
+  public imageUploadURL = 'http://localhost:8080/apis/blog/resources/images';
   private saveEvent: EventEmitter<any>; // 保存事件发射器
   public lang = {
     toolbar: {

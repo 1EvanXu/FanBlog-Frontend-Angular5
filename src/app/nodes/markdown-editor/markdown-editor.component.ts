@@ -13,7 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
     <nav style="height: 54px; padding: 13px; border-bottom: lightgray solid 1px;">
       <nz-tooltip [nzTitle]="'Back to Management'" [nzPlacement]="'bottomLeft'">
         <button nz-button nz-tooltip [nzType]="'default'" [nzSize]="'small'" style="position: relative; left: 30px" (click)="backToManagement()">
-          <i class="anticon anticon-appstore-o" style="font-size: 15px;"></i>
+          <i class="anticon anticon-menu-fold" style="font-size: 15px;"></i>
         </button>
       </nz-tooltip>
       <span style="font-size: 16px;font-weight: bold; margin-left: 50px">

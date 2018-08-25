@@ -8,13 +8,13 @@ import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {SidebarModule} from './nodes/sidebar/sidebar.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {ErrorComponent} from './nodes/error/error.component';
+import {PageNotFoundComponent} from './nodes/error/page-not-found.component';
 xdescribe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        ErrorComponent,
+        PageNotFoundComponent,
       ],
       imports: [
         BrowserModule,

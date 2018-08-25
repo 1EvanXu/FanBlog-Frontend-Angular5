@@ -9,10 +9,12 @@ import {MarkdownEditorService} from '../../services/markdown-editor.service';
 import { ArticlePublishFormComponent } from './article-publish-form/article-publish-form.component';
 import {MarkdownEditorApiClient} from '../../apis/markdown-editor.api.service';
 import {EditorDeactivateGuard} from './editor-deactivate-guard';
+import {AuthGuardService} from '../../services/auth-guard.service';
 
 const routes: Routes = [
   {
     path: 'editor',
+    canActivate: [AuthGuardService],
     children: [
       {
         path: 'article',

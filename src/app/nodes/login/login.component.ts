@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   template: `
-    <div class="error-page-header">
-          <img class="logo" src="../assets/logo.png">
+    <div class="login-page-header">
+      <img class="logo" src="../assets/logo.png">
     </div>
-    <div class="error-container">
+    <div class="login-page-container">
       <table cellspacing="0" cellpadding="0">
         <tr>
           <td>
             <table cellspacing="0" cellpadding="0">
               <tr>
                 <td>
-                  <h1>404</h1>
-                  <h3>Page Not Found!</h3>
-                  <p>
-                    <a href="/">Back to Home ></a>
+                  <h1>Please login ~ <i class="anticon anticon-smile-o"></i></h1>
+                  <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="toLogin()">
+                    To login via <i class="anticon anticon-github"></i>
+                  </button>
+                  <p style="margin-top: 20px">
+                    <a [routerLink]="['/site']">Back to Home <i class="anticon anticon-arrow-right"></i></a>
                   </p>
                 </td>
               </tr>
@@ -37,20 +40,17 @@ import { Component, OnInit } from '@angular/core';
       line-height:2.2em;
     }
     h1 {
-      font-size:100px;
+      font-size:40px;
       line-height:1em;
       color: #2D2D2D;
-    }
-    h3 {
-      color: #2c2c2c;
     }
     table{
       width:100%;
       height:100%;
       border:0;
     }
-    .error-container{
-      margin-top: 17% ;
+    .login-page-container{
+      margin-top: 19% ;
     }
     .logo {
       width: 130px;
@@ -58,11 +58,12 @@ import { Component, OnInit } from '@angular/core';
       margin: 16px 30px 16px 50px;
       float: left;
     }
-    .error-page-header {
+    .login-page-header {
       overflow: auto;
       display: block;
       border-bottom: 1px lightgray solid;
     }
+
     footer {
       text-align: center;
       width: 100%;
@@ -74,11 +75,15 @@ import { Component, OnInit } from '@angular/core';
     }
   `]
 })
-export class ErrorComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+  }
+
+  toLogin() {
+    this.authService.login();
   }
 
 }

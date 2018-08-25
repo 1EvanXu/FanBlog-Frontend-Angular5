@@ -1,8 +1,13 @@
 import {RouterModule, Routes} from '@angular/router';
-import {ErrorComponent} from './nodes/error/error.component';
+import {PageNotFoundComponent} from './nodes/error/page-not-found.component';
 import {NgModule} from '@angular/core';
+import {LoginComponent} from './nodes/login/login.component';
 
 const appRoutes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: '',
     redirectTo: 'blog',
@@ -10,7 +15,7 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    component: ErrorComponent,
+    component: PageNotFoundComponent,
   }
 ];
 
