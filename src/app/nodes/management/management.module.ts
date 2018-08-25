@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ManagementRoutingModule } from './management-routing.module';
 import {ManagementComponent} from './management.component';
-import {NgZorroAntdModule, NZ_MESSAGE_CONFIG} from 'ng-zorro-antd';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {FormsModule} from '@angular/forms';
 import { PublishedArticlesManagementComponent } from './articles-management/published-articles-management/published-articles-management.component';
 import { DraftsManagementComponent } from './articles-management/drafts-management/drafts-management.component';
@@ -26,12 +26,6 @@ import {ManagementApiClient} from '../../apis/management.api.service';
     DeletedArticlesManagementComponent,
     CategoriesManagementComponent,
   ],
-  providers: [ManagementService, ManagementApiClient,{ provide: NZ_MESSAGE_CONFIG, useValue: {
-      nzDuration             : 1500,
-      nzMaxStack             : 7,
-      nzPauseOnHover         : true,
-      nzAnimate              : true
-    }
-  }]
+  providers: [ManagementService, ManagementApiClient]
 })
 export class ManagementModule { }

@@ -4,8 +4,9 @@ import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {NzMessageService, NzModalService} from 'ng-zorro-antd';
 import {MarkdownEditorService, SaveStatus} from '../../services/markdown-editor.service';
 import {ArticlePublishFormComponent} from './article-publish-form/article-publish-form.component';
-import {Draft, TempDraft} from '../../data-model/draft';
+import {TempDraft} from '../../data-model/draft';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ImageUploadModalComponent} from './image-upload-modal/image-upload-modal.component';
 
 @Component({
   selector: 'app-markdown-editor',
@@ -43,7 +44,7 @@ import {ActivatedRoute, Router} from '@angular/router';
         </div>
       </div>
     </div>
-    <app-editor-md (saveAction)="manualSaveDraftContent()" [mdContent]="loadedMarkdownContent" (mdContentChange)="detectContentChanges()">
+    <app-editor-md (saveAction)="manualSaveDraftContent()" (uploadImgAction)="showUploadImgModal()" [mdContent]="loadedMarkdownContent" (mdContentChange)="detectContentChanges()">
     </app-editor-md>
   `,
   styles: [`
@@ -146,6 +147,11 @@ export class MarkdownEditorComponent implements OnInit {
 
   manualSaveDraftContent() {
 
+    if (!this.OutputMarkdownContent || !this.title || this.OutputMarkdownContent.length === 0 || this.title.length === 0) {
+      this._nzMessageService.warning('Title and Content can\'t be empty!');
+      return;
+    }
+
     console.log('Manual Save', this.saveStatusOfDraft);
 
     this.detectContentChanges();
@@ -223,6 +229,16 @@ export class MarkdownEditorComponent implements OnInit {
       }
     });
     subscription.subscribe(res => console.log(res));
+  }
+
+  showUploadImgModal() {
+    console.log('show upload image modal!');
+    this._nzModalService.open({
+      title: 'Upload Image',
+      content: ImageUploadModalComponent,
+      // closable: false,
+      footer: false,
+    });
   }
 
   constructor(

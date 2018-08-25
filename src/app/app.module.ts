@@ -1,7 +1,7 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgZorroAntdModule} from 'ng-zorro-antd';
+import {NgZorroAntdModule, NZ_MESSAGE_CONFIG} from 'ng-zorro-antd';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './nodes/error/page-not-found.component';
@@ -18,6 +18,13 @@ import {AuthGuardService} from './services/auth-guard.service';
 import {AuthService} from './services/auth.service';
 import {RequestErrorHandlerService} from './services/request-error-handler.service';
 
+const ngMessageConfig = { provide: NZ_MESSAGE_CONFIG, useValue: {
+    nzDuration             : 2500,
+    nzMaxStack             : 2,
+    nzPauseOnHover         : true,
+    nzAnimate              : true
+  }
+};
 
 @NgModule({
   declarations: [
@@ -37,7 +44,7 @@ import {RequestErrorHandlerService} from './services/request-error-handler.servi
     MarkdownEditorModule,
     AppRoutingModule,
   ],
-  providers: [UserService, AuthGuardService, AuthService, RequestErrorHandlerService],
+  providers: [UserService, AuthGuardService, AuthService, RequestErrorHandlerService, ngMessageConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,11 +19,11 @@ export class EditorMdComponent implements OnInit, AfterViewInit {
   @Input() mdContent: string;
   @Output() mdContentChange = new EventEmitter<any>();
   @Output() saveAction = new EventEmitter<any>();
-
+  @Output() uploadImgAction = new EventEmitter<any>();
   mdContentChange$ = new Subject<string>();
 
   constructor() {
-    this.editorMdConfig = new EditorConfig(this.saveAction);
+    this.editorMdConfig = new EditorConfig(this.saveAction, this.uploadImgAction);
   }
 
   ngOnInit() {
@@ -72,27 +72,34 @@ class EditorConfig {
   public imageFormats = ['jpg', 'jpeg', 'gif', 'png'];
   public imageUploadURL = 'http://localhost:8080/apis/blog/resources/images';
   private saveEvent: EventEmitter<any>; // 保存事件发射器
+  private uploadImageEvent: EventEmitter<any>; // 上传图片事件发射器
   public lang = {
     toolbar: {
       save: 'Save content',
+      uploadImg: 'Upload image to server'
     }
   };
   public toolbarIconsClass = {
-    save: 'fa-save'
+    save: 'fa-save',
+    uploadImg: 'fa-image'
   };
   public toolbarHandlers = {
     save: () => {
       this.saveEvent.emit();
     },
+    uploadImg: () => {
+      this.uploadImageEvent.emit();
+    }
   };
   public toolbarIcons = function() {
     return [
       'undo', 'redo', '|', 'bold', 'del', 'italic', 'quote', 'ucwords', 'uppercase', 'lowercase', '|', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-      '|', 'list-ul', 'list-ol', 'hr', '|', 'link', 'reference-link', 'image', 'code', 'preformatted-text', 'code-block', 'table',
+      '|', 'list-ul', 'list-ol', 'hr', '|', 'link', 'reference-link', 'code', 'preformatted-text', 'code-block', 'table',
       'datetime', 'emoji', 'html-data-model', 'pagebreak', '|', 'goto-line', 'watch', 'preview', 'fullscreen', 'clear', 'search', 'help',
-      '|', 'save'];
+      '|', 'save', 'uploadImg'];
   };
-  constructor(e: EventEmitter<any>) {
-    this.saveEvent = e;
+  constructor(saveEvent: EventEmitter<any>, uploadImgEvent: EventEmitter<any>) {
+    this.saveEvent = saveEvent;
+    this.uploadImageEvent = uploadImgEvent;
   }
 }
