@@ -43,9 +43,5 @@ export class MarkdownEditorApiClient {
     const requestUrl = this.editorApiUrl + `categories?keywords=${keywords}`;
     return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
-
-  private handleError() {
-
-  }
 }
 
