@@ -15,8 +15,8 @@ export class AuthGuardService implements CanActivate {
 
   checkLogin(url: string): Observable<boolean> {
     this.authService.setRedirectUrl(url);
-    console.log(url);
-    return this.authService.checkLoggedIn().map(
+    // console.log(url);
+    return this.authService.checkAllowAccess().map(
       r => {
         if (!r) {
           this.router.navigate(['/login'], );

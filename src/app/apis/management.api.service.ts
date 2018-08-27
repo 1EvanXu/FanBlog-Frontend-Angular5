@@ -24,19 +24,19 @@ export class ManagementApiClient {
   getArticlesManagementList(pageIndex: number, filter?: PublishedArticleQueryFilter): Observable<PublishedArticlesManagementList> {
     const requestUrl = this.managementApiUrl + `articles/managementItems/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}&type=${filter.type}`;
 
-    console.log(requestUrl);
+    // console.log(requestUrl);
     return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(value => value.data));
   }
 
   getDraftsManagementList(pageIndex: number, filter?: ArticleQueryFilter): Observable<DraftsManagementList> {
     const requestUrl = this.managementApiUrl + `drafts/managementItems/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}&status=${filter.status}`;
-    console.log(requestUrl);
+    // console.log(requestUrl);
     return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(value => value.data));
   }
 
   getDeletedManagementList(pageIndex: number, filter?: ArticleQueryFilter): Observable<DeletedArticlesManagementList> {
     const requestUrl = this.managementApiUrl + `drafts/managementItems/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}&status=${filter.status}`;
-    console.log(requestUrl);
+    // console.log(requestUrl);
     return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(value => value.data));
   }
 
@@ -65,7 +65,7 @@ export class ManagementApiClient {
 
   deleteDraftsPermanently(articlesIds: number[]): Observable<ManagementOperationResult> {
     const requestUrl = this.managementApiUrl + `drafts?ids=${articlesIds}`;
-    console.log(requestUrl);
+    // console.log(requestUrl);
     return this._http.delete<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(
       value => {
         if (value.status === 200) {
@@ -78,7 +78,7 @@ export class ManagementApiClient {
 
   getCategoriesManagementList(pageIndex: number, filter?: CategoryQueryFilter): Observable<CategoriesManagementList> {
     const requestUrl = this.managementApiUrl + `categories/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}`;
-    console.log(requestUrl);
+    // console.log(requestUrl);
     return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(value => value.data));
   }
 

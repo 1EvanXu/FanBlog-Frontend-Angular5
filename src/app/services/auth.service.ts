@@ -48,14 +48,15 @@ export class AuthService {
     }
   }
 
-  checkLoggedIn(): Observable<boolean> {
+  checkAllowAccess(): Observable<boolean> {
     const user = this.getUserFromCookie();
     if (user && user.id) {
       console.log(`Checking login state of ${user.name}`);
-      return this.authApiClient.isLoggedIn(user.id);
+      return this.authApiClient.checkAdmin(user.id);
     }
     return of(false);
   }
+
 
   getUserFromCookie(): User {
     return <User>this.cookieService.getObject('user');
@@ -77,7 +78,7 @@ export class AuthService {
   private calculateCookieExpiredDate(durationMilliSecond: number): Date {
     const expiredTime = new Date().valueOf() + durationMilliSecond;
     const expiredDate = new Date(expiredTime);
-    console.log('cookie expired date: ' + expiredDate.toISOString());
+    console.log('Cookie expired date: ' + expiredDate.toISOString());
     return expiredDate;
   }
 }

@@ -6,6 +6,7 @@ import {BlogResponseResult} from '../data-model/blog-response-result';
 import {map} from 'rxjs/operators';
 import {User} from '../data-model/user';
 
+
 @Injectable()
 export class AuthApiClient {
   private authApiUrl = BASE_API_URL + 'user/';
@@ -25,5 +26,18 @@ export class AuthApiClient {
   isLoggedIn(userId: number): Observable<boolean> {
     const requestUrl = this.authApiUrl + `${userId}/state/`;
     return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(result => result.data === 1));
+  }
+
+  checkAdmin(userId: number): Observable<boolean> {
+    const requestUrl = this.authApiUrl + userId;
+    return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(
+      map(result => {
+          if (result.data) {
+            return result.data.level === 'Admin';
+          } else {
+            return false;
+          }
+        }
+      ));
   }
 }

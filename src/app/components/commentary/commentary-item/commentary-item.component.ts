@@ -11,9 +11,10 @@ import {User} from '../../../data-model/user';
       <a style="vertical-align: middle;" >
         <nz-avatar nzSize="small" nzIcon="user" style="display:inline-block; vertical-align: middle;" [nzSrc]="commentator.avatarUrl"></nz-avatar>
         <span class="commentator">
-          <nz-tag *ngIf="commentator.level === 'Admin'" [nzColor]="'#108ee9'">博主</nz-tag>
+          <nz-tag *ngIf="commentator.level === 'Admin'" [nzColor]="'blue'">Host</nz-tag>
           {{commentator.name}}
         </span>
+
         <span class="comment-time">{{commentary.commentTime}}</span>
       </a>
       <a class="commentary-reply" (click)="reply()"
@@ -73,6 +74,7 @@ export class CommentaryItemComponent implements OnInit {
   constructor(private replyService: ReplyService) { }
   ngOnInit() {
     // console.log('CommentaryItemComponent=======>', this.commentary);
+
     this.commentator = this.commentary.commentator;
   }
 
@@ -93,9 +95,10 @@ export class CommentaryItemComponent implements OnInit {
     } else {
       this.replyService.setInfo({
         parent: this.commentary.id,
-        replyTo:  {id: this.commentary.id, name: this.commentary.commentator.name},
+        replyTo:  {id: 0, name: this.commentary.commentator.name},
       });
     }
   }
+
 }
 
