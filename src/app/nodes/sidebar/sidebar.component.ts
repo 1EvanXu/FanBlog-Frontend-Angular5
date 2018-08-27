@@ -40,7 +40,7 @@ export class SidebarComponent implements OnInit {
   getPopularArticles() {
     this.popularArticlesLoading = true;
     this.sidebarService.getPopularArticles().subscribe(
-      popularArticlesCollection => { this.popularArticles = popularArticlesCollection.items; console.log(this.popularArticles); },
+      popularArticlesCollection => { this.popularArticles = popularArticlesCollection.items; },
       () => {},
       () => { this.popularArticlesLoading = false; }
     );

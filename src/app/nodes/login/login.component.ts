@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import {GithubOAuth2Url} from '../../apis/common-api.config';
+import {ActivatedRoute, Router} from '@angular/router';
+
 
 @Component({
   template: `
     <div class="login-page-header">
       <img class="logo" src="../assets/logo.png">
     </div>
+    <nz-alert *ngIf="errorMsg" [nzType]="'error'" [nzMessage]="'Login failed! ' + errorMsg" [nzShowIcon]="true" [nzCloseable]="true"></nz-alert>
+    <nz-alert *ngIf="loginSucceed" [nzType]="'success'" [nzMessage]="'Login succeed!'" [nzShowIcon]="true" [nzCloseable]="true"></nz-alert>
     <div class="login-page-container">
       <table cellspacing="0" cellpadding="0">
         <tr>
@@ -13,10 +18,13 @@ import {AuthService} from '../../services/auth.service';
             <table cellspacing="0" cellpadding="0">
               <tr>
                 <td>
-                  <h1>Please login ~ <i class="anticon anticon-smile-o"></i></h1>
-                  <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="toLogin()">
-                    To login via <i class="anticon anticon-github"></i>
-                  </button>
+                  <div >
+                    <h2 *ngIf="logging" style="color: gray"><i class="anticon anticon-loading-3-quarters anticon-spin"></i>  Loading ... </h2>
+                    <h1 *ngIf="!logging">Please login ~ <i class="anticon anticon-smile-o"></i></h1>
+                    <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="toLoginViaGithub()" [disabled]="logging">
+                      To login via <i class="anticon anticon-github"></i>
+                    </button>
+                  </div>
                   <p style="margin-top: 20px">
                     <a [routerLink]="['/site']">Back to Home <i class="anticon anticon-arrow-right"></i></a>
                   </p>
@@ -55,7 +63,7 @@ import {AuthService} from '../../services/auth.service';
     .logo {
       width: 130px;
       height: 40px;
-      margin: 16px 30px 16px 50px;
+      margin: 12px 30px 12px 50px;
       float: left;
     }
     .login-page-header {
@@ -77,13 +85,43 @@ import {AuthService} from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  private userId: number;
+  errorMsg: string;
+  logging = false;
+  loginSucceed = false;
+
+
+  constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.route.params.subscribe(
+      param => {
+        this.userId = +param.userId;
+        this.errorMsg = param.error;
+
+      }
+    );
+    if (this.userId) {
+      this.logging = true;
+      this.authService.login(this.userId).subscribe(
+        value => {
+          console.log(value);
+          if (value) {
+            this.loginSucceed = value;
+            let redirectUrl = this.authService.getRedirectUrl();
+            redirectUrl = redirectUrl ? redirectUrl : '/site';
+            this.router.navigate([redirectUrl]);
+          }
+        },
+        () => this.loginSucceed = false,
+        () => this.logging = false
+      );
+    }
   }
 
-  toLogin() {
-    this.authService.login();
+  toLoginViaGithub() {
+    this.logging = true;
+    location.href = GithubOAuth2Url;
   }
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Article} from '../data-model/article';
-import {BASE_API_URL} from './common-api.config';
+import {BASE_API_URL, HttpRequestOption} from './common-api.config';
 import {map, retry} from 'rxjs/operators';
 import {BlogResponseResult} from '../data-model/blog-response-result';
 
@@ -14,7 +14,8 @@ export class PublishedArticleContentApiClient {
   constructor(private _http: HttpClient) { }
 
   getPublishedArticle(pubId: number): Observable<Article> {
-    return this._http.get<BlogResponseResult>(this.articleContentUrl + pubId)
+    const requestUrl = this.articleContentUrl + pubId;
+    return this._http.get<BlogResponseResult>(requestUrl)
       .pipe(map(value => value.data));
   }
 

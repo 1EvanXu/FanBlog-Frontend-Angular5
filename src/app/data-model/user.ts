@@ -1,11 +1,9 @@
 export class User {
   id: number;
+  githubId: number;
   name: string;
-  avatarImagePath: string;
+  avatarUrl: string;
+  githubHomePage?: string;
   level?: string;
-  islogin?: boolean;
 }
 
-export class LoginData {
-
-}

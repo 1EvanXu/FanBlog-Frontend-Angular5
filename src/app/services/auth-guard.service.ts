@@ -13,13 +13,17 @@ export class AuthGuardService implements CanActivate {
     return this.checkLogin(url);
   }
 
-  checkLogin(url: string): boolean {
-    if (this.authService.isLoggedIn) {
-      return true;
-    }
-    this.authService.redirectUrl = url;
-    this.router.navigate(['/login']);
-    return false;
+  checkLogin(url: string): Observable<boolean> {
+    this.authService.setRedirectUrl(url);
+    console.log(url);
+    return this.authService.checkLoggedIn().map(
+      r => {
+        if (!r) {
+          this.router.navigate(['/login'], );
+        }
+        return r;
+      }
+    );
   }
 
 }

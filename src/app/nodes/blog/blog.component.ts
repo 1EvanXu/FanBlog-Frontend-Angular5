@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { GithubOAuth2Url } from '../../apis/common-api.config';
+import {AuthService} from '../../services/auth.service';
+import {User} from '../../data-model/user';
 
 @Component({
   selector: 'app-blog',
@@ -12,7 +15,32 @@ import { Component, OnInit } from '@angular/core';
             </li>
             <li nz-menu-item>About</li>
             <li nz-menu-item style="float: right">
-              <span>Login Via<i class="anticon anticon-github" style="font-size: 20px; margin-left: 10px"></i></span>
+              <nz-dropdown *ngIf="user" [nzPlacement]="'bottomCenter'" [nzTrigger]="'click'">
+                <nz-avatar nzIcon="user" nz-dropdown [nzSrc]="user.avatarUrl"></nz-avatar>
+                <ul nz-menu>
+                  <li nz-menu-item>
+                    <a target="_blank" rel="noopener noreferrer">
+                      <i class="anticon anticon-user"></i>&nbsp;{{user.name}}</a>
+                  </li>
+                  <li nz-menu-item>
+                    <a target="_blank" rel="noopener noreferrer" [routerLink]="['/management/']">
+                      <i class="anticon anticon-menu-unfold"></i>&nbsp;Management
+                    </a>
+                  </li>
+                  <li nz-menu-item>
+                    <a target="_blank" rel="noopener noreferrer" [routerLink]="['/editor/article/new']">
+                      <i class="anticon anticon-edit"></i>&nbsp;Write article
+                    </a>
+                  </li>
+                  <li nz-menu-item>
+                    <a target="_blank" rel="noopener noreferrer" (click)="logout()" >
+                      <i class="anticon anticon-logout"></i>&nbsp;Logout
+                    </a>
+                  </li>
+                </ul>
+              </nz-dropdown>
+              
+              <a *ngIf="!user" href="{{authLink}}">Login Via<i class="anticon anticon-github" style="font-size: 20px; margin-left: 10px"></i></a>
             </li>
             <!--<li>-->
               <!--<nz-input [nzType]="'search'" style="width: 180px;margin-left: 100px"></nz-input>-->
@@ -59,7 +87,7 @@ import { Component, OnInit } from '@angular/core';
       float: left;
     }
     a:link {color:black;}    /* 未被访问的链接 */
-    a:visited {color:purple} /* 已被访问的链接 */
+    a:visited {color:rebeccapurple} /* 已被访问的链接 */
     a:hover {color: dodgerblue;} /* 鼠标指针移动到链接上 */
     a {
       text-decoration: none;
@@ -69,9 +97,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogComponent implements OnInit {
 
-  constructor() { }
+  authLink = GithubOAuth2Url;
+
+  user: User;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.user = this.authService.getUserFromCookie();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

@@ -13,15 +13,19 @@ export class EditorDeactivateGuard implements CanDeactivate<MarkdownEditorCompon
   canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {
     const canLeave = component.canDeactivate();
     if (!canLeave) {
+
       this._nzModalService.confirm({
         title: 'Warning',
         content: 'The content in editor haven\'t saved! Please save first!',
         okText: 'OK',
-        cancelText: null
+        cancelText: 'Just Go',
+        onCancel: () => location.href = '/blog/management/'
       });
       return false;
     }
     return true;
   }
+
+
 
 }

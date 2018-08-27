@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
+import {User} from '../../data-model/user';
 
 @Component({
   selector: 'app-management',
@@ -17,14 +19,18 @@ import {Router} from '@angular/router';
         </div>
         <div style="float: right; height: 64px">
           <nz-dropdown [nzPlacement]="'bottomCenter'" [nzTrigger]="'click'">
-            <nz-avatar [nzIcon]="'user'" nz-dropdown></nz-avatar>
+            <nz-avatar [nzIcon]="'user'" nz-dropdown [nzSrc]="user.avatarUrl"></nz-avatar>
             <ul nz-menu>
+              <li nz-menu-item>
+                <a target="_blank" rel="noopener noreferrer">
+                  <i class="anticon anticon-user"></i>&nbsp;{{user.name}}</a>
+              </li>
               <li nz-menu-item>
                 <a target="_blank" rel="noopener noreferrer" [routerLink]="['/site/articles']">
                   <i class="anticon anticon-home"></i>&nbsp;Back to Home</a>
               </li>
               <li nz-menu-item>
-                <a target="_blank" rel="noopener noreferrer" [routerLink]="['/site/articles']">
+                <a target="_blank" rel="noopener noreferrer" (click)="logout()">
                   <i class="anticon anticon-logout"></i>&nbsp;Logout</a>
               </li>
             </ul>
@@ -85,13 +91,20 @@ import {Router} from '@angular/router';
 })
 export class ManagementComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  user: User;
+
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    this.user = this.authService.getUserFromCookie();
   }
 
   writeArticle() {
     this.router.navigate(['/editor/article/new']);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

@@ -1,14 +1,19 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {ChildCommentary, Commentary} from '../../../data-model/commentary';
 import {ReplyService} from '../../../services/channel.service';
+import {User} from '../../../data-model/user';
 
 @Component({
   selector: 'app-commentary-item',
   template: `
+    
     <div [ngClass]="{'commentary': !isChildCommentary, 'child-commentary': isChildCommentary}">
       <a style="vertical-align: middle;" >
-        <nz-avatar nzSize="small" nzIcon="user" style="display:inline-block; vertical-align: middle;"></nz-avatar>
-        <span class="commentator">{{commentary.commentator.name}}</span>
+        <nz-avatar nzSize="small" nzIcon="user" style="display:inline-block; vertical-align: middle;" [nzSrc]="commentator.avatarUrl"></nz-avatar>
+        <span class="commentator">
+          <nz-tag *ngIf="commentator.level === 'Admin'" [nzColor]="'#108ee9'">博主</nz-tag>
+          {{commentator.name}}
+        </span>
         <span class="comment-time">{{commentary.commentTime}}</span>
       </a>
       <a class="commentary-reply" (click)="reply()"
@@ -64,9 +69,11 @@ export class CommentaryItemComponent implements OnInit {
   @Input()
   commentary: ChildCommentary | Commentary;
   showReply = false;
+  commentator: User;
   constructor(private replyService: ReplyService) { }
   ngOnInit() {
     // console.log('CommentaryItemComponent=======>', this.commentary);
+    this.commentator = this.commentary.commentator;
   }
 
   @HostListener('mouseenter') onMouseEnter() {

@@ -17,6 +17,8 @@ import { LoginComponent } from './nodes/login/login.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {AuthService} from './services/auth.service';
 import {RequestErrorHandlerService} from './services/request-error-handler.service';
+import {AuthApiClient} from './apis/auth.api.service';
+import { CookieModule } from 'ngx-cookie';
 
 const ngMessageConfig = { provide: NZ_MESSAGE_CONFIG, useValue: {
     nzDuration             : 2500,
@@ -39,12 +41,13 @@ const ngMessageConfig = { provide: NZ_MESSAGE_CONFIG, useValue: {
     HttpClientModule,
     NoopAnimationsModule,
     NgZorroAntdModule.forRoot(),
+    CookieModule.forRoot(),
     BlogModule,
     ManagementModule,
     MarkdownEditorModule,
     AppRoutingModule,
   ],
-  providers: [UserService, AuthGuardService, AuthService, RequestErrorHandlerService, ngMessageConfig],
+  providers: [UserService, AuthGuardService, AuthService, AuthApiClient, RequestErrorHandlerService, ngMessageConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

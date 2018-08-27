@@ -7,6 +7,8 @@ import {ArticlePublishFormComponent} from './article-publish-form/article-publis
 import {TempDraft} from '../../data-model/draft';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ImageUploadModalComponent} from './image-upload-modal/image-upload-modal.component';
+import {User} from '../../data-model/user';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-markdown-editor',
@@ -20,7 +22,7 @@ import {ImageUploadModalComponent} from './image-upload-modal/image-upload-modal
       <span style="font-size: 16px;font-weight: bold; margin-left: 50px">
         Markdown Editor
       </span>
-      <nz-avatar class="user-avatar" [nzSize]="'small'" [nzIcon]="'user'"></nz-avatar>
+      <nz-avatar class="user-avatar" [nzSize]="'small'" [nzIcon]="'user'" [nzSrc]="user.avatarUrl"></nz-avatar>
     </nav>
     <div style="padding: 10px 25px; background-color: whitesmoke">
       <div nz-row>
@@ -83,6 +85,8 @@ export class MarkdownEditorComponent implements OnInit {
 
   tempDraft: TempDraft = new TempDraft();
   @ViewChild(EditorMdComponent) private editorMdComponent: EditorMdComponent;
+
+  user: User;
 
   backToManagement() {
     this.router.navigate(['/management']);
@@ -211,7 +215,8 @@ export class MarkdownEditorComponent implements OnInit {
           this.tempDraft = data;
           this.loadedMarkdownContent = data.markdownContent;
           this.title = data.title;
-      }
+      },
+      () => { console.error('Some error happened!'); }
     );
   }
 
@@ -246,8 +251,11 @@ export class MarkdownEditorComponent implements OnInit {
     private _nzModalService: NzModalService,
     private _nzMessageService: NzMessageService,
     private _el: ElementRef,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) {
+    this.user = this.authService.getUserFromCookie();
+  }
 }
 
