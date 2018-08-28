@@ -33,7 +33,7 @@ export class AuthApiClient {
     return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(
       map(result => {
           if (result.data) {
-            return result.data.level === 'Admin';
+            return result.data.level === 'Admin' || result.data.level === 'VIP';
           } else {
             return false;
           }

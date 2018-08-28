@@ -51,8 +51,17 @@ export class AuthService {
   checkAllowAccess(): Observable<boolean> {
     const user = this.getUserFromCookie();
     if (user && user.id) {
-      console.log(`Checking login state of ${user.name}`);
+      console.log(`Checking allow access of ${user.name}`);
       return this.authApiClient.checkAdmin(user.id);
+    }
+    return of(false);
+  }
+
+  checkLoggedIn(): Observable<boolean> {
+    const user = this.getUserFromCookie();
+    if (user && user.id) {
+      console.log(`Checking login state of ${user.name}`);
+      return this.authApiClient.isLoggedIn(user.id);
     }
     return of(false);
   }
