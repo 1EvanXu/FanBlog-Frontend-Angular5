@@ -152,7 +152,7 @@ export class ArticlePublishFormComponent implements OnInit {
           this._nzMessageService.error('Publish failed!');
         }
       },
-      () => { this._nzMessageService.success('Error happened!'); },
+      () => { this._nzMessageService.error('Error happened!'); },
       () => {
         this._nzModalSubject.destroy('onCancel');
         this.isSubmitting = false;
