@@ -18,9 +18,9 @@ import {ActivatedRoute, Router} from '@angular/router';
             <table cellspacing="0" cellpadding="0">
               <tr>
                 <td>
-                  <div >
-                    <h2 *ngIf="logging" style="color: gray"><i class="anticon anticon-loading anticon-spin"></i>  Loading ... </h2>
-                    <h1 *ngIf="!logging">Please login ~ <i class="anticon anticon-smile-o"></i></h1>
+                  <div>
+                    <h2 *ngIf="logging" style="color: gray"><i class="anticon anticon-loading anticon-spin"></i>  Logging in ... </h2>
+                    <h1 *ngIf="!logging && !loginSucceed">Please login ~ <i class="anticon anticon-smile-o"></i></h1>
                     <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="toLoginViaGithub()" [disabled]="logging">
                       To login via <i class="anticon anticon-github"></i>
                     </button>
@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
       this.logging = true;
       this.authService.login(this.userId).subscribe(
         value => {
-          console.log(value);
+
           if (value) {
             this.loginSucceed = value;
             let redirectUrl = this.authService.getRedirectUrl();
@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate([redirectUrl]);
           }
         },
-        () => this.loginSucceed = false,
+        () => { this.loginSucceed = false; this.logging = false; },
         () => this.logging = false
       );
     }

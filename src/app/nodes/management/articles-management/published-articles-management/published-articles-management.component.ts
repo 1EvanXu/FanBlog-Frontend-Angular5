@@ -106,7 +106,11 @@ export class PublishedArticlesManagementComponent extends ArticlesManagementComp
           this._nzMessageService.error(`${this.articlesOperation.info} failed!`);
         }
       },
-      () => this._nzMessageService.error('Some errors happened!'),
+      () => {
+        this._nzMessageService.error(`Failed to ${this.articlesOperation.info}`);
+        this.operating = false;
+        this.loadingData = false;
+      },
       () => {
         this.operating = false;
         this.loadDataSet(1);

@@ -83,7 +83,11 @@ export class DeletedArticlesManagementComponent extends ArticlesManagementCompon
           this._nzMessageService.error('Delete articles permanently failed!');
         }
       },
-      () => this._nzMessageService.error('Some errors happened!'),
+      () => {
+        this._nzMessageService.error(`Failed to ${this.articlesOperation.info}`);
+        this.operating = false;
+        this.loadingData = false;
+      },
       () => { this.deletingPermanently = false; this.loadDataSet( 1); }
     );
   }
