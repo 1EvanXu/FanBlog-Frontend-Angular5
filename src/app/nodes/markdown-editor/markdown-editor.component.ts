@@ -26,10 +26,10 @@ import {AuthService} from '../../services/auth.service';
     </nav>
     <div style="padding: 10px 25px; background-color: whitesmoke">
       <div nz-row>
-        <div nz-col [nzSm]="16" [nzMd]="20" [nzLg]="21">
+        <div nz-col [nzSm]="12" [nzMd]="20" [nzLg]="21">
           <nz-input [nzSize]="'large'" [(ngModel)]="title"></nz-input>
         </div>
-        <div nz-col [nzSm]="7" [nzMd]="3" [nzLg]="2">
+        <div nz-col [nzSm]="11" [nzMd]="3" [nzLg]="2">
           <button nz-button [nzSize]="'large'" [nzType]="'primary'"
                   style="margin: 0px 15px" (click)="showArticlePublishModal()">Publish</button>
         </div>
@@ -188,7 +188,8 @@ export class MarkdownEditorComponent implements OnInit {
         this.OutputMarkdownContent = value;
         return this._mdEditorService.saveArticleMarkdownContent(this.getTmpDraft());
       })).subscribe(
-        value => this.saveStatusOfTmpDraft = value
+        value => this.saveStatusOfTmpDraft = value,
+        () => this.saveStatusOfTmpDraft = SaveStatus.UNSAVED,
     );
   }
 
@@ -197,7 +198,6 @@ export class MarkdownEditorComponent implements OnInit {
     this.tempDraft.markdownContent = this.OutputMarkdownContent;
     this.tempDraft.id = this.draftId;
     this.tempDraft.title = this.title;
-    console.log(this.tempDraft);
     return this.tempDraft;
   }
 

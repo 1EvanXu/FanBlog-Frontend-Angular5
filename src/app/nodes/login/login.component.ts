@@ -19,7 +19,7 @@ import {ActivatedRoute, Router} from '@angular/router';
               <tr>
                 <td>
                   <div >
-                    <h2 *ngIf="logging" style="color: gray"><i class="anticon anticon-loading-3-quarters anticon-spin"></i>  Loading ... </h2>
+                    <h2 *ngIf="logging" style="color: gray"><i class="anticon anticon-loading anticon-spin"></i>  Loading ... </h2>
                     <h1 *ngIf="!logging">Please login ~ <i class="anticon anticon-smile-o"></i></h1>
                     <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="toLoginViaGithub()" [disabled]="logging">
                       To login via <i class="anticon anticon-github"></i>
@@ -89,7 +89,6 @@ export class LoginComponent implements OnInit {
   errorMsg: string;
   logging = false;
   loginSucceed = false;
-
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
 

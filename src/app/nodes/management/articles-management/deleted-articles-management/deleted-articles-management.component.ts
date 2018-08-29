@@ -13,7 +13,7 @@ import {ArticleStatus} from '../../../../data-model/draft';
     </div>
     <div style="margin-bottom: 16px;">
       <button nz-button [disabled]="disabledButton" [nzType]="'primary'" [nzLoading]="operating" (click)="operate()">Revoke Deleted</button>
-      <button nz-button [disabled]="disabledButton" [nzType]="'danger'" [nzLoading]="deletingPermanently" (click)="deleteArticlesPermanently()">Delete Permanently</button>
+      <button nz-button [disabled]="disabledButton || operating" [nzType]="'danger'" [nzLoading]="deletingPermanently" (click)="deleteArticlesPermanently()">Delete Permanently</button>
       <span style="margin-left: 8px;" *ngIf="checkedNumber">Selected {{checkedNumber}} items</span>
     </div>
     <nz-table #nzTable [nzAjaxData]="dataSet" [nzPageSize]="pageSize" [nzTotal]="totalNumberOfItems" [nzIsPagination]="shouldPagination"

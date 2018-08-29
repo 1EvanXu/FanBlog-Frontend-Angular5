@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {BASE_API_URL} from '../../../apis/common-api.config';
 
 @Component({
   template: `
@@ -21,7 +22,7 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class ImageUploadModalComponent implements OnInit {
-  readonly UPLOAD_URL = 'http://localHost:8080/apis/blog/resources/images';
+  readonly UPLOAD_URL = `${BASE_API_URL}/resources/images`;
   readonly IMAGE_FILE_TYPE = 'image/png,image/jpeg,image/gif,image/jpg';
   readonly MAX_FILE_SIZE = 5120;
   imageLink: string;
