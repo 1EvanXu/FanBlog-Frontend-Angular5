@@ -25,19 +25,19 @@ export class ManagementApiClient {
     const requestUrl = this.managementApiUrl + `articles/managementItems/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}&type=${filter.type}`;
 
     // console.log(requestUrl);
-    return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(value => value.data));
+    return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
   getDraftsManagementList(pageIndex: number, filter?: ArticleQueryFilter): Observable<DraftsManagementList> {
     const requestUrl = this.managementApiUrl + `drafts/managementItems/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}&status=${filter.status}`;
     // console.log(requestUrl);
-    return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(value => value.data));
+    return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
   getDeletedManagementList(pageIndex: number, filter?: ArticleQueryFilter): Observable<DeletedArticlesManagementList> {
     const requestUrl = this.managementApiUrl + `drafts/managementItems/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}&status=${filter.status}`;
     // console.log(requestUrl);
-    return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(value => value.data));
+    return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
   updateDraftsStatus(articlesIds: number[], articleStatus: ArticleStatus): Observable<ManagementOperationResult> {
@@ -79,7 +79,7 @@ export class ManagementApiClient {
   getCategoriesManagementList(pageIndex: number, filter?: CategoryQueryFilter): Observable<CategoriesManagementList> {
     const requestUrl = this.managementApiUrl + `categories/p/${pageIndex}?orderField=${filter.orderField}&order=${filter.order}`;
     // console.log(requestUrl);
-    return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(value => value.data));
+    return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
 }

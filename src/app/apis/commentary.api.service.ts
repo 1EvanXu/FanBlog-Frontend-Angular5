@@ -15,12 +15,12 @@ export class CommentaryApiClient {
 
   getCommentaries(pubId: number, pageIndex: number): Observable<CommentaryCollection> {
     const url = this.commentaryUrl + `${pubId}/p/${pageIndex}`;
-    return this._http.get<BlogResponseResult>(url, HttpRequestOption).pipe(map(value => value.data));
+    return this._http.get<BlogResponseResult>(url).pipe(map(value => value.data));
   }
 
   postComment(pubId: number, comment: Comment): Observable<'success'|'failed'> {
     const url = this.commentaryUrl + `${pubId}`;
-    return this._http.post<BlogResponseResult>(url, comment, HttpRequestOption).pipe(map(value => {
+    return this._http.post<BlogResponseResult>(url, comment).pipe(map(value => {
       if (value.status === 200) {
         return 'success';
       }

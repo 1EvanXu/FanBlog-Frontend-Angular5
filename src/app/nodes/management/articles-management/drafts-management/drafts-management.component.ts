@@ -45,7 +45,7 @@ import {ArticleStatus} from '../../../../data-model/draft';
         <td nz-td>{{data.createdTime}}</td>
         <td nz-td>{{data.latestEditedTime}}</td>
         <td nz-td>
-          <a [routerLink]="['/editor/article', data.id]"><i class="anticon anticon-form"></i></a>
+          <a [routerLink]="['/editor/article', data.id]">edit</a>
         </td>
       </tr>
       </tbody>

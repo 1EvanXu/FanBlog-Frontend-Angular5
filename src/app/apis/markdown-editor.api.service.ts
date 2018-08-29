@@ -16,7 +16,7 @@ export class MarkdownEditorApiClient {
 
   writeArticle(): Observable<number> {
     const requestUrl = this.editorApiUrl + 'cache/drafts';
-    return this._http.get<BlogResponseResult>(requestUrl, HttpRequestOption).pipe(map(value => value.data));
+    return this._http.get<BlogResponseResult>(requestUrl).pipe(map(value => value.data));
   }
 
   getArticleContent(articleId: number): Observable<TempDraft> {
@@ -26,12 +26,12 @@ export class MarkdownEditorApiClient {
 
   saveDraftInCache(tempDraft: TempDraft): Observable<boolean> {
     const requestUrl = this.editorApiUrl + `cache/drafts`;
-    return this._http.put<BlogResponseResult>(requestUrl, tempDraft).map(value =>  value.status === 200);
+    return this._http.put<BlogResponseResult>(requestUrl, tempDraft, HttpRequestOption).map(value =>  value.status === 200);
   }
 
   saveArticle(article: Draft): Observable<number> {
     const requestUrl = this.editorApiUrl + 'cache/drafts/';
-    return this._http.post<BlogResponseResult>(requestUrl, article).pipe(map(value => value.data));
+    return this._http.post<BlogResponseResult>(requestUrl, article, HttpRequestOption).pipe(map(value => value.data));
   }
 
   publishArticle(tempArticle: TempArticle): Observable<boolean> {

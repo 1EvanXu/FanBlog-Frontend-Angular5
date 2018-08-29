@@ -85,6 +85,7 @@ export class CommentComponent implements OnInit, DoCheck {
           parent: this.parent,
           replyTo: this.replyTo !== undefined ? this.replyTo.id : null
         };
+        console.log('Comment to post:' + comment);
         this.isSending = true;
         this.commentaryService.postCommentary(this.pubId, comment).subscribe(
           value => {
