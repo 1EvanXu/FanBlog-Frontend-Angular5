@@ -7,6 +7,9 @@ import {TempArticle} from '../../../data-model/article';
 import {ArticleCategory} from '../../../data-model/draft';
 import {isNumber} from 'util';
 import {Router} from '@angular/router';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
+import {debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-article-publish-form',
@@ -48,7 +51,7 @@ import {Router} from '@angular/router';
           <nz-select formControlName="category" nzTags (nzSearchChange)="searchCategory($event)" [nzNotFoundContent]="'Not Found!'"
                      [nzPlaceHolder]="'Choose a category'" [(ngModel)]="selectedCategoryOption" [nzSize]="'large'" nzAllowClear>
             <nz-option
-              *ngFor="let option of categoryOptions"
+              *ngFor="let option of categoryOptions$ | async"
               [nzLabel]="option.label"
               [nzValue]="option"
               [nzDisabled]="option.disabled">
@@ -84,13 +87,15 @@ import {Router} from '@angular/router';
 export class ArticlePublishFormComponent implements OnInit {
 
   typeOptions = [];
-  defaultSelectedTypeOption: {value: string; label: string};
-  categoryOptions = [];
+  defaultSelectedTypeOption: {value: number; label: string};
+  categoryOptions$: Observable<Array<any>>;
   selectedCategoryOption: {value: number; label: string};
   articleId: number;
   articlePublishForm: FormGroup;
   isSubmitting: boolean;
   articleTitle: string;
+  private categorySearchKeywords$ = new Subject<string>();
+
   constructor(
     private _formBuilder: FormBuilder,
     private _nzModalSubject: NzModalSubject,
@@ -107,6 +112,11 @@ export class ArticlePublishFormComponent implements OnInit {
     ];
     this.defaultSelectedTypeOption = this.typeOptions[0];
     this.createForm();
+    this.categoryOptions$ = this.categorySearchKeywords$.pipe(
+      debounceTime(800),
+      distinctUntilChanged(),
+      switchMap(keywords => this.doSearchCategory(keywords))
+    );
   }
 
   createForm() {
@@ -169,13 +179,14 @@ export class ArticlePublishFormComponent implements OnInit {
   }
 
   searchCategory(keywords) {
-    const query = encodeURI(keywords);
+    this.categorySearchKeywords$.next(keywords);
+  }
 
-    this._mdEditorService.searchCategories(query).subscribe(
-      value => {
-        this.categoryOptions = value.map(item => ({label: item.name, value: item.id}));
-      }
+  doSearchCategory(keywords): Observable<Array<{label: string, value: number}>> {
+    return this._mdEditorService.searchCategories(keywords).pipe(
+      map(a => a.map(item => ({label: item.name, value: item.id})))
     );
   }
+
 
 }

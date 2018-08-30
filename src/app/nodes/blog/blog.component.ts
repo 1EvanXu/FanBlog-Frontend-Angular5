@@ -87,7 +87,7 @@ import {User} from '../../data-model/user';
       float: left;
     }
     a:link {color:black;}    /* 未被访问的链接 */
-    a:visited {color:rebeccapurple} /* 已被访问的链接 */
+    a:visited {color:black} /* 已被访问的链接 */
     a:hover {color: dodgerblue;} /* 鼠标指针移动到链接上 */
     a {
       text-decoration: none;
