@@ -6,7 +6,6 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {ArticlesComponent} from './articles.component';
 import {PublishedArticleItemsService} from '../../services/published-article-items.service';
 import {ArticlesDirective} from './articles.directive';
-import {ArticlesRoutingModule} from './articles-routing.module';
 import {RouterModule} from '@angular/router';
 import {PublishedArticlesItemsApiClient} from '../../apis/published-article-items.api.service';
 

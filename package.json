@@ -24,6 +24,7 @@
     "core-js": "^2.4.1",
     "i": "^0.3.6",
     "jquery": "^3.3.1",
+    "jqwidgets-scripts": "^6.0.6",
     "ng-zorro-antd": "^0.6.15",
     "ngx-cookie": "^4.0.2",
     "npm": "^6.0.1",

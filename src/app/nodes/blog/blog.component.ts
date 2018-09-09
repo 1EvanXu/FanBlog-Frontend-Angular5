@@ -70,7 +70,7 @@ import {User} from '../../data-model/user';
         </div>
       </nz-content>
       <nz-footer style="float: bottom;text-align: center;width: 100%">
-        Evan.Xu © 2018 Powered By Angular5, AliCloud NG-ZORRO
+        Evan.Xu © 2018 Powered By Angular5, NG-ZORRO
       </nz-footer>
     </nz-layout>
   `,

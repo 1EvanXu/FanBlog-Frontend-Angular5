@@ -40,6 +40,9 @@ const routes: Routes = [
         component: CategoriesManagementComponent
       },
       {
+
+      },
+      {
         path: '',
         redirectTo: 'articles',
         pathMatch: 'full'

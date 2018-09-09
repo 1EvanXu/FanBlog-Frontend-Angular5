@@ -25,7 +25,7 @@ import { Component, OnInit } from '@angular/core';
       </table>
     </div>
     <footer>
-      Evan.Xu © 2018 Powered By Angular5, AliCloud NG-ZORRO
+      Evan.Xu © 2018 Powered By Angular5, NG-ZORRO
     </footer>
   `,
   styles: [`
