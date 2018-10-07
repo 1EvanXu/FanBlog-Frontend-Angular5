@@ -18,6 +18,7 @@ import {AuthService} from './services/auth.service';
 import {RequestErrorHandlerService} from './services/request-error-handler.service';
 import {AuthApiClient} from './apis/auth.api.service';
 import { CookieModule } from 'ngx-cookie';
+import {IpQueryModule} from './nodes/ip-query/ip-query.module';
 
 const ngMessageConfig = { provide: NZ_MESSAGE_CONFIG, useValue: {
     nzDuration             : 2500,
@@ -42,6 +43,7 @@ const ngMessageConfig = { provide: NZ_MESSAGE_CONFIG, useValue: {
     NgZorroAntdModule.forRoot(),
     CookieModule.forRoot(),
     BlogModule,
+    IpQueryModule,
     ManagementModule,
     MarkdownEditorModule,
     AppRoutingModule,
