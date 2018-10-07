@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IPLocation} from '../../data-model/ip-location';
 import {IpQueryService} from '../../services/ip-query.service';
-import {isNumber} from 'util';
-import {isNumeric} from 'tslint';
+
 
 @Component({
   template: `
@@ -13,6 +12,7 @@ import {isNumeric} from 'tslint';
             <li>
               <img class="logo" src="../assets/logo.png">
             </li>
+            <li nz-menu-item><a [routerLink]="['/site']"><i class="anticon anticon-home"></i> Home</a></li>
           </ul>
         </div>
       </nz-header>
