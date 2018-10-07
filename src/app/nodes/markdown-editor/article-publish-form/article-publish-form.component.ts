@@ -150,9 +150,7 @@ export class ArticlePublishFormComponent implements OnInit {
       category: category,
       draftId: this.articleId
     };
-
-    console.log(tempArticle);
-
+    // console.log(tempArticle);
     this._mdEditorService.publishArticle(tempArticle).subscribe(
       result => {
         if (result) {

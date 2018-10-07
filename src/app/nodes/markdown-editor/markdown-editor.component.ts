@@ -164,7 +164,7 @@ export class MarkdownEditorComponent implements OnInit {
     draft.htmlContent = this.getHtmlContent();
     draft.tempDraftId = this.tempDraftId;
     draft.id = this.draftId;
-    console.log(draft);
+    // console.log(draft);
     this._mdEditorService.saveArticle(draft).subscribe(
       value => {
         if (value) {
@@ -204,14 +204,14 @@ export class MarkdownEditorComponent implements OnInit {
   getDraft(): TempDraft {
     this.getTmpDraft();
     this.tempDraft.markdownContent = this.editorMdComponent.getMarkContent();
-    console.log(this.tempDraft);
+    // console.log(this.tempDraft);
     return this.tempDraft;
   }
 
   loadDraftContent(articleId: number) {
     this._mdEditorService.getArticle(articleId).subscribe(
       data => {
-          console.log(data);
+          // console.log(data);
           this.tempDraft = data;
           this.loadedMarkdownContent = data.markdownContent;
           this.title = data.title;
@@ -233,11 +233,11 @@ export class MarkdownEditorComponent implements OnInit {
         articleId: this.draftId
       }
     });
-    subscription.subscribe(res => console.log(res));
+    // subscription.subscribe(res => console.log(res));
   }
 
   showUploadImgModal() {
-    console.log('show upload image modal!');
+    // console.log('show upload image modal!');
     this._nzModalService.open({
       title: 'Upload Image',
       content: ImageUploadModalComponent,

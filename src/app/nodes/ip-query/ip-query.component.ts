@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   template: `
     <p>
-      info-statistics works!
+      ip-query works!
     </p>
   `,
   styles: []
 })
-export class InfoStatisticsComponent implements OnInit {
+export class IpQueryComponent implements OnInit {
 
   constructor() { }
 

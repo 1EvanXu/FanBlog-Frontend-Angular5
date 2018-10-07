@@ -11,7 +11,6 @@ import { DeletedArticlesManagementComponent } from './articles-management/delete
 import {ManagementService} from '../../services/management.service';
 import { CategoriesManagementComponent } from './categories-management/categories-management.component';
 import {ManagementApiClient} from '../../apis/management.api.service';
-import {InfoStatisticsComponent} from './info-statistics/info-statistics.component';
 
 @NgModule({
   imports: [
@@ -26,7 +25,6 @@ import {InfoStatisticsComponent} from './info-statistics/info-statistics.compone
     DraftsManagementComponent,
     DeletedArticlesManagementComponent,
     CategoriesManagementComponent,
-    InfoStatisticsComponent
   ],
   providers: [ManagementService, ManagementApiClient]
 })

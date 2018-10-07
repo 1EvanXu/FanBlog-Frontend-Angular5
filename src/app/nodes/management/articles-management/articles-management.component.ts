@@ -74,7 +74,7 @@ export abstract class ArticlesManagementComponent {
 
   operate() {
     this.operating = true;
-    console.log(this.checkedArticleIds);
+    // console.log(this.checkedArticleIds);
     this._managementService.updateDraftsStatus(this.checkedArticleIds, this.articlesOperation.state).subscribe(
       (value: ManagementOperationResult) => {
         if (value === ManagementOperationResult.Success) {

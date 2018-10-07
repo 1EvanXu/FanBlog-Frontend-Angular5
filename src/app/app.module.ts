@@ -11,7 +11,6 @@ import {BlogModule} from './nodes/blog/blog.module';
 import {ManagementModule} from './nodes/management/management.module';
 import {MarkdownEditorModule} from './nodes/markdown-editor/markdown-editor.module';
 import { HumanizationPipe } from './components/pipes/humanization.pipe';
-import {UserService} from './services/user.service';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './nodes/login/login.component';
 import {AuthGuardService} from './services/auth-guard.service';
@@ -47,7 +46,7 @@ const ngMessageConfig = { provide: NZ_MESSAGE_CONFIG, useValue: {
     MarkdownEditorModule,
     AppRoutingModule,
   ],
-  providers: [UserService, AuthGuardService, AuthService, AuthApiClient, RequestErrorHandlerService, ngMessageConfig],
+  providers: [AuthGuardService, AuthService, AuthApiClient, RequestErrorHandlerService, ngMessageConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
