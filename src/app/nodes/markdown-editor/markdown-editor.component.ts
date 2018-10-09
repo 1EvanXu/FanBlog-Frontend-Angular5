@@ -25,7 +25,7 @@ import {AuthService} from '../../services/auth.service';
     </nav>
     <div style="padding: 10px 25px; background-color: whitesmoke">
       <div nz-row>
-        <div nz-col [nzSpan]="23">
+        <div nz-col [nzSpan]="22">
           <nz-input [nzSize]="'large'" [(ngModel)]="title">
             <ng-template #addOnAfter>
               <button nz-button [nzSize]="'large'" [nzType]="'primary'"
@@ -34,15 +34,15 @@ import {AuthService} from '../../services/auth.service';
           </nz-input>
         </div>
 
-        <div nz-col [nzSpan]="1" [ngSwitch]="saveStatusOfTmpDraft">
+        <div nz-col [nzSpan]="2" [ngSwitch]="saveStatusOfTmpDraft">
           <span  *ngSwitchCase="'SAVED'">
-            <i class="anticon anticon-check-circle saved"></i>
+            <i class="anticon anticon-check-circle save-flag saved"></i>
           </span>
           <span  *ngSwitchCase="'UNSAVED'" >
-            <i class="anticon anticon-close-circle unsaved"></i>
+            <i class="anticon anticon-close-circle save-flag unsaved"></i>
           </span>
           <span  *ngSwitchCase="'SAVING'">
-            <i class="anticon anticon-loading-3-quarters anticon-spin saving"></i>
+            <i class="anticon anticon-loading-3-quarters anticon-spin save-flag saving"></i>
           </span>
         </div>
       </div>
@@ -71,20 +71,18 @@ import {AuthService} from '../../services/auth.service';
       border-top-left-radius: 0px;
       border-bottom-left-radius: 0px;
     }
+    .save-flag {
+      font-size: 18px;
+      margin: 10px 5px
+    }
     .saved {
       color: forestgreen;
-      font-size: 13px;
-      margin: 8px 4px
     }
     .unsaved {
       color: orangered;
-      font-size: 13px;
-      margin: 8px 4px
     }
     .saving {
       color: dodgerblue;
-      font-size: 13px;
-      margin: 8px 4px
     }
     .user-avatar {
       position: absolute;
