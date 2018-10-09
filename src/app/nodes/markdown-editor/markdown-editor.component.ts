@@ -11,29 +11,30 @@ import {User} from '../../data-model/user';
 import {AuthService} from '../../services/auth.service';
 
 @Component({
-  selector: 'app-markdown-editor',
   template: `
-    <nav style="height: 54px; padding: 13px; border-bottom: lightgray solid 1px;">
+    <nav class="editor-nav">
       <nz-tooltip [nzTitle]="'Back to Management'" [nzPlacement]="'bottomLeft'">
         <button nz-button nz-tooltip [nzType]="'default'" [nzSize]="'small'" style="position: relative; left: 30px" (click)="backToManagement()">
           <i class="anticon anticon-menu-fold" style="font-size: 15px;"></i>
         </button>
       </nz-tooltip>
-      <span style="font-size: 16px;font-weight: bold; margin-left: 50px">
+      <span style="font-size: 17px;font-weight: bold; margin-left: 50px">
         Markdown Editor
       </span>
       <nz-avatar class="user-avatar" [nzSize]="'small'" [nzIcon]="'user'" [nzSrc]="user.avatarUrl"></nz-avatar>
     </nav>
     <div style="padding: 10px 25px; background-color: whitesmoke">
       <div nz-row>
-        <div nz-col [nzSm]="12" [nzMd]="20" [nzLg]="21">
-          <nz-input [nzSize]="'large'" [(ngModel)]="title"></nz-input>
+        <div nz-col [nzSpan]="23">
+          <nz-input [nzSize]="'large'" [(ngModel)]="title">
+            <ng-template #addOnAfter>
+              <button nz-button [nzSize]="'large'" [nzType]="'primary'"
+                      (click)="showArticlePublishModal()">Publish</button>
+            </ng-template>
+          </nz-input>
         </div>
-        <div nz-col [nzSm]="11" [nzMd]="3" [nzLg]="2">
-          <button nz-button [nzSize]="'large'" [nzType]="'primary'"
-                  style="margin: 0px 15px" (click)="showArticlePublishModal()">Publish</button>
-        </div>
-        <div nz-col [nzSm]="1" [nzMd]="1" [nzLg]="1" [ngSwitch]="saveStatusOfTmpDraft">
+
+        <div nz-col [nzSpan]="1" [ngSwitch]="saveStatusOfTmpDraft">
           <span  *ngSwitchCase="'SAVED'">
             <i class="anticon anticon-check-circle saved"></i>
           </span>
@@ -50,7 +51,26 @@ import {AuthService} from '../../services/auth.service';
     </app-editor-md>
   `,
   styles: [`
-    
+    .editor-nav {
+      height: 54px;
+      padding: 13px;
+      border-bottom: lightgray solid 1px;
+    }
+    :host ::ng-deep .ant-input-group-addon {
+      padding: 0px;
+    }
+    :host ::ng-deep .ant-input {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    :host ::ng-deep .ant-input-lg {
+      height: 38px;
+    }
+    :host ::ng-deep .ant-btn-lg {
+      height: 37px;
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
     .saved {
       color: forestgreen;
       font-size: 13px;
@@ -127,7 +147,7 @@ export class MarkdownEditorComponent implements OnInit {
 
     if (currentUrl.match('editor/article/new$')) {
       this._mdEditorService.writeArticle().subscribe(
-        value => { this.tempDraftId = value; console.log(`> TempDraftId: ${this.tempDraftId}`); }
+        value => this.tempDraftId = value
       );
     } else if (currentUrl.match('editor/article/\\d+$')) {
       this.route.paramMap.subscribe(
@@ -155,9 +175,7 @@ export class MarkdownEditorComponent implements OnInit {
       this._nzMessageService.warning('Title and Content can\'t be empty!');
       return;
     }
-
-    console.log('Manual Save', this.saveStatusOfDraft);
-
+    // console.log('Manual Save', this.saveStatusOfDraft);
     this.detectContentChanges();
 
     const draft: TempDraft  = new TempDraft();
@@ -241,7 +259,6 @@ export class MarkdownEditorComponent implements OnInit {
     this._nzModalService.open({
       title: 'Upload Image',
       content: ImageUploadModalComponent,
-      // closable: false,
       footer: false,
     });
   }

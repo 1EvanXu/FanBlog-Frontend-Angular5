@@ -15,7 +15,7 @@ import { ImageUploadModalComponent } from './image-upload-modal/image-upload-mod
 const routes: Routes = [
   {
     path: 'editor',
-    canActivate: [AuthGuardService],
+    // canActivate: [AuthGuardService],
     children: [
       {
         path: 'article',
