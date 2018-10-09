@@ -25,7 +25,7 @@ import {AuthService} from '../../services/auth.service';
     </nav>
     <div style="padding: 10px 25px; background-color: whitesmoke">
       <div nz-row>
-        <div nz-col [nzSpan]="22">
+        <div nz-col [nzSpan]="23">
           <nz-input [nzSize]="'large'" [(ngModel)]="title">
             <ng-template #addOnAfter>
               <button nz-button [nzSize]="'large'" [nzType]="'primary'"
@@ -34,7 +34,7 @@ import {AuthService} from '../../services/auth.service';
           </nz-input>
         </div>
 
-        <div nz-col [nzSpan]="2" [ngSwitch]="saveStatusOfTmpDraft">
+        <div nz-col [nzSpan]="1" [ngSwitch]="saveStatusOfTmpDraft">
           <span  *ngSwitchCase="'SAVED'">
             <i class="anticon anticon-check-circle save-flag saved"></i>
           </span>
@@ -67,13 +67,13 @@ import {AuthService} from '../../services/auth.service';
       height: 38px;
     }
     :host ::ng-deep .ant-btn-lg {
-      height: 37px;
+      height: 36px;
       border-top-left-radius: 0px;
       border-bottom-left-radius: 0px;
     }
     .save-flag {
       font-size: 18px;
-      margin: 10px 5px
+      margin: 10px 8px
     }
     .saved {
       color: forestgreen;

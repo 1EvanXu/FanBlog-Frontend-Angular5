@@ -22,7 +22,6 @@ import {SideInformation} from '../../data-model/side-information';
   styles: [
     `
       a:link {color:black;}    /* 未被访问的链接 */
-      a:visited {color:rebeccapurple} /* 已被访问的链接 */
       a:hover {color: dodgerblue;}   /* 鼠标指针移动到链接上 */
     `,
     `

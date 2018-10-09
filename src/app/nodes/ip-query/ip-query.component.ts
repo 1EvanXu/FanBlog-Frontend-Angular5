@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import {IPLocation} from '../../data-model/ip-location';
 import {IpQueryService} from '../../services/ip-query.service';
 
@@ -8,11 +8,11 @@ import {IpQueryService} from '../../services/ip-query.service';
     <nz-layout style="background: white">
       <nz-header>
         <div>
-          <ul nz-menu [nzMode]="'horizontal'" style="line-height: 63px;">
+          <ul nz-menu [nzMode]="'horizontal'" style="line-height: 61px;">
             <li>
               <img class="logo" src="../assets/logo.png">
             </li>
-            <li nz-menu-item><a [routerLink]="['/site']"><i class="anticon anticon-home"></i> Home</a></li>
+            <li nz-menu-item><a [routerLink]="['/site']" style="font-size: 15px; font-weight: bold"><i class="anticon anticon-home"></i>Home</a></li>
           </ul>
         </div>
       </nz-header>
@@ -58,6 +58,8 @@ import {IpQueryService} from '../../services/ip-query.service';
     }
     :host ::ng-deep .ant-btn {
       height: 36px;
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
     }
     .logo {
       width: 110px;

@@ -13,7 +13,7 @@ import {User} from '../../data-model/user';
             <li>
               <img class="logo" src="../assets/logo.png">
             </li>
-            <li nz-menu-item><a [routerLink]="['/ip-query']">IP Query</a></li>
+            <li nz-menu-item><a [routerLink]="['/ip-query']" style="font-size: 15px; font-weight: bold">IP Query</a></li>
             <li nz-menu-item style="float: right">
               <nz-dropdown *ngIf="user" [nzPlacement]="'bottomCenter'" [nzTrigger]="'click'">
                 <nz-avatar nzIcon="user" nz-dropdown [nzSrc]="user.avatarUrl"></nz-avatar>
